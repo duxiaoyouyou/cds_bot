@@ -1,0 +1,66 @@
+MANDT	CLNT	3	0	0	Client
+.INCLUDE	STRU	0	0	0	Key for HR Master Data
+PERNR	NUMC	8	0	0	Personnel Number
+SUBTY	CHAR	4	0	0	Subtype
+OBJPS	CHAR	2	0	0	Object Identification
+SPRPS	CHAR	1	0	0	Lock Indicator for HR Master Data Record
+ENDDA	DATS	8	0	0	End Date
+BEGDA	DATS	8	0	0	Start Date
+SEQNR	NUMC	3	0	0	Number of Infotype Record With Same Key
+.INCLUDE	STRU	0	0	0	HR Master Record: Control Field
+AEDTM	DATS	8	0	0	Last Changed On
+UNAME	CHAR	12	0	0	Name of Person Who Changed Object
+HISTO	CHAR	1	0	0	Historical Record Flag
+ITXEX	CHAR	1	0	0	Text Exists for Infotype
+REFEX	CHAR	1	0	0	Reference Fields Exist (Primary/Secondary Costs)
+ORDEX	CHAR	1	0	0	Confirmation Fields Exist
+ITBLD	CHAR	2	0	0	Infotype Screen Control
+PREAS	CHAR	2	0	0	Reason for Changing Master Data
+FLAG1	CHAR	1	0	0	Reserved Field/Unused Field
+FLAG2	CHAR	1	0	0	Reserved Field/Unused Field
+FLAG3	CHAR	1	0	0	Reserved Field/Unused Field
+FLAG4	CHAR	1	0	0	Reserved Field/Unused Field
+RESE1	CHAR	2	0	0	Reserved Field/Unused Field of Length 2
+RESE2	CHAR	2	0	0	Reserved Field/Unused Field of Length 2
+GRPVL	CHAR	4	0	0	Grouping Value for Personnel Assignments
+.INCLUDE	STRU	0	0	0	HR Master Record: Infotype 0106 (Related Persons NA)
+PERMO	CHAR	2	0	0	Modifier for Personnel Identifier
+PERID	CHAR	20	0	0	Personnel ID Number
+BEN01	CHAR	1	0	0	Not Used
+BEN02	CHAR	1	0	0	Not Used
+BEN03	CHAR	1	0	0	Student Indicator
+BEN04	CHAR	1	0	0	COBRA Indicator
+BEN05	CHAR	1	0	0	Smoker Indicator
+STRAS	CHAR	30	0	0	Street and House Number
+LOCAT	CHAR	30	0	0	Street and House Number
+ORT01	CHAR	25	0	0	City
+STATE	CHAR	3	0	0	Region (State, Province, County)
+PSTLZ	CHAR	10	0	0	Postal Code
+LAND1	CHAR	3	0	0	Country/Region Key
+TELNR	CHAR	14	0	0	Telephone Number
+SEPDT	DATS	8	0	0	Legal Separation Date
+DOCNM	CHAR	30	0	0	Benefit Physician Name
+DOCID	CHAR	20	0	0	Benefit Physician ID
+DOCN2	CHAR	30	0	0	Benefit Physician Name
+DOCI2	CHAR	20	0	0	Benefit Physician ID
+DISAB	CHAR	1	0	0	Disability
+DISDT	DATS	8	0	0	Date of Determination of Disability Status
+DISLE	DATS	8	0	0	Date Employer Learned of Disability Status
+DEPIN	CHAR	1	0	0	Benefit dependent indicator
+MEDIC	CHAR	1	0	0	Benefit Indicator for Medicare
+SMOKE	CHAR	1	0	0	Benefit smoker indicator
+FAMST	CHAR	1	0	0	Marital Status Key
+PROVI	CHAR	20	0	0	Benefit identification number for the provider
+POLNR	CHAR	20	0	0	Benefit policy number
+TAXNB	CHAR	15	0	0	Tax ID
+PMRES	CHAR	2	0	0	Residency type
+RACKY	CHAR	2	0	0	Ethnic origin
+SPEMS	CHAR	1	0	0	Spouse employment status
+MILSV	CHAR	1	0	0	Benefits Indicator: Person is on Military Service
+FININ	CHAR	1	0	0	Benefits Indicator: Person is Financially Independent
+NONTX	CHAR	1	0	0	Benefits Indicator: Person is Non-Taxable
+PMADT	DATS	8	0	0	Date of providing Proof of Medical Absence
+LEGID	CHAR	1	0	0	Proof Submission Indicator for Legal Dependents
+LEGDT	DATS	8	0	0	Proof Submission Date for Legal Dependents
+IDCOD	CHAR	20	0	0	Person Identification Number
+.INCLUDE	STRU	0	0	0	                                                            

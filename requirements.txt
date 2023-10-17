@@ -1,0 +1,13 @@
+xmltodict
+pandas
+tensorflow
+requests
+numpy
+spacy
+gtts
+pyaudio
+SpeechRecognition
+termcolor
+pygame
+flask
+openpyxl

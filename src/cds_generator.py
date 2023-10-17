@@ -6,7 +6,7 @@ class CDSGenerator:
   
     def generate_cds_name(self, input: dict) -> dict:  
         # Generate the prompt  
-        prompt = "I have a list of descriptions and I want to convert them into camel case and shorten them to less than 30 characters. Here are the descriptions:\n\n"  
+        prompt = f"I have a list of descriptions and I want to convert them into camel case and shorten them to less than 30 characters. Here are the descriptions:\n\n"  
         for i, description in enumerate(input.values(), 1):  
             prompt += f"{i}. {description}\n"  
   

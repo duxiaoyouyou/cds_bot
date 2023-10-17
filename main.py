@@ -49,7 +49,8 @@ if country_code:
 
     # Add the comparison result to the chat history  
     st.session_state.messages.append({"role": "assistant", "content": str(cds_field_names)})  
-  
-    # Display the comparison result in a chat message container  
-    with st.chat_message("assistant"):  
-        st.markdown(str(cds_field_names))  
+    
+    # Display the comparison result in a chat message container    
+    with st.chat_message("assistant"):    
+        for key, value in cds_field_names.items():  
+            st.markdown(f"{key}: {value}") 

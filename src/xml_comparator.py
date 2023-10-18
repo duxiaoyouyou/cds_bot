@@ -21,4 +21,4 @@ class XMLComparator:
     def get_core_delta_fields(self):      
         names1 = self.get_names(self.tree1)      
         names2 = self.get_names(self.tree2)      
-        return names2 - names1  
+        return names1 - names1

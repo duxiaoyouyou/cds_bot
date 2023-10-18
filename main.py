@@ -42,7 +42,11 @@ if country_code:
     country_delta_fields = xmlComparator.get_country_delta_fields()
     core_delta_fields = xmlComparator.get_core_delta_fields()
       
-    table_def = TableDefinition(f'src/resources/pa0106.txt')  
+    if country_code.upper() == 'SG': 
+        table_def = TableDefinition(f'src/resources/p0412.txt')  
+    else:
+        table_def = TableDefinition(f'src/resources/pa0106.txt')
+        
     field_name_descriptions = table_def.get_descriptions(country_delta_fields)  
     
     cdsGenerator = CDSGenerator(openai)  
@@ -52,7 +56,7 @@ if country_code:
     #cds_code = cdsGenerator.generate_cds_code(cds_field_names)
 
     # Add the comparison result to the chat history 
-    st.session_state.messages.append("country_delta_fields with proposed cds field names")
+    st.session_state.messages.append({"role": "assistant", "content": "country_delta_fields with proposed cds field names"})  
     for key, value in cds_field_names.items():    
         st.session_state.messages.append({"role": "assistant", "content": f"{key}: {value}"})    
     st.session_state.messages.append({"role": "assistant", "content": f"core delta fields:\n {str(core_delta_fields)}"})    

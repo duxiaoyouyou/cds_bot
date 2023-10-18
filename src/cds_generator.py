@@ -3,6 +3,19 @@ import openai
 class CDSGenerator:  
     def __init__(self, llm: openai):  
         self.llm = llm  
+        
+        
+    def get_response_message_content(self, prompt: str) -> str:
+        messages = [ {"role": "user", "content": prompt} ]  
+        response = self.llm.ChatCompletion.create(  
+            engine="gpt-4",  
+            messages=messages,  
+            temperature=0.01  
+        )  
+        response_message_content = response['choices'][0]['message']['content']  
+        print("respontse from LLM generated: " + response_message_content)
+        return response_message_content
+        
   
     def generate_cds_code(self, input: dict) -> str:
         # Generate the prompt  
@@ -42,33 +55,22 @@ class CDSGenerator:
         
         prompt += "\nPlease generate ABAP CDS view fields for these field names and descriptions, following the example code."  
         
-        # Now you can send `prompt` to the OpenAI API  
-        messages = [ {"role": "user", "content": prompt} ]  
-        response = self.llm.ChatCompletion.create(  
-            engine="gpt-4",  
-            messages=messages,  
-            temperature=0.01  
-        )  
-        response_message_content = response['choices'][0]['message']['content']  
-        print("cds name generated: " + response_message_content)  
-  
-  
+        return self.get_response_message_content(prompt)
+    
 
     def generate_cds_name(self, input: dict) -> dict:  
         # Generate the prompt  
-        prompt = f"I have a list of descriptions and I want to convert them into camel case and shorten them to less than 30 characters. Here are the descriptions:\n\n"  
+        prompt = f"""
+                I have a list of descriptions and I want to convert them into camel case and shorten them to less than 30 characters. \
+                Here are the descriptions:\
+                """  
         for i, description in enumerate(input.values(), 1):  
             prompt += f"{i}. {description}\n"  
   
-        prompt += "\nPlease convert these descriptions into camel case and shorten them to less than 30 characters."  
-  
-        messages = [ {"role": "user", "content": prompt} ]  
-        response = self.llm.ChatCompletion.create(  
-            engine="gpt-4",  
-            messages=messages,  
-            temperature=0.01  
-        )  
-        response_message_content = response['choices'][0]['message']['content']  
+        prompt += f"""
+                Please convert these descriptions into camel case and shorten them to less than 30 characters.
+                """  
+        response_message_content = self.get_response_message_content(prompt)
         print("cds name generated: " + response_message_content)  
   
         # Split the response into individual descriptions  

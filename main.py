@@ -1,9 +1,11 @@
 import openai    
 import streamlit as st    
+import os
 from src.xml_comparator import XMLComparator    
 from src.table_definition import TableDefinition
 from src.cds_generator import CDSGenerator
-  
+from src.code_integrator import CodeIntegrator 
+
 openai.api_key = "9f32e291dbd248c2b4372647bd937577" #os.getenv("API_KEY")    
 openai.api_base = "https://miles-playground.openai.azure.com" #os.getenv("API_BASE")W    
 openai.api_type = "azure"    
@@ -56,6 +58,9 @@ if country_code:
     
      
     cds_code = cdsGenerator.generate_cds_code(country_code, cds_field_names, src_tab_name)
+    output_filepath = os.path.join(os.getcwd(), 'src\\resources\\cdsViews\\sg\\I_SG_HCMFamilyMemberSupplement')  
+    codeIntegrator = CodeIntegrator(output_filepath)  
+    codeIntegrator.createFile(cds_code)  
 
     # Add the comparison result to the chat history 
     st.session_state.messages.append({"role": "assistant", "content": "country_delta_fields with proposed cds field names"})  
@@ -74,3 +79,4 @@ if country_code:
         st.markdown(str(core_delta_fields))
         st.markdown("cds code generated:")
         st.markdown(cds_code)
+        

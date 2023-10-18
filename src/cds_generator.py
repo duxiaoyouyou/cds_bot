@@ -17,21 +17,30 @@ class CDSGenerator:
         return response_message_content
         
   
-    def generate_cds_code(self, field_desc_dict: dict, src_tab_name: str) -> str:
+    def generate_cds_code(self, country_code: str, field_desc_dict: dict, src_tab_name: str) -> str:
         
         field_desc_str = ""
         for i, (field_name, description) in enumerate(field_desc_dict.items(), 1):  
             field_desc_str += f"{i}. {field_name}: {description}\n"  
          
         prompt = f"""
+                for country code {country_code} \
                 I have a list of field names and their corresponding descriptions delimited by triple quotes. \
                 \"\"\"\
                     {field_desc_str} 
                 \"\"\" \          
                 I also have a source table called {src_tab_name} \
                 I want to generate ABAP CDS view fields for each of them, selecting data from the source table. \
-                Here is an example of the code I want to generate delimited by triple hyphen: \
-                --- \
+                Here is an example of the code I want to generate: \
+                @AbapCatalog.viewEnhancementCategory: [#NONE]
+                @AccessControl.authorizationCheck: #NOT_REQUIRED
+                @EndUserText.label: 'HCM US - Related Persons'
+                @Metadata.ignorePropagatedAnnotations: true
+                @ObjectModel.usageType:{{
+                    serviceQuality: #X,
+                    sizeCategory: #S,
+                    dataClass: #MIXED
+                }}
                 define view entity I_US_HCMFamilyMemberSupplement\
                     as select from pa0106\
                 {{ \

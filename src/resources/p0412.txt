@@ -1,0 +1,56 @@
+PERNR	Personnel Number
+INFTY	Infotype
+SUBTY	Subtype
+OBJPS	Object Identification
+SPRPS	Lock Indicator for HR Master Data Record
+ENDDA	End Date
+BEGDA	Start Date
+SEQNR	Number of Infotype Record With Same Key
+AEDTM	Last Changed On
+UNAME	Name of Person Who Changed Object
+HISTO	Historical Record Flag
+ITXEX	Text Exists for Infotype
+REFEX	Reference Fields Exist (Primary/Secondary Costs)
+ORDEX	Confirmation Fields Exist
+ITBLD	Infotype Screen Control
+PREAS	Reason for Changing Master Data
+FLAG1	Reserved Field/Unused Field
+FLAG2	Reserved Field/Unused Field
+FLAG3	Reserved Field/Unused Field
+FLAG4	Reserved Field/Unused Field
+RESE1	Reserved Field/Unused Field of Length 2
+RESE2	Reserved Field/Unused Field of Length 2
+GRPVL	Grouping Value for Personnel Assignments
+ENAME	Name of employer
+DESGN	Designation
+STRAS	Street and House Number
+LOCAT	2nd Address Line
+ORT01	City
+STATE	Region (State, Province, County)
+PSTLZ	Postal Code
+LAND1	Country/Region Key
+TELNR	Telephone Number
+SNAME	School / Hospital
+STRT	Street and House Number
+LOCT	Street and House Number
+TELPH	Telephone Number
+CITY	City
+PSTCD	Postal Code
+LAND	Country/Region Key
+LANDX	Name of Country/Region (Short)
+STAT1	Region (State, Province, County)
+PERID	Personnel ID Number
+TAXNB	Tax ID
+PMRES	Residency type
+RACKY	Ethnic origin
+SPEMS	Spouse employment status
+PERMO	Modifier for Personnel Identifier
+SPUEM	Shared Parental Leave
+CONFN	Confinement Number
+CLCNO	Child Birth Certificate Number
+CLDTY	Child Type
+FCCSL	CCSL validity for last valid year
+SYCCL	CCL Entitlement (days) in Year of Birth
+SCCLB	CCL Start from Year of Birth
+SPAIM	Is spouse’s annual income more than $4,000
+QTSPL	Number of Shared Parental Leave (days)

@@ -1,0 +1,108 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'My Family Members (US)'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+   serviceQuality: #X,
+   sizeCategory: #S,
+   dataClass: #MIXED
+}
+define view entity I_US_HCM_ESSFamilyMemberTP
+   as select from I_HCM_ESSFamilyMember( P_HCMInfoTypeVersion: '10' )
+  
+   association        to parent I_US_HCM_ESSFamilyMemberRootTP as _FAMILYMEMBER_Root        on  $projection.HCMPersonnelNumber = _FAMILYMEMBER_Root.HCMPersonnelNumber
+  
+   association        to I_US_HCMFamilyMemberSupplement        as _AdditionalData     on  $projection.HCMPersonnelNumber      = _AdditionalData.HCMPersonnelNumber
+                                                                                      and $projection.HCMSubtype              = _AdditionalData.HCMSubtype
+                                                                                      and $projection.HCMObjectIdentification = _AdditionalData.HCMObjectIdentification
+                                                                                      and $projection.HCMRecordIsLocked       = _AdditionalData.HCMRecordIsLocked
+                                                                                      and $projection.EndDate                 = _AdditionalData.EndDate
+                                                                                      and $projection.StartDate               = _AdditionalData.StartDate
+                                                                                      and $projection.HCMSequentialNumber     = _AdditionalData.HCMSequentialNumber
+association [0..*] to C_HCMNationalityText as _NationalityText on  $projection.HCMFamilyMemberNationalityCode = _NationalityText.Country
+association [0..*] to C_HCMNationalityText as _SecondNationalityText on  $projection.HCMFamilyMember2ndNatltyCode = _SecondNationalityText.Country
+association [0..*] to C_HCMNationalityText as _ThirdNationalityText on  $projection.HCMFamilyMember3rdNatltyCode = _ThirdNationalityText.Country
+association [0..*] to I_HCMGenderText as _GenderDiverseText on  $projection.HCMFamilyMemberGenderCode = _GenderDiverseText.HCMGenderCode
+                                                                                           and $projection.HCMInfoTypeVersion = _GenderDiverseText.HCMCountryRegionGrouping
+association [0..*] to I_CountryText as _CountryOfBirthText on  $projection.HCMFamilyMemberCntryOfBrthCode = _CountryOfBirthText.Country
+{
+   key I_HCM_ESSFamilyMember.HCMPersonnelNumber, //PERNR
+   key I_HCM_ESSFamilyMember.HCMSubtype,  //SUBTY
+   key I_HCM_ESSFamilyMember.HCMObjectIdentification, //OBJPS
+   key I_HCM_ESSFamilyMember.HCMRecordIsLocked, //SPRPS
+   key I_HCM_ESSFamilyMember.EndDate, //ENDDA
+   key I_HCM_ESSFamilyMember.StartDate, //BEGDA
+   key I_HCM_ESSFamilyMember.HCMSequentialNumber,
+   key cast( '000' as hrfio_per_draft_seq_number preserving type ) as HCMDraftSequentialNumber,
+       I_HCM_ESSFamilyMember.LastChangedDate, //AEDTM
+       I_HCM_ESSFamilyMember.LastChangedByUser, //UNAME
+       I_HCM_ESSFamilyMember.HCMInfoTypeRecordHasText, //ITXEX
+       I_HCM_ESSFamilyMember.HCMInfoTypeRecordScreenCtrl, //ITBLD
+       I_HCM_ESSFamilyMember.HCMSubtypeText,
+       I_HCM_ESSFamilyMember.ETag,
+       I_HCM_ESSFamilyMember.HCMValidityStartDate,
+       I_HCM_ESSFamilyMember.HCMValidityEndDate,
+       I_HCM_ESSFamilyMember.HCMDefaultDate,
+       I_HCM_ESSFamilyMember.HCMRecordIsStoredInDataBase,
+       I_HCM_ESSFamilyMember.HCMInfoTypeVersion,
+       I_HCM_ESSFamilyMember.HCMFamilyMemberTypeCode, // FAMSA;
+       I_HCM_ESSFamilyMember.HCMFamilyMemberLastName, // FANAM;
+       I_HCM_ESSFamilyMember.HCMFamilyMemberBirthName, // FGBNA;
+       I_HCM_ESSFamilyMember.HCMFamilyMemberFirstName, // FAVOR;
+       I_HCM_ESSFamilyMember.HCMFamilyMemberInitials, // FINIT;
+       @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMNameAffixText', name: 'I_HCMNameAffixVH'}}]
+       I_HCM_ESSFamilyMember.HCMFamilyMemberOtherTitleCode, // FNMZU;
+       @ObjectModel.text.association: '_NationalityText'
+       @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'C_HCMNationalityVH'}}]
+       I_HCM_ESSFamilyMember.HCMFamilyMemberNationalityCode, // FANAT;
+       @ObjectModel.text.association: '_SecondNationalityText'
+       @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'C_HCMNationalityVH'}}]
+       I_HCM_ESSFamilyMember.HCMFamilyMember2ndNatltyCode, // FANA2;
+       @ObjectModel.text.association: '_ThirdNationalityText'
+       @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'C_HCMNationalityVH'}}]
+       I_HCM_ESSFamilyMember.HCMFamilyMember3rdNatltyCode, // FANA3;
+       I_HCM_ESSFamilyMember.HCMFamMbrRefPersnWorkAgreement, // ERBNR;
+       @ObjectModel.text.association: '_GenderDiverseText'
+       @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMGenderCode', name: 'I_HCMGenderVH'},
+                                         additionalBinding: [{  element: 'HCMCountryRegionGrouping', localElement: 'HCMCountryRegionGrouping' }]  }]
+       I_HCM_ESSFamilyMember.HCMFamilyMemberGenderCode, // FASEX;
+       _AdditionalData.HCMFamMbrNationalId, // PERID;
+       _AdditionalData.HCMFamMbrPhoneNumber, // TELNR;
+       _AdditionalData.HCMFamMbrStreet, // STRAS;
+       _AdditionalData.HCMFamMbrLglSeparationDate, // SEPDT;
+       _AdditionalData.HCMFamMbrHouseNumber, // LOCAT;
+       _AdditionalData.HCMFamMbrMaritalStatusCode, // FAMST;
+       _AdditionalData.HCMFamMbrHasBnftNonTaxable, // NONTX;
+       _AdditionalData.HCMFamMbrCity, // ORT01;
+       _AdditionalData.HCMFamMbrRegionCode, // STATE;
+       _AdditionalData.HCMFamMbrPostalCode, // PSTLZ;
+       _AdditionalData.HCMFamMbrCountryCode, // LAND1;
+       _AdditionalData.HCMFamMbrIsStudent, // BEN03;
+       _AdditionalData.HCMFamMbrBnftPhysicianName, // DOCNM;
+       _AdditionalData.HCMFamMbrHasDisability, // DISAB;
+       _AdditionalData.HCMFamMbrHasBnftMedicare, // MEDIC;
+       _AdditionalData.HCMFamMbrBnftPhysicianId, // DOCID;
+       _AdditionalData.HCMFamMbrDsbltyDetnDate, // DISDT;
+       _AdditionalData.HCMFamMbrHasBnftSmoker, // SMOKE;
+       _AdditionalData.HCMFamMbr2ndBnftPhysnName, // DOCN2;
+       _AdditionalData.HCMFamMbrEmployerDsbltyDte, // DISLE;
+       _AdditionalData.HCMFamMbrHasBnftMilitary, // MILSV;
+       _AdditionalData.HCMFamMbr2ndBnftPhysnId, // DOCI2;
+       _AdditionalData.HCMFamMbrHasBnftFinIndep, // FININ;
+       _AdditionalData.HCMFamMbrMedlAbsncProofDte, // PMADT;
+       _AdditionalData.HCMFamMbrProofLegalDepDate, // LEGDT;
+       _AdditionalData.HCMFamMbrHasProofLegalDep, // LEGID;
+       I_HCM_ESSFamilyMember.HCMFamilyMemberPlaceOfBrthName, // FGBOT;
+       @ObjectModel.text.association: '_CountryOfBirthText'
+       @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'I_CountryVH'}}]
+       I_HCM_ESSFamilyMember.HCMFamilyMemberCntryOfBrthCode, // FGBLD;
+       /* Associations */
+       I_HCM_ESSFamilyMember._Contract,
+       _NationalityText,
+       _SecondNationalityText,
+       _ThirdNationalityText,
+       _GenderDiverseText,
+       _CountryOfBirthText,
+       _AdditionalData,
+       _FAMILYMEMBER_Root
+}

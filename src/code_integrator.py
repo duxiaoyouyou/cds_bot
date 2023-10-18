@@ -36,5 +36,5 @@ class CodeInserter:
 input_filepath = os.path.join(os.getcwd(), 'src\\resources\\cdsViews\\core\\I_HCM_ESSFamilyMemberTP')  
 output_filepath = os.path.join(os.getcwd(), 'src\\resources\\cdsViews\\sg\\I_SG_HCM_ESSFamilyMemberTP')  
 inserter = CodeInserter(input_filepath, output_filepath)  
-inserter.insert_after('as select from I_HCM_ESSFamilyMember', 'cds_country_version')  
+inserter.insert_after('as select from I_HCM_ESSFamilyMember', '...test insert cds_country_version....')  
 

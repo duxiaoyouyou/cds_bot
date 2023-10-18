@@ -9,7 +9,7 @@
 }
 define view entity I_HCM_ESSFamilyMemberTP
   as select from I_HCM_ESSFamilyMember( P_HCMInfoTypeVersion: '99' )
-cds_country_version
+...test insert cds_country_version....
 
   association        to parent I_HCM_ESSFamilyMemberRootTP as _FamilyMemberRoot      on  $projection.HCMPersonnelNumber = _FamilyMemberRoot.HCMPersonnelNumber
   association [1]    to I_HCM_ESSFamMbrSubtypeVsblty       as _SubtypeVisibility     on  $projection.HCMSubtype = _SubtypeVisibility.HCMSubtype

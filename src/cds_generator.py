@@ -66,7 +66,9 @@ class CDSGenerator:
                 """  
         for i, description in enumerate(input.values(), 1):  
             prompt += f"{i}. {description}\n"  
-  
+            
+        #prompt += open("naming_convention_file_name").read()
+        
         prompt += f"""
                 Please convert these descriptions into camel case and shorten them to less than 30 characters.
                 """  

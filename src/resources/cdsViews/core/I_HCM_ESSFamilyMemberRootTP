@@ -1,0 +1,36 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'My Family Members: Overview XX'
+@Metadata.ignorePropagatedAnnotations: true
+@Metadata.allowExtensions: true
+@ObjectModel.usageType:{
+  serviceQuality: #X,
+  sizeCategory: #S,
+  dataClass: #MIXED
+}
+@ObjectModel.semanticKey: ['HCMPersonnelNumber']
+define root view entity I_HCM_ESSFamilyMemberRootTP
+
+  as select from I_HCMPersonalInfoPersNumbers
+
+  composition [0..*] of I_HCM_ESSFamilyMemberTP as _FamilyMember
+  association [0..*] to I_HCM_ESSFamilyMemberTP as _Subtype_1 on  _Subtype_1.HCMPersonnelNumber = $projection.HCMPersonnelNumber
+                                                              and _Subtype_1.HCMSubtype         = '1'
+  association [0..*] to I_HCM_ESSFamilyMemberTP as _Subtype_2 on  _Subtype_2.HCMPersonnelNumber = $projection.HCMPersonnelNumber
+                                                              and _Subtype_2.HCMSubtype         = '2'
+
+{
+      @ObjectModel.text.element: ['HCMEmployeeName']
+  key HCMPersonnelNumber,
+      HCMIsMainPersonWorkAgreement,
+      HCMCountryRegionGrouping,
+      CountryTwoLetterISOCode,
+      HCMInfoTypeVersion,
+      HCMEmployeeName,
+      HCMEmployeeIsDirectReport,
+
+      /* Associations */
+      _FamilyMember,
+      _Subtype_1,
+      _Subtype_2
+}

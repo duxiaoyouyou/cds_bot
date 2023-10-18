@@ -47,6 +47,8 @@ if country_code:
       
     if country_code.upper() == 'SG': 
         src_tab_name = "p0412"
+    elif country_code.upper() == 'BR':
+        src_tab_name = "p0397"
     else:
         src_tab_name = "pa0106"
     table_def = TableDefinition(f'src/resources/{src_tab_name}.txt')
@@ -58,7 +60,7 @@ if country_code:
     
      
     cds_code = cdsGenerator.generate_cds_code(country_code, cds_field_names, src_tab_name)
-    output_filepath = os.path.join(os.getcwd(), 'src\\resources\\cdsViews\\sg\\I_SG_HCMFamilyMemberSupplement')  
+    output_filepath = os.path.join(os.getcwd(), 'src\\resources\\cdsViews\\{country_code.lower()}\\I_{country_code.upper()}_HCMFamilyMemberSupplement')  
     codeIntegrator = CodeIntegrator(output_filepath)  
     codeIntegrator.createFile(cds_code)  
 

@@ -59,7 +59,7 @@ if country_code:
     st.session_state.messages.append({"role": "assistant", "content": "country_delta_fields with proposed cds field names"})  
     for key, value in cds_field_names.items():    
         st.session_state.messages.append({"role": "assistant", "content": f"{key}: {value}"})    
-    st.session_state.messages.append({"role": "assistant", "content": f"core delta fields:\n {str(core_delta_fields)}"})    
+    st.session_state.messages.append({"role": "assistant", "content": f"core delta fields(Pls check why not in country config!):\n {str(core_delta_fields)}"})    
 
     
     # Display the comparison result in a chat message container    

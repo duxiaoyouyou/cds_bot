@@ -48,23 +48,21 @@ if country_code:
     cdsGenerator = CDSGenerator(openai)  
     cds_field_names = cdsGenerator.generate_cds_name(field_name_descriptions)  
     
-    result = f""" country_delta_fields with proposed cds field names : \
-        {str(cds_field_names)} \
-            core delta fields: \
-            {str(core_delta_fields)}   
-        """
+     
     #cds_code = cdsGenerator.generate_cds_code(cds_field_names)
 
-    # Add the comparison result to the chat history  
-    st.session_state.messages.append({"role": "assistant", "content": result})  
+    # Add the comparison result to the chat history 
+    st.session_state.messages.append("country_delta_fields with proposed cds field names")
+    for key, value in cds_field_names.items():    
+        st.session_state.messages.append({"role": "assistant", "content": f"{key}: {value}"})    
+    st.session_state.messages.append({"role": "assistant", "content": f"core delta fields:\n {str(core_delta_fields)}"})    
+
     
-    # # Display the comparison result in a chat message container    
-    # with st.chat_message("assistant"):    
-    #     for key, value in cds_field_names.items():  
-    #         st.markdown(f"{key}: {value}") 
-    
-    st.markdown("country_delta_fields with proposed cds field names:")
-    st.markdown(str(cds_field_names))
-    st.markdown("core delta fields:")
-    st.markdown(str(core_delta_fields))
+    # Display the comparison result in a chat message container    
+    with st.chat_message("assistant"):   
+        st.markdown("country_delta_fields with proposed cds field names:") 
+        for key, value in cds_field_names.items():  
+            st.markdown(f"{key}: {value}") 
+        st.markdown("core delta fields:")
+        st.markdown(str(core_delta_fields))
                 

@@ -13,7 +13,7 @@ class CDSGenerator:
             temperature=0.01  
         )  
         response_message_content = response['choices'][0]['message']['content']  
-        print("respontse from LLM generated: " + response_message_content)
+        print("respontse from LLM generated:\n " + response_message_content)
         return response_message_content
         
   
@@ -24,34 +24,35 @@ class CDSGenerator:
             field_desc_str += f"{i}. {field_name}: {description}\n"  
          
         prompt = f"""
-                for country code {country_code} \
-                I have a list of field names and their corresponding descriptions delimited by triple quotes. \
+                for country code {country_code}, \
+                I have a list of field names and their corresponding descriptions, which is delimited by triple quotes. \
                 \"\"\"\
                     {field_desc_str} 
                 \"\"\" \          
                 I also have a source table called {src_tab_name} \
-                I want to generate ABAP CDS view fields for each of them, selecting data from the source table. \
-                Here is an example of the code I want to generate: \
-                @AbapCatalog.viewEnhancementCategory: [#NONE]
-                @AccessControl.authorizationCheck: #NOT_REQUIRED
-                @EndUserText.label: 'HCM US - Related Persons'
-                @Metadata.ignorePropagatedAnnotations: true
-                @ObjectModel.usageType:{{
-                    serviceQuality: #X,
-                    sizeCategory: #S,
-                    dataClass: #MIXED
-                }}
-                define view entity I_US_HCMFamilyMemberSupplement\
-                    as select from pa0106\
-                {{ \
-                    key pernr as HCMPersonnelNumber, \
-                    key subty as HCMSubtype \
+                I want to generate ABAP CDS view fields for each of them. \
+                """
+        example = f"""Here is an example of the code I want to generate with country code US and source table pa0106: \
+                @AbapCatalog.viewEnhancementCategory: [#NONE] \n
+                @AccessControl.authorizationCheck: #NOT_REQUIRED \n
+                @EndUserText.label: 'HCM US - Related Persons' \n
+                @Metadata.ignorePropagatedAnnotations: true \n
+                @ObjectModel.usageType:{{ \n
+                    serviceQuality: #X, \n
+                    sizeCategory: #S, \n
+                    dataClass: #MIXED \n
+                }} \n
+                define view entity I_US_HCMFamilyMemberSupplement \n
+                    as select from pa0106 \n
+                {{ \n
+                    key pernr as HCMPersonnelNumber, \n
+                    key subty as HCMSubtype \n
                 }}
                 """
-                    
+        prompt += example            
         prompt += f"""
                 Please generate ABAP CDS view fields for these field names and descriptions, following the example code.
-                Ensure do NOT provide anything else other than the code, such as expressions. \
+                Ensure do NOT provide anything else other than the code. \
                 """  
        
         return self.get_response_message_content(prompt)

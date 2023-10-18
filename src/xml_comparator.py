@@ -13,7 +13,12 @@ class XMLComparator:
             names.add(elem.text)    
         return names    
       
-    def compare(self):      
+    def get_country_delta_fields(self):      
         names1 = self.get_names(self.tree1)      
         names2 = self.get_names(self.tree2)      
-        return names2 - names1  
+        return names2 - names1
+    
+    def get_core_delta_fields(self):      
+        names1 = self.get_names(self.tree1)      
+        names2 = self.get_names(self.tree2)      
+        return names1 - names2

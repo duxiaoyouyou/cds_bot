@@ -39,18 +39,32 @@ if country_code:
     st.session_state.messages.append({"role": "user", "content": country_code})  
   
     xmlComparator = XMLComparator(core_file, f'src/resources/HRESS_CC_PER_DTL_FAMILY_{country_code.upper()}.xml' )    
-    field_names = xmlComparator.compare()    
+    country_delta_fields = xmlComparator.get_country_delta_fields()
+    core_delta_fields = xmlComparator.get_core_delta_fields()
       
     table_def = TableDefinition(f'src/resources/pa0106.txt')  
-    field_name_descriptions = table_def.get_descriptions(field_names)  
+    field_name_descriptions = table_def.get_descriptions(country_delta_fields)  
     
     cdsGenerator = CDSGenerator(openai)  
     cds_field_names = cdsGenerator.generate_cds_name(field_name_descriptions)  
+    
+    result = f""" country_delta_fields with proposed cds field names : \
+        {str(cds_field_names)} \
+            core delta fields: \
+            {str(core_delta_fields)}   
+        """
+    #cds_code = cdsGenerator.generate_cds_code(cds_field_names)
 
     # Add the comparison result to the chat history  
-    st.session_state.messages.append({"role": "assistant", "content": str(cds_field_names)})  
+    st.session_state.messages.append({"role": "assistant", "content": result})  
     
-    # Display the comparison result in a chat message container    
-    with st.chat_message("assistant"):    
-        for key, value in cds_field_names.items():  
-            st.markdown(f"{key}: {value}") 
+    # # Display the comparison result in a chat message container    
+    # with st.chat_message("assistant"):    
+    #     for key, value in cds_field_names.items():  
+    #         st.markdown(f"{key}: {value}") 
+    
+    st.markdown("country_delta_fields with proposed cds field names:")
+    st.markdown(str(cds_field_names))
+    st.markdown("core delta fields:")
+    st.markdown(str(core_delta_fields))
+                

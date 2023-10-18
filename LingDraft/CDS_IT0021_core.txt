@@ -1,0 +1,88 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'My Family Members (International)'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+  serviceQuality: #X,
+  sizeCategory: #S,
+  dataClass: #MIXED
+}
+define view entity I_HCM_ESSFamilyMemberTP
+  as select from I_HCM_ESSFamilyMember( P_HCMInfoTypeVersion: '99' )
+ 
+  association        to parent I_HCM_ESSFamilyMemberRootTP as _FamilyMemberRoot      on  $projection.HCMPersonnelNumber = _FamilyMemberRoot.HCMPersonnelNumber
+  association [1]    to I_HCM_ESSFamMbrSubtypeVsblty       as _SubtypeVisibility     on  $projection.HCMSubtype = _SubtypeVisibility.HCMSubtype
+  association [0..*] to I_CountryText                      as _CountryOfBirthText    on  $projection.HCMFamilyMemberCntryOfBrthCode = _CountryOfBirthText.Country
+  association [0..*] to C_HCMNationalityText               as _NationalityText       on  $projection.HCMFamilyMemberNationalityCode = _NationalityText.Country
+  association [0..*] to C_HCMNationalityText               as _SecondNationalityText on  $projection.HCMFamilyMember2ndNatltyCode = _SecondNationalityText.Country
+  association [0..*] to C_HCMNationalityText               as _ThirdNationalityText  on  $projection.HCMFamilyMember3rdNatltyCode = _ThirdNationalityText.Country
+  association [0..*] to I_HCMGenderText                    as _GenderDiverseText     on  $projection.HCMFamilyMemberGenderCode = _GenderDiverseText.HCMGenderCode
+                                                                                     and $projection.HCMInfoTypeVersion        = _GenderDiverseText.HCMCountryRegionGrouping
+{
+ 
+  key I_HCM_ESSFamilyMember.HCMPersonnelNumber, //PERNR
+  key I_HCM_ESSFamilyMember.HCMSubtype, //SUBTY
+  key I_HCM_ESSFamilyMember.HCMObjectIdentification, //OBJPS
+  key I_HCM_ESSFamilyMember.HCMRecordIsLocked, //SPRPS
+  key I_HCM_ESSFamilyMember.EndDate, //ENDDA
+  key I_HCM_ESSFamilyMember.StartDate, //BEGDA
+  key I_HCM_ESSFamilyMember.HCMSequentialNumber,
+  key cast( '000' as hrfio_per_draft_seq_number preserving type ) as HCMDraftSequentialNumber,
+      I_HCM_ESSFamilyMember.LastChangedDate, //AEDTM
+      I_HCM_ESSFamilyMember.LastChangedByUser, //UNAME
+      I_HCM_ESSFamilyMember.HCMInfoTypeRecordHasText, //ITXEX
+      I_HCM_ESSFamilyMember.HCMInfoTypeRecordScreenCtrl, //ITBLD
+      I_HCM_ESSFamilyMember.HCMSubtypeText,
+      I_HCM_ESSFamilyMember.ETag,
+      I_HCM_ESSFamilyMember.HCMValidityStartDate,
+      I_HCM_ESSFamilyMember.HCMValidityEndDate,
+      I_HCM_ESSFamilyMember.HCMDefaultDate,
+      I_HCM_ESSFamilyMember.HCMRecordIsStoredInDataBase,
+      I_HCM_ESSFamilyMember.HCMInfoTypeVersion,
+      I_HCM_ESSFamilyMember.HCMFamilyMemberTypeCode, //FAMSA
+      I_HCM_ESSFamilyMember.HCMFamilyMemberBirthDate, //FGBDT
+      @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'I_CountryVH'} }]
+      @ObjectModel.text.association: '_CountryOfBirthText'
+      I_HCM_ESSFamilyMember.HCMFamilyMemberCntryOfBrthCode, //FGBLD
+      @Consumption.valueHelpDefinition: [{ entity: { element: 'Country',
+                                                  name: 'C_HCMNationalityVH'} }]
+      @ObjectModel.text.association: '_NationalityText'
+      I_HCM_ESSFamilyMember.HCMFamilyMemberNationalityCode, //FANAT
+      @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMGenderCode',
+                                                        name: 'I_HCMGenderVH'},
+                                           additionalBinding: [{  element: 'HCMCountryRegionGrouping', localElement: 'HCMCountryRegionGrouping' }]  }]  //TODO Testen
+      @ObjectModel.text.association: '_GenderDiverseText'
+      I_HCM_ESSFamilyMember.HCMFamilyMemberGenderCode, //FASEX
+      I_HCM_ESSFamilyMember.HCMFamilyMemberFirstName, //FAVOR
+      I_HCM_ESSFamilyMember.HCMFamilyMemberLastName, //FANAM
+      I_HCM_ESSFamilyMember.HCMFamilyMemberPlaceOfBrthName, //FGBOT
+      I_HCM_ESSFamilyMember.HCMFamilyMemberBirthName, //FGBNA
+      I_HCM_ESSFamilyMember.HCMFamilyMemberNameFormatCode, //FKNZN -> KNZNM (HCMT)
+      I_HCM_ESSFamilyMember.HCMFamilyMemberInitials, //FINIT
+      @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMNamePrefixText', name: 'I_HCMNamePrefixVH'} }]
+      I_HCM_ESSFamilyMember.HCMFamilyMemberNamePrefixCode, //FVRSW
+      @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMNamePrefixText', name: 'I_HCMNamePrefixVH'} }]
+      I_HCM_ESSFamilyMember.HCMFamMember2ndNamePrefixCode, //FVRS2
+      @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMNameAffixText', name: 'I_HCMNameAffixVH'} }]
+      I_HCM_ESSFamilyMember.HCMFamilyMemberOtherTitleCode, //FNMZU
+      @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'C_HCMNationalityVH'} }]
+      @ObjectModel.text.association: '_SecondNationalityText'
+      I_HCM_ESSFamilyMember.HCMFamilyMember2ndNatltyCode, //FANA2
+      @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'C_HCMNationalityVH'} }]
+      @ObjectModel.text.association: '_ThirdNationalityText'
+      I_HCM_ESSFamilyMember.HCMFamilyMember3rdNatltyCode, //FANA3
+ 
+      _FamilyMemberRoot.HCMCountryRegionGrouping                  as HCMCountryRegionGrouping,
+ 
+      _SubtypeVisibility.HCMFamMbrSubtype1IsHidden                as HCMFamMbrSubtype1IsHidden,
+      _SubtypeVisibility.HCMFamMbrSubtype2IsHidden                as HCMFamMbrSubtype2IsHidden,
+ 
+      /* Associations */
+      _FamilyMemberRoot,
+      _SubtypeVisibility,
+      _CountryOfBirthText,
+      _NationalityText,
+      _SecondNationalityText,
+      _ThirdNationalityText,
+      _GenderDiverseText
+}

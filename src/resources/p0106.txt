@@ -1,0 +1,62 @@
+PERNR	Personnel Number
+INFTY	Infotype
+SUBTY	Subtype
+OBJPS	Object Identification
+SPRPS	Lock Indicator for HR Master Data Record
+ENDDA	End Date
+BEGDA	Start Date
+SEQNR	Number of Infotype Record With Same Key
+AEDTM	Last Changed On
+UNAME	Name of Person Who Changed Object
+HISTO	Historical Record Flag
+ITXEX	Text Exists for Infotype
+REFEX	Reference Fields Exist (Primary/Secondary Costs)
+ORDEX	Confirmation Fields Exist
+ITBLD	Infotype Screen Control
+PREAS	Reason for Changing Master Data
+FLAG1	Reserved Field/Unused Field
+FLAG2	Reserved Field/Unused Field
+FLAG3	Reserved Field/Unused Field
+FLAG4	Reserved Field/Unused Field
+RESE1	Reserved Field/Unused Field of Length 2
+RESE2	Reserved Field/Unused Field of Length 2
+GRPVL	Grouping Value for Personnel Assignments
+PERMO	Modifier for Personnel Identifier
+PERID	Personnel ID Number
+BEN01	Not Used
+BEN02	Not Used
+BEN03	Student Indicator
+BEN04	COBRA Indicator
+BEN05	Smoker Indicator
+STRAS	Street and House Number
+LOCAT	Street and House Number
+ORT01	City
+STATE	Region (State, Province, County)
+PSTLZ	Postal Code
+LAND1	Country/Region Key
+TELNR	Telephone Number
+SEPDT	Legal Separation Date
+DOCNM	Benefit Physician Name
+DOCID	Benefit Physician ID
+DOCN2	Benefit Physician Name
+DOCI2	Benefit Physician ID
+DISAB	Disability
+DISDT	Date of Determination of Disability Status
+DISLE	Date Employer Learned of Disability Status
+DEPIN	Benefit dependent indicator
+MEDIC	Benefit Indicator for Medicare
+SMOKE	Benefit smoker indicator
+FAMST	Marital Status Key
+PROVI	Benefit identification number for the provider
+POLNR	Benefit policy number
+TAXNB	Tax ID
+PMRES	Residency type
+RACKY	Ethnic origin
+SPEMS	Spouse employment status
+MILSV	Benefits Indicator: Person is on Military Service
+FININ	Benefits Indicator: Person is Financially Independent
+NONTX	Benefits Indicator: Person is Non-Taxable
+PMADT	Date of providing Proof of Medical Absence
+LEGID	Proof Submission Indicator for Legal Dependents
+LEGDT	Proof Submission Date for Legal Dependents
+IDCOD	Person Identification Number

@@ -60,7 +60,7 @@ if country_code:
     
      
     cds_code = cdsGenerator.generate_cds_code(country_code, cds_field_names, src_tab_name)
-    output_filepath = os.path.join(os.getcwd(), 'src\\resources\\cdsViews\\{country_code.lower()}\\I_{country_code.upper()}_HCMFamilyMemberSupplement')  
+    output_filepath = os.path.join(os.getcwd(), f'src\\resources\\cdsViews\\{country_code.lower()}\\I_{country_code.upper()}_HCMFamilyMemberSupplement')  
     codeIntegrator = CodeIntegrator(output_filepath)  
     codeIntegrator.createFile(cds_code)  
 

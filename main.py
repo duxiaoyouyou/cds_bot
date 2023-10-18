@@ -29,6 +29,7 @@ for message in st.session_state.messages:
   
 # Accept user input    
 country_code = st.chat_input("Enter your country code here:")  
+src_tab_name = "pa0106"
   
 # Check if the user has entered a country code
 if country_code:  
@@ -43,9 +44,10 @@ if country_code:
     core_delta_fields = xmlComparator.get_core_delta_fields()
       
     if country_code.upper() == 'SG': 
-        table_def = TableDefinition(f'src/resources/p0412.txt')  
+        table_def = src_tab_name = "p0412"
     else:
-        table_def = TableDefinition(f'src/resources/pa0106.txt')
+        src_tab_name = "pa0106"
+    table_def = TableDefinition(f'src/resources/{src_tab_name}.txt')
         
     field_name_descriptions = table_def.get_descriptions(country_delta_fields)  
     
@@ -53,13 +55,14 @@ if country_code:
     cds_field_names = cdsGenerator.generate_cds_name(field_name_descriptions)  
     
      
-    #cds_code = cdsGenerator.generate_cds_code(cds_field_names)
+    cds_code = cdsGenerator.generate_cds_code(cds_field_names, src_tab_name)
 
     # Add the comparison result to the chat history 
     st.session_state.messages.append({"role": "assistant", "content": "country_delta_fields with proposed cds field names"})  
     for key, value in cds_field_names.items():    
         st.session_state.messages.append({"role": "assistant", "content": f"{key}: {value}"})    
     st.session_state.messages.append({"role": "assistant", "content": f"core delta fields(Pls check why not in country config!):\n {str(core_delta_fields)}"})    
+    st.session_state.messages.append({"role": "assistant", "content": f"cds code generated:\n {cds_code}"})    
 
     
     # Display the comparison result in a chat message container    
@@ -69,4 +72,5 @@ if country_code:
             st.markdown(f"{key}: {value}") 
         st.markdown("core delta fields:")
         st.markdown(str(core_delta_fields))
-                
+        st.markdown("cds code generated:")
+        st.markdown(cds_code)

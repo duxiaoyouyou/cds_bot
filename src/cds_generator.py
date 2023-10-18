@@ -17,44 +17,34 @@ class CDSGenerator:
         return response_message_content
         
   
-    def generate_cds_code(self, input: dict) -> str:
-        # Generate the prompt  
-        prompt = f"""I have a list of field names and their corresponding descriptions. 
-        I want to generate ABAP CDS view fields for each of them. Here is an example of the code I want to generate:\n\n"""  
+    def generate_cds_code(self, field_desc_dict: dict, src_tab_name: str) -> str:
         
-        prompt += "define view entity I_US_HCMFamilyMemberSupplement\n  as select from pa0106\n{\n"  
-        prompt += "  key pernr as HCMPersonnelNumber,\n"  
-        prompt += "  key subty as HCMSubtype,\n"  
-        prompt += "  // Add more fields here\n"  
-        prompt += "}\n\n"  
-        
+        field_desc_str = ""
+        for i, (field_name, description) in enumerate(field_desc_dict.items(), 1):  
+            field_desc_str += f"{i}. {field_name}: {description}\n"  
+         
         prompt = f"""
-        I have a list of field names and their corresponding descriptions. \
-        I want to generate ABAP CDS view fields for each of them. \
-            
-        Here is an example of the code I want to generate delimited by triple quotes. \
-        
-        The user provides his input delimited by triple quotes. \
-        \"\"\" {input} \"\"\" \    
-        You will return the employee ID.
-        Your answer will be in a consistent format, following the examples delimited by triple hyphens below . \
-        --- 
-            input: I am working in SAP, my ID is i033961 \
-            i033961 \
-            input: I am with ID i518639 \
-            i518639 \  
-        --- 
-        Please only return employee id. \
-        Ensure do NOT provide anything else, such as expressions. \
-       """
+                I have a list of field names and their corresponding descriptions delimited by triple quotes. \
+                \"\"\"\
+                    {field_desc_str} 
+                \"\"\" \          
+                I also have a source table called {src_tab_name} \
+                I want to generate ABAP CDS view fields for each of them, selecting data from the source table. \
+                Here is an example of the code I want to generate delimited by triple hyphen: \
+                --- \
+                define view entity I_US_HCMFamilyMemberSupplement\
+                    as select from pa0106\
+                {{ \
+                    key pernr as HCMPersonnelNumber, \
+                    key subty as HCMSubtype \
+                }}
+                """
+                    
+        prompt += f"""
+                Please generate ABAP CDS view fields for these field names and descriptions, following the example code.
+                Ensure do NOT provide anything else other than the code, such as expressions. \
+                """  
        
-        prompt += "Here are the field names and descriptions:\n\n"  
-        
-        for i, (field_name, description) in enumerate(input.items(), 1):  
-            prompt += f"{i}. {field_name}: {description}\n"  
-        
-        prompt += "\nPlease generate ABAP CDS view fields for these field names and descriptions, following the example code."  
-        
         return self.get_response_message_content(prompt)
     
 

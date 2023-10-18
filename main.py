@@ -46,11 +46,14 @@ if country_code:
     
     cdsGenerator = CDSGenerator(openai)  
     cds_field_names = cdsGenerator.generate_cds_name(field_name_descriptions)  
+    cds_code = cdsGenerator.generate_cds_code(cds_field_names)
 
     # Add the comparison result to the chat history  
-    st.session_state.messages.append({"role": "assistant", "content": str(cds_field_names)})  
+    st.session_state.messages.append({"role": "assistant", "content": str(cds_code)})  
     
-    # Display the comparison result in a chat message container    
-    with st.chat_message("assistant"):    
-        for key, value in cds_field_names.items():  
-            st.markdown(f"{key}: {value}") 
+    # # Display the comparison result in a chat message container    
+    # with st.chat_message("assistant"):    
+    #     for key, value in cds_field_names.items():  
+    #         st.markdown(f"{key}: {value}") 
+    
+    st.markdown(cds_code)

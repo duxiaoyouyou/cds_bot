@@ -1,0 +1,312 @@
+CLASS lhc_i_hcm_essfamilymemberroott DEFINITION INHERITING FROM cl_abap_behavior_handler.
+
+  PUBLIC SECTION.
+
+    CLASS-METHODS:
+      class_constructor.
+
+  PRIVATE SECTION.
+
+    CLASS-DATA:
+        lgo_persinfo_rap_utility TYPE REF TO cl_hrfio_persinfo_rap_utility.
+
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      IMPORTING keys REQUEST requested_authorizations FOR i_hcm_essfamilymemberroottp RESULT result.
+
+    METHODS lock FOR LOCK
+      IMPORTING keys FOR LOCK i_hcm_essfamilymemberroottp.
+
+    METHODS rba_subtype_2 FOR READ
+      IMPORTING keys_rba FOR READ i_hcm_essfamilymemberroottp\_subtype_2 FULL result_requested RESULT result LINK association_links.
+
+    METHODS rba_subtype_1 FOR READ
+      IMPORTING keys_rba FOR READ i_hcm_essfamilymemberroottp\_subtype_1 FULL result_requested RESULT result LINK association_links.
+
+    METHODS cba_subtype_2 FOR MODIFY
+      IMPORTING entities_cba FOR CREATE i_hcm_essfamilymemberroottp\_subtype_2.
+
+    METHODS cba_subtype_1 FOR MODIFY
+      IMPORTING entities_cba FOR CREATE i_hcm_essfamilymemberroottp\_subtype_1.
+
+    METHODS get_instance_features FOR INSTANCE FEATURES
+      IMPORTING keys REQUEST requested_features FOR i_hcm_essfamilymemberroottp RESULT result.
+
+
+ENDCLASS.
+
+CLASS lhc_i_hcm_essfamilymemberroott IMPLEMENTATION.
+
+  METHOD get_instance_authorizations.
+*TODO: do we need an implementation here?
+  ENDMETHOD.
+
+  METHOD lock.
+
+    CALL METHOD lgo_persinfo_rap_utility->lock
+      EXPORTING
+        keys          = keys
+      CHANGING
+        failed_root   = failed-i_hcm_essfamilymemberroottp
+        reported_root = reported-i_hcm_essfamilymemberroottp.
+
+  ENDMETHOD.
+
+  METHOD rba_subtype_2.
+
+    READ ENTITY IN LOCAL MODE i_hcm_essfamilymemberroottp BY \_subtype_2
+    FROM CORRESPONDING #( DEEP keys_rba )
+      RESULT DATA(lt_result)
+      LINK DATA(lt_link)
+      FAILED DATA(lt_failed)
+      REPORTED DATA(lt_reported).
+
+    result = CORRESPONDING #( DEEP lt_result ).
+    association_links = CORRESPONDING #( DEEP lt_link ).
+    failed = CORRESPONDING #( DEEP lt_failed ).
+    reported = CORRESPONDING #( DEEP lt_reported ).
+
+  ENDMETHOD.
+
+  METHOD rba_subtype_1.
+
+    READ ENTITY IN LOCAL MODE i_hcm_essfamilymemberroottp BY \_subtype_1
+    FROM CORRESPONDING #( DEEP keys_rba )
+      RESULT DATA(lt_result)
+      LINK DATA(lt_link)
+      FAILED DATA(lt_failed)
+      REPORTED DATA(lt_reported).
+
+    result = CORRESPONDING #( DEEP lt_result ).
+    association_links = CORRESPONDING #( DEEP lt_link ).
+    failed = CORRESPONDING #( DEEP lt_failed ).
+    reported = CORRESPONDING #( DEEP lt_reported ).
+
+  ENDMETHOD.
+
+  METHOD cba_subtype_2.
+
+    DATA lt_entities_cba TYPE TABLE FOR CREATE i_hcm_essfamilymemberroottp\_familymember.
+
+    lt_entities_cba = CORRESPONDING #( entities_cba ).
+
+    lgo_persinfo_rap_utility->create_by_association(
+      EXPORTING
+        iv_subty  = '2'
+      CHANGING
+        ct_entity = lt_entities_cba
+    ).
+
+    MODIFY ENTITY IN LOCAL MODE i_hcm_essfamilymemberroottp CREATE BY \_familymember
+    FROM CORRESPONDING #( DEEP lt_entities_cba )
+      MAPPED DATA(ls_mapped)
+      FAILED DATA(ls_failed)
+      REPORTED DATA(ls_reported).
+
+    mapped = CORRESPONDING #( DEEP ls_mapped ).
+    failed = CORRESPONDING #( DEEP ls_failed ).
+    reported = CORRESPONDING #( DEEP ls_reported ).
+
+
+  ENDMETHOD.
+
+  METHOD cba_subtype_1.
+
+    DATA lt_entities_cba TYPE TABLE FOR CREATE i_hcm_essfamilymemberroottp\_familymember.
+
+    lt_entities_cba = CORRESPONDING #( entities_cba ).
+
+    lgo_persinfo_rap_utility->create_by_association(
+      EXPORTING
+        iv_subty  = '1'
+      CHANGING
+        ct_entity = lt_entities_cba
+    ).
+
+    MODIFY ENTITY IN LOCAL MODE i_hcm_essfamilymemberroottp CREATE BY \_familymember
+    FROM CORRESPONDING #( DEEP lt_entities_cba )
+      MAPPED DATA(ls_mapped)
+      FAILED DATA(ls_failed)
+      REPORTED DATA(ls_reported).
+
+    mapped = CORRESPONDING #( DEEP ls_mapped ).
+    failed = CORRESPONDING #( DEEP ls_failed ).
+    reported = CORRESPONDING #( DEEP ls_reported ).
+
+  ENDMETHOD.
+
+  METHOD get_instance_features.
+
+    lgo_persinfo_rap_utility->apply_root_instance_features(
+      EXPORTING
+        it_keys     = keys
+      CHANGING
+        ct_result   = result
+        cs_reported = reported
+    ).
+
+  ENDMETHOD.
+
+  METHOD class_constructor.
+
+    CREATE OBJECT lgo_persinfo_rap_utility
+      EXPORTING
+        iv_infty     = bp_i_hcm_essfamilymemberroottp=>gc_infty
+        iv_countryid = bp_i_hcm_essfamilymemberroottp=>gc_countryid
+        iv_versionid = bp_i_hcm_essfamilymemberroottp=>gc_versionid.
+
+  ENDMETHOD.
+
+ENDCLASS.
+
+CLASS lhc_i_hcm_essfamilymembertp DEFINITION INHERITING FROM cl_abap_behavior_handler.
+
+  PUBLIC SECTION.
+
+    CLASS-METHODS:
+      class_constructor.
+
+  PRIVATE SECTION.
+
+    CLASS-DATA:
+          lgo_persinfo_rap_utility TYPE REF TO cl_hrfio_persinfo_rap_utility.
+
+    METHODS check FOR VALIDATE ON SAVE
+      IMPORTING keys FOR i_hcm_essfamilymembertp~check.
+
+    METHODS get_instance_features FOR INSTANCE FEATURES
+      IMPORTING keys REQUEST requested_features FOR i_hcm_essfamilymembertp RESULT result.
+
+    METHODS adaptvaliditystartdate FOR DETERMINE ON MODIFY
+      IMPORTING keys FOR i_hcm_essfamilymembertp~adaptvaliditystartdate.
+
+ENDCLASS.
+
+CLASS lhc_i_hcm_essfamilymembertp IMPLEMENTATION.
+
+  METHOD class_constructor.
+
+    CREATE OBJECT lgo_persinfo_rap_utility
+      EXPORTING
+        iv_infty     = bp_i_hcm_essfamilymemberroottp=>gc_infty
+        iv_countryid = bp_i_hcm_essfamilymemberroottp=>gc_countryid
+        iv_versionid = bp_i_hcm_essfamilymemberroottp=>gc_versionid.
+
+  ENDMETHOD.
+
+  METHOD check.
+* read records for given keys
+    READ ENTITIES OF i_hcm_essfamilymemberroottp IN LOCAL MODE
+          ENTITY i_hcm_essfamilymembertp
+            ALL FIELDS WITH CORRESPONDING #( keys )
+            RESULT DATA(lt_familymember)
+          ENTITY i_hcm_essfamilymembertp BY \_familymemberroot
+            FROM CORRESPONDING #( keys )
+          LINK DATA(links).
+
+    lgo_persinfo_rap_utility->check(
+      EXPORTING
+        it_entity         = lt_familymember
+        it_link           = links
+      CHANGING
+        ct_failed_child   = failed-i_hcm_essfamilymembertp
+        ct_reported_child = reported-i_hcm_essfamilymembertp
+    ).
+
+  ENDMETHOD.
+
+  METHOD get_instance_features.
+* read records for given keys
+    READ ENTITIES OF i_hcm_essfamilymemberroottp IN LOCAL MODE
+        ENTITY i_hcm_essfamilymembertp
+          ALL FIELDS WITH CORRESPONDING #( keys )
+          RESULT DATA(lt_familymember)
+        ENTITY i_hcm_essfamilymembertp BY \_familymemberroot
+          FROM CORRESPONDING #( keys )
+        LINK DATA(links).
+
+    lgo_persinfo_rap_utility->apply_instance_features(
+      EXPORTING
+        it_entity   = lt_familymember
+      CHANGING
+        ct_result   = result
+        cs_reported = reported
+        cs_failed   = failed
+    ).
+
+  ENDMETHOD.
+
+  METHOD adaptvaliditystartdate.
+
+    DATA lv_modify TYPE abap_boolean.
+
+    READ ENTITIES OF i_hcm_essfamilymemberroottp IN LOCAL MODE
+    ENTITY i_hcm_essfamilymembertp
+      FIELDS ( startdate hcmvaliditystartdate hcmdefaultdate hcmrecordisstoredindatabase )
+      WITH CORRESPONDING #( keys )
+    RESULT DATA(lt_result).
+
+    lgo_persinfo_rap_utility->adapt_validity_startdate(
+      IMPORTING
+        ev_modify_result = lv_modify
+      CHANGING
+        ct_result        = lt_result
+    ).
+
+    IF lv_modify = abap_true.
+      MODIFY ENTITIES OF i_hcm_essfamilymemberroottp IN LOCAL MODE
+      ENTITY i_hcm_essfamilymembertp
+        UPDATE  FIELDS ( hcmvaliditystartdate )
+        WITH CORRESPONDING #( lt_result ).
+    ENDIF.
+
+  ENDMETHOD.
+
+ENDCLASS.
+
+CLASS lsc_i_hcm_essfamilymemberroott DEFINITION INHERITING FROM cl_abap_behavior_saver.
+  PUBLIC SECTION.
+
+    CLASS-METHODS:
+      class_constructor.
+
+  PROTECTED SECTION.
+
+    METHODS save_modified REDEFINITION.
+
+    METHODS cleanup_finalize REDEFINITION.
+
+  PRIVATE SECTION.
+    CLASS-DATA:
+      lgo_persinfo_rap_utility TYPE REF TO cl_hrfio_persinfo_rap_utility.
+
+ENDCLASS.
+
+CLASS lsc_i_hcm_essfamilymemberroott IMPLEMENTATION.
+
+  METHOD class_constructor.
+
+    CREATE OBJECT lgo_persinfo_rap_utility
+      EXPORTING
+        iv_infty     = bp_i_hcm_essfamilymemberroottp=>gc_infty
+        iv_countryid = bp_i_hcm_essfamilymemberroottp=>gc_countryid
+        iv_versionid = bp_i_hcm_essfamilymemberroottp=>gc_versionid.
+
+  ENDMETHOD.
+
+  METHOD save_modified.
+
+    lgo_persinfo_rap_utility->save_modified(
+      EXPORTING
+        it_create_child   = create-i_hcm_essfamilymembertp
+        it_update_child   = update-i_hcm_essfamilymembertp
+        it_delete_child   = delete-i_hcm_essfamilymembertp
+      CHANGING
+        ct_reported_child = reported-i_hcm_essfamilymembertp
+    ).
+
+  ENDMETHOD.
+
+  METHOD cleanup_finalize.
+  ENDMETHOD.
+
+ENDCLASS.

@@ -50,11 +50,6 @@ class BehaviorClassModifier:
             file.write(self.us_class)  
             
   
-    def write_to_file(self, filename):  
-        with open(filename, 'w') as file:  
-            file.write(self.us_class)  
-  
-# 使用示例  
 modifier = BehaviorClassModifier('core_class.abap', 'us_class.abap')  
 modifier.copy_methods()  
 modifier.write_to_file('new_us_class.abap')  

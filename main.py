@@ -65,19 +65,18 @@ if country_code:
     codeIntegrator.createFile(cds_code)  
 
     # Add the comparison result to the chat history 
-    st.session_state.messages.append({"role": "assistant", "content": "country_delta_fields with proposed cds field names"})  
-    for key, value in cds_field_names.items():    
-        st.session_state.messages.append({"role": "assistant", "content": f"{key}: {value}"})    
+    st.session_state.messages.append({"role": "assistant", "content": f"country specific fields: \n {str(country_delta_fields)}"})  
     st.session_state.messages.append({"role": "assistant", "content": f"core delta fields:\n {str(core_delta_fields)}"})    
     st.session_state.messages.append({"role": "assistant", "content": f"cds code generated:\n {cds_code}"})    
-
     
     # Display the comparison result in a chat message container    
     with st.chat_message("assistant"):   
         # st.markdown("country_delta_fields with proposed cds field names:") 
         # for key, value in cds_field_names.items():  
         #     st.markdown(f"{key}: {value}") 
-        st.markdown("core delta fields missing in country configuration:")
+        st.markdown("country specific fields:")
+        st.markdown(str(country_delta_fields))
+        st.markdown("core fields missing in configuration:")
         st.markdown(str(core_delta_fields))
         st.markdown("cds code generated:")
         st.markdown(cds_code)

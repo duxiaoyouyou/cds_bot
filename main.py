@@ -71,10 +71,10 @@ if country_code:
     
     # Display the comparison result in a chat message container    
     with st.chat_message("assistant"):
-        st.markdown("country specific fields:")
+        st.markdown("**country specific fields:**")
         st.markdown(str(country_delta_fields))
-        st.markdown("core fields missing in configuration:")
+        st.markdown("**core fields missing in configuration:**")
         st.markdown(str(core_delta_fields))
-        st.markdown("cds code generated:")
+        st.markdown("**cds code generated:**")
         st.markdown(cds_code)
         

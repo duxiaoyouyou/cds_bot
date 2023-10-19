@@ -1,0 +1,85 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE] 
+
+@AccessControl.authorizationCheck: #NOT_REQUIRED 
+
+@EndUserText.label: 'HCM SG - Related Persons' 
+
+@Metadata.ignorePropagatedAnnotations: true 
+
+@ObjectModel.usageType:{ 
+
+    serviceQuality: #X, 
+
+    sizeCategory: #S, 
+
+    dataClass: #MIXED 
+
+} 
+
+define view entity I_SG_HCMFamilyMemberSupplement 
+
+    as select from p0412 
+
+{ 
+
+    key pstlz as PostalCode, 
+
+    key land as CountryRegionKey, 
+
+    key city as City, 
+
+    key strt as StreetHouseNumber, 
+
+    key spuem as SharedParentalLeave, 
+
+    key cldty as ChildType, 
+
+    key sname as SchoolHospital, 
+
+    key taxnb as TaxId, 
+
+    key perid as PersonnelIdNumber, 
+
+    key syccl as CclEntitlementBirthYear, 
+
+    key ename as EmployerName, 
+
+    key pmres as ResidencyType, 
+
+    key confn as ConfinementNumber, 
+
+    key scclb as CclStartBirthYear, 
+
+    key fgbot as Fgbot, 
+
+    key telph as TelephoneNumber, 
+
+    key pstcd as PostalCode, 
+
+    key spaim as SpouseIncomeOver4k, 
+
+    key spems as SpouseEmploymentStatus, 
+
+    key locat as SecondAddressLine, 
+
+    key emrgn as Emrgn, 
+
+    key stat1 as RegionStateProvince, 
+
+    key racky as EthnicOrigin, 
+
+    key clcno as ChildBirthCertNumber, 
+
+    key ort01 as City, 
+
+    key fccsl as CcslLastValidYear, 
+
+    key desgn as Designation, 
+
+    key stras as StreetHouseNumber, 
+
+    key loct as StreetHouseNumber, 
+
+    key qtspl as SharedParentalLeaveNum 
+
+}

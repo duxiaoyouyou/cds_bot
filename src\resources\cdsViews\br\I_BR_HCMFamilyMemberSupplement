@@ -1,0 +1,71 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE] 
+
+@AccessControl.authorizationCheck: #NOT_REQUIRED 
+
+@EndUserText.label: 'HCM BR - Related Persons' 
+
+@Metadata.ignorePropagatedAnnotations: true 
+
+@ObjectModel.usageType:{ 
+
+    serviceQuality: #X, 
+
+    sizeCategory: #S, 
+
+    dataClass: #MIXED 
+
+} 
+
+define view entity I_BR_HCMFamilyMemberSupplement 
+
+    as select from p0397 
+
+{ 
+
+    key pernr as HCMPersonnelNumber, 
+
+    key subty as HCMSubtype, 
+
+    escol as EducationLevel, 
+
+    fuman as SmokerDependentInd, 
+
+    fgdep as FGDEP, 
+
+    nofol as EntrySheetNumber, 
+
+    noreu as BirthCertRegister, 
+
+    icnum as CPFNo, 
+
+    dtcvc as VaccinationCardExp, 
+
+    gesc2 as GESC2, 
+
+    fgbot as FGBOT, 
+
+    noliv as EntryLedgerNumber, 
+
+    fasar as FASAR, 
+
+    fgbld as FGBLD, 
+
+    stinv as ChallengedDependentInd, 
+
+    ufbot as RegionStateProvince, 
+
+    carto as PublicNotaryName, 
+
+    noreg as RecordNumber, 
+
+    serie as Grade, 
+
+    finit as FINIT, 
+
+    estud as DependentStudentInd, 
+
+    moden as EducationalSpec, 
+
+    fnac2 as FNAC2 
+
+}

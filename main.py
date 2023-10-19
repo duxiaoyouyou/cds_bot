@@ -70,10 +70,7 @@ if country_code:
     st.session_state.messages.append({"role": "assistant", "content": f"cds code generated:\n {cds_code}"})    
     
     # Display the comparison result in a chat message container    
-    with st.chat_message("assistant"):   
-        # st.markdown("country_delta_fields with proposed cds field names:") 
-        # for key, value in cds_field_names.items():  
-        #     st.markdown(f"{key}: {value}") 
+    with st.chat_message("assistant"):
         st.markdown("country specific fields:")
         st.markdown(str(country_delta_fields))
         st.markdown("core fields missing in configuration:")

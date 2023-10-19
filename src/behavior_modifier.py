@@ -34,6 +34,21 @@ class BehaviorClassModifier:
                 method_body.append(line)  
   
         return methods  
+    
+    
+    def add_read_method(self, field_name, field_type):  
+        method_template = f"""  
+        METHODS read_{field_name} FOR READ BY {field_name}  
+          IMPORTING keys FOR {field_name}  
+          RESULT result.  
+        """  
+        self.us_class += method_template  
+        
+  
+    def write_to_file(self, filename):  
+        with open(filename, 'w') as file:  
+            file.write(self.us_class)  
+            
   
     def write_to_file(self, filename):  
         with open(filename, 'w') as file:  

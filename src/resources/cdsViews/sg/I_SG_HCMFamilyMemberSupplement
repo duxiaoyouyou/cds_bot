@@ -22,17 +22,15 @@ define view entity I_SG_HCMFamilyMemberSupplement
 
 { 
 
-    key ENAME as nameOfEmployer, 
+    key ENAME as employerName, 
 
     key TAXNB as taxId, 
 
     STRT as streetHouseNumber, 
 
-    FGBOT as fgbot, 
+    STAT1 as regionStateProvince, 
 
-    STAT1 as regionStateProvinceCounty, 
-
-    SPAIM as isSpouseIncomeOver4k, 
+    SPAIM as spouseIncomeOver4k, 
 
     SPUEM as sharedParentalLeave, 
 
@@ -44,27 +42,35 @@ define view entity I_SG_HCMFamilyMemberSupplement
 
     PSTLZ as postalCode, 
 
-    QTSPL as numSharedParentalLeaveDays, 
+    QTSPL as sharedParentalLeaveDays, 
+
+    NATTX as nattx, 
 
     LAND as countryRegionKey, 
 
-    STRAS as streetHouseNumber, 
+    STRAS as streetHouseNumber2, 
 
     LOCAT as secondAddressLine, 
 
+    CLDTX as cldtx, 
+
     PMRES as residencyType, 
 
-    ORT01 as city, 
+    ORT01 as city2, 
+
+    LANDX as countryRegionShort, 
 
     EMRGN as emrgn, 
 
     SYCCL as cclEntitlementBirthYear, 
 
-    PSTCD as postalCode, 
+    PSTCD as postalCode2, 
 
     SPEMS as spouseEmploymentStatus, 
 
-    FCCSL as ccslValidityLastValidYear, 
+    BEZEI as bezei, 
+
+    FCCSL as ccsLastValidYear, 
 
     CONFN as confinementNumber, 
 
@@ -72,7 +78,7 @@ define view entity I_SG_HCMFamilyMemberSupplement
 
     SNAME as schoolHospital, 
 
-    LOCT as streetHouseNumber, 
+    LOCT as streetHouseNumber3, 
 
     DESGN as designation, 
 

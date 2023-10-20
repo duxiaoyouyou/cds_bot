@@ -56,7 +56,7 @@ define view entity I_US_HCMFamilyMemberSupplement
 
     erbnr as Erbnr, 
 
-    smoke as SmokerIndicator, 
+    smoke as SmokerIndicatorBenefit, 
 
     locat as StreetHouseNumber, 
 
@@ -76,9 +76,9 @@ define view entity I_US_HCMFamilyMemberSupplement
 
     land1 as CountryRegionKey, 
 
-    disdt as DisabilityStatusDate, 
+    disdt as DisabilityStatusDeterminationDate, 
 
-    disle as EmployerKnowledgeDate, 
+    disle as EmployerLearnedDisabilityDate, 
 
     famst as MaritalStatusKey, 
 
@@ -86,12 +86,12 @@ define view entity I_US_HCMFamilyMemberSupplement
 
     telnr as TelephoneNumber, 
 
-    milsv as MilitaryServiceIndicator, 
+    milsv as MilitaryServicePersonIndicator, 
 
     hicn as Hicn, 
 
     docid as BenefitPhysicianId, 
 
-    finin as FinanciallyIndependentInd 
+    finin as FinanciallyIndependentIndicator 
 
 }

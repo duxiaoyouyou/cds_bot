@@ -83,8 +83,7 @@ class CDSGenerator:
    
     def generate_cds_code_behavior(self) -> str:  
         behavior = Behavior(self.country_code)
-        prompt = self.generate_prompt_with_template('behavior.jinga2', behavior)
-            
+        prompt = self.generate_prompt_with_template('behavior.jinga2', behavior)      
         return self.get_response_message_content(prompt)    
 
 

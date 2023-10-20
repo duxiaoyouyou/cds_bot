@@ -2,7 +2,7 @@
 
 @AccessControl.authorizationCheck: #NOT_REQUIRED 
 
-@EndUserText.label: 'HCM SG - Related Persons' 
+@EndUserText.label: 'SG - School / Hospital' 
 
 @Metadata.ignorePropagatedAnnotations: true 
 
@@ -16,77 +16,11 @@
 
 } 
 
-define view entity I_SG_HCMFamilyMemberSupplement 
+define view entity I_SG_SchoolHospital 
 
     as select from p0412 
 
 { 
-
-    key TELPH as TelephoneNumber, 
-
-    key RACKY as EthnicOrigin, 
-
-    key QTSPL as SharedParentalLeaveDays, 
-
-    key BEZEI as BEZEI, 
-
-    key CLDTY as ChildType, 
-
-    key OBJPS as ObjectIdentification, 
-
-    key CITY as City, 
-
-    key PMRES as ResidencyType, 
-
-    key TAXNB as TaxID, 
-
-    key PSTLZ as PostalCode, 
-
-    key SCCLB as CCLStartYearOfBirth, 
-
-    key LOCT as StreetHouseNumber, 
-
-    key LAND as CountryRegionKey, 
-
-    key CLDTX as CLDTX, 
-
-    key EMRGN as EMRGN, 
-
-    key LANDX as CountryRegionShort, 
-
-    key DESGN as Designation, 
-
-    key STRAS as StreetHouseNumber, 
-
-    key SPEMS as SpouseEmploymentStatus, 
-
-    key STAT1 as RegionStateProvince, 
-
-    key PSTCD as PostalCode, 
-
-    key ORT01 as City, 
-
-    key SPUEM as SharedParentalLeave, 
-
-    key STRT as StreetHouseNumber, 
-
-    key NATTX as NATTX, 
-
-    key CONFN as ConfinementNumber, 
-
-    key SPAIM as SpouseIncomeOver4K, 
-
-    key FCCSL as CCSLValidityLastYear, 
-
-    key ENAME as EmployerName, 
-
-    key SYCCL as CCLEntitlementBirthYear, 
-
-    key CLCNO as ChildBirthCertNumber, 
-
-    key LOCAT as SecondAddressLine, 
-
-    key PERID as PersonnelIDNumber, 
 
     key SNAME as SchoolHospital 
 

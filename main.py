@@ -56,22 +56,19 @@ if country_code:
         src_tab_name = "pa0106"
     table_def = TableDefinition(f'{table_definition_dir}/{src_tab_name}.txt')
         
-    field_name_descriptions = table_def.get_descriptions(country_delta_fields)  
+    field_descriptions = table_def.get_descriptions(country_delta_fields)  
     
-    cdsGenerator = CDSGenerator(openai)  
-    cds_field_names = cdsGenerator.generate_cds_name(field_name_descriptions)  
+    cdsGenerator = CDSGenerator(country_code, src_tab_name, field_descriptions, openai)  
     
-     
-    cds_code = cdsGenerator.generate_cds_code(country_code, cds_field_names, src_tab_name)
+    cds_code_supplement = cdsGenerator.generate_cds_code_familyMemberSupplement()
     output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberSupplement'
-    
     codeIntegrator = CodeIntegrator(output_filepath)  
-    codeIntegrator.createFile(cds_code)  
+    codeIntegrator.createFile(cds_code_supplement)  
 
     # Add the comparison result to the chat history 
     st.session_state.messages.append({"role": "assistant", "content": f"country specific fields: \n {str(country_delta_fields)}"})  
     st.session_state.messages.append({"role": "assistant", "content": f"core delta fields:\n {str(core_delta_fields)}"})    
-    st.session_state.messages.append({"role": "assistant", "content": f"cds code generated:\n {cds_code}"})    
+    st.session_state.messages.append({"role": "assistant", "content": f"cds view supplement generated:\n {cds_code_supplement}"})    
     
     # Display the comparison result in a chat message container    
     with st.chat_message("assistant"):
@@ -81,6 +78,6 @@ if country_code:
         st.markdown(str(country_delta_fields))
         st.markdown("**core fields missing in configuration:**")
         st.markdown(str(core_delta_fields))
-        st.markdown("**cds code generated:**")
-        st.markdown(cds_code)
+        st.markdown(f"**cds view I_{country_code.upper()}_HCMFamilyMemberSupplement generated:**")
+        st.markdown(cds_code_supplement)
         

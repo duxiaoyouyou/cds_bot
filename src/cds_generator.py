@@ -36,12 +36,12 @@ class CDSGenerator:
   
         # Create a dictionary that pairs each field name with its corresponding description  
         cds_fields = ""
-        result = {}  
-        for field_name, field_desc_camel in zip(input.keys(), response_descriptions):  
+        #result = {}  
+        for field_name, field_desc_camel in zip(self.field_descriptions.keys(), response_descriptions):  
             # Remove the leading number and period from each description  
             field_desc_camel = field_desc_camel.split('. ', 1)[-1]  
-            result[field_name] = field_desc_camel  
-            cds_fields += f"{field_name}: {description}\n" 
+            #result[field_name] = field_desc_camel  
+            cds_fields += f"{field_name}: {field_desc_camel}\n" 
 
         return cds_fields
 

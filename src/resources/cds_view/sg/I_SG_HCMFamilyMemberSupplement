@@ -2,7 +2,7 @@
 
 @AccessControl.authorizationCheck: #NOT_REQUIRED 
 
-@EndUserText.label: 'SG - School / Hospital' 
+@EndUserText.label: 'HCM SG - Related Persons' 
 
 @Metadata.ignorePropagatedAnnotations: true 
 
@@ -16,12 +16,82 @@
 
 } 
 
-define view entity I_SG_SchoolHospital 
+define view entity I_SG_HCMFamilyMemberSupplement 
 
     as select from p0412 
 
 { 
 
-    key SNAME as SchoolHospital 
+    key pernr as HCMPersonnelNumber, 
+
+    key subty as HCMSubtype, 
+
+    emrgn as Emrgn, 
+
+    scclb as CclStartYearOfBirth, 
+
+    cldtx as Cldtx, 
+
+    cldty as ChildType, 
+
+    pstcd as PostalCode, 
+
+    bezei as Bezei, 
+
+    locat as SecondAddressLine, 
+
+    stras as StreetHouseNumber, 
+
+    racky as EthnicOrigin, 
+
+    ename as EmployerName, 
+
+    spuem as SharedParentalLeave, 
+
+    sname as SchoolHospital, 
+
+    telph as TelephoneNumber, 
+
+    pmres as ResidencyType, 
+
+    clcno as ChildBirthCertNumber, 
+
+    perid as PersonnelIdNumber, 
+
+    loct as StreetHouseNumber, 
+
+    ort01 as City, 
+
+    spems as SpouseEmploymentStatus, 
+
+    taxnb as TaxId, 
+
+    qtspl as NumSharedParentalLeave, 
+
+    confn as ConfinementNumber, 
+
+    landx as CountryRegionShort, 
+
+    spaim as IsSpouseIncomeOver4k, 
+
+    pstlz as PostalCode, 
+
+    syccl as CclEntitlementBirthYear, 
+
+    nattx as Nattx, 
+
+    objps as ObjectIdentification, 
+
+    city as City, 
+
+    fccsl as CcslValidityLastYear, 
+
+    desgn as Designation, 
+
+    strt as StreetHouseNumber, 
+
+    stat1 as RegionStateProvince, 
+
+    land as CountryRegionKey 
 
 }

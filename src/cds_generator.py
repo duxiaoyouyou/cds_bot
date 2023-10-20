@@ -1,9 +1,10 @@
 import openai
 from jinja2 import Environment, FileSystemLoader
-from .cds_view_detail import FamilyMemberRootTP, FamilyMemberSupplement, FamilyMemberTP, FieldDescription
+from .cds_view_detail import FamilyMemberRootTP, FamilyMemberSupplement, FamilyMemberTP, FieldDescription, Behavior
 
 class CDSGenerator:  
-    def __init__(self, llm: openai):  
+    def __init__(self, country_code, llm: openai):  
+        self.country_code = country_code
         self.llm = llm  
     
     
@@ -36,16 +37,15 @@ class CDSGenerator:
             # Remove the leading number and period from each description  
             field_desc_camel = field_desc_camel.split('. ', 1)[-1]  
             result[field_name] = field_desc_camel  
-  
         return result  
 
         
-    def generate_cds_code_familyMemberSupplement(self, country_code: str, field_desc_dict: dict, source_table_name: str) -> str:  
+    def generate_cds_code_familyMemberSupplement(self, field_desc_dict: dict, source_table_name: str) -> str:  
         field_name_desc_str = ""
         for (field_name, description) in enumerate(field_desc_dict.items(), 1):  
             field_name_desc_str += f"{field_name}: {description}\n"  
         
-        familyMemberSupplement = FamilyMemberSupplement(country_code, field_name_desc_str, source_table_name)
+        familyMemberSupplement = FamilyMemberSupplement(self.country_code, field_name_desc_str, source_table_name)
         prompt = self.generate_prompt_with_template('familyMemberSupplement.jinga2', familyMemberSupplement)
         
         example = f"""Here is an example of the code I want to generate with country code US and source table pa0106: \
@@ -70,9 +70,26 @@ class CDSGenerator:
                 Please generate ABAP CDS view fields for these field names and descriptions, following the example code.
                 Ensure do NOT provide anything else other than the code. \
                 """  
-       
         return self.get_response_message_content(prompt)
     
+    
+        def generate_cds_code_familyMemberTP(self, field_desc_dict: dict) -> str:  
+            field_name_desc_str = ""
+            for (field_name, description) in enumerate(field_desc_dict.items(), 1):  
+                field_name_desc_str += f"{field_name}: {description}\n"  
+            
+            familyMemberSupplement = FamilyMemberSupplement(country_code, field_name_desc_str, source_table_name)
+            prompt = self.generate_prompt_with_template('familyMemberSupplement.jinga2', familyMemberSupplement)
+            
+            example = f"""
+                    """
+            prompt += example            
+            prompt += f"""
+                    Please generate ABAP CDS view fields for these field names and descriptions, following the example code.
+                    Ensure do NOT provide anything else other than the code. \
+                    """  
+            return self.get_response_message_content(prompt)
+
 
     def get_response_message_content(self, prompt: str) -> str:
         # print("prompt sent to LLM:\n " + prompt)

@@ -22,6 +22,12 @@ class FamilyMemberTP:
 class FamilyMemberRootTP:
     country_code: str
     
+    
+@dataclass
+class Behavior:
+    country_code: str
+
+    
 
 
 

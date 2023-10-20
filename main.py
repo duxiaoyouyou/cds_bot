@@ -13,7 +13,7 @@ openai.api_version = "2023-07-01-preview"
 
 
   
-core_file = f'src/resources/HRESS_CC_PER_DTL_FAMILY_XX.xml'   
+core_file = f'src/resources/HRPAO_DTL_FORM_IT0021_000_ES.xml'   
   
 st.title("Welcome to CDS Bot ^O^")    
   
@@ -41,9 +41,10 @@ if country_code:
   
     st.session_state.messages.append({"role": "user", "content": country_code})  
   
-    xmlComparator = XMLComparator(core_file, f'src/resources/HRESS_CC_PER_DTL_FAMILY_{country_code.upper()}.xml' )    
+    xmlComparator = XMLComparator(core_file, f'src/resources/HRPAO_DTL_FORM_IT0021_{country_code.upper()}.xml' )    
     country_delta_fields = xmlComparator.get_country_delta_fields()
     core_delta_fields = xmlComparator.get_core_delta_fields()
+    common_fields = xmlComparator.get_common_fields()
       
     if country_code.upper() == 'SG': 
         src_tab_name = "p0412"
@@ -71,6 +72,8 @@ if country_code:
     
     # Display the comparison result in a chat message container    
     with st.chat_message("assistant"):
+        st.markdown("**common fields in core and country version:**")
+        st.markdown(str(common_fields))
         st.markdown("**country specific fields:**")
         st.markdown(str(country_delta_fields))
         st.markdown("**core fields missing in configuration:**")

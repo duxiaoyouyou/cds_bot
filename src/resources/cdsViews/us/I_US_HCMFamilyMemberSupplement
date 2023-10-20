@@ -1,0 +1,97 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE] 
+
+@AccessControl.authorizationCheck: #NOT_REQUIRED 
+
+@EndUserText.label: 'HCM US - Related Persons' 
+
+@Metadata.ignorePropagatedAnnotations: true 
+
+@ObjectModel.usageType:{ 
+
+    serviceQuality: #X, 
+
+    sizeCategory: #S, 
+
+    dataClass: #MIXED 
+
+} 
+
+define view entity I_US_HCMFamilyMemberSupplement 
+
+    as select from pa0106 
+
+{ 
+
+    key pernr as HCMPersonnelNumber, 
+
+    key subty as HCMSubtype, 
+
+    disab as Disability, 
+
+    gender as Gender, 
+
+    nontx as NonTaxablePersonIndicator, 
+
+    ftext as Ftext, 
+
+    objps2 as Objps2, 
+
+    pmadt as ProofOfMedicalAbsenceDate, 
+
+    perid as PersonnelIdNumber, 
+
+    medic as MedicareBenefitIndicator, 
+
+    pstlz as PostalCode, 
+
+    state as RegionStateProvinceCounty, 
+
+    docnm as BenefitPhysicianName, 
+
+    nattx as Nattx, 
+
+    doci2 as BenefitPhysicianId, 
+
+    docn2 as BenefitPhysicianName, 
+
+    erbnr as Erbnr, 
+
+    smoke as SmokerIndicator, 
+
+    locat as StreetHouseNumber, 
+
+    stras as StreetHouseNumber, 
+
+    areac as Areac, 
+
+    sepdt as LegalSeparationDate, 
+
+    ort01 as City, 
+
+    ben03 as StudentIndicator, 
+
+    landx as Landx, 
+
+    objps1 as Objps1, 
+
+    land1 as CountryRegionKey, 
+
+    disdt as DisabilityStatusDate, 
+
+    disle as EmployerKnowledgeDate, 
+
+    famst as MaritalStatusKey, 
+
+    bezei as Bezei, 
+
+    telnr as TelephoneNumber, 
+
+    milsv as MilitaryServiceIndicator, 
+
+    hicn as Hicn, 
+
+    docid as BenefitPhysicianId, 
+
+    finin as FinanciallyIndependentInd 
+
+}

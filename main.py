@@ -11,9 +11,6 @@ openai.api_base = "https://miles-playground.openai.azure.com" #os.getenv("API_BA
 openai.api_type = "azure"    
 openai.api_version = "2023-07-01-preview"  
 
-
-  
-core_file = f'src/resources/HRPAO_DTL_FORM_IT0021_000_ES.xml'   
   
 st.title("Welcome to CDS Bot ^O^")    
   
@@ -31,8 +28,11 @@ for message in st.session_state.messages:
   
 # Accept user input    
 country_code = st.chat_input("Enter your country code here:")  
-src_tab_name = "pa0106"
   
+config_dir = 'src/resources/config_fiori2.0'
+table_definition_dir = 'src/resources/table_definition'
+cds_view_dir = 'src/resources/cds_view'
+
 # Check if the user has entered a country code
 if country_code:  
     # Display user message in chat message container    
@@ -41,7 +41,9 @@ if country_code:
   
     st.session_state.messages.append({"role": "user", "content": country_code})  
   
-    xmlComparator = XMLComparator(core_file, f'src/resources/HRPAO_DTL_FORM_IT0021_{country_code.upper()}.xml' )    
+    
+    core_file = f'{config_dir}/HRPAO_DTL_FORM_IT0021_XX.xml'   
+    xmlComparator = XMLComparator(core_file, f'{config_dir}/HRPAO_DTL_FORM_IT0021_{country_code.upper()}.xml' )    
     country_delta_fields = xmlComparator.get_country_delta_fields()
     core_delta_fields = xmlComparator.get_core_delta_fields()
     common_fields = xmlComparator.get_common_fields()
@@ -52,7 +54,7 @@ if country_code:
         src_tab_name = "p0397"
     else:
         src_tab_name = "pa0106"
-    table_def = TableDefinition(f'src/resources/{src_tab_name}.txt')
+    table_def = TableDefinition(f'{table_definition_dir}/{src_tab_name}.txt')
         
     field_name_descriptions = table_def.get_descriptions(country_delta_fields)  
     
@@ -61,7 +63,8 @@ if country_code:
     
      
     cds_code = cdsGenerator.generate_cds_code(country_code, cds_field_names, src_tab_name)
-    output_filepath = os.path.join(os.getcwd(), f'src\\resources\\cdsViews\\{country_code.lower()}\\I_{country_code.upper()}_HCMFamilyMemberSupplement')  
+    output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberSupplement'
+    
     codeIntegrator = CodeIntegrator(output_filepath)  
     codeIntegrator.createFile(cds_code)  
 

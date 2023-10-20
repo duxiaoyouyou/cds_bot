@@ -1,0 +1,3 @@
+I have a list of descriptions and I want to convert them into camel case and shorten them to less than 30 characters. \
+Here are the descriptions: {{detail.field_description}}
+Please convert these descriptions into camel case and shorten them to less than 30 characters

@@ -1,14 +1,27 @@
 from dataclasses import dataclass
 
+@dataclass
+class FieldDescription:
+    field_description: str
+
 
 @dataclass
-class FamilyMemberTPDetail:
+class FamilyMemberSupplement:
     country_code: str
+    field_name_description: str
+    source_table_name: str
+   
+   
+@dataclass
+class FamilyMemberTP:
+    country_code: str
+    field_name_description: str  
     
     
 @dataclass
-class FamilyMemberRootTPDetail:
+class FamilyMemberRootTP:
     country_code: str
+    
 
 
 

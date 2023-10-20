@@ -1,6 +1,4 @@
 import os  
-from jinja2 import Environment, FileSystemLoader
-
 
 class CodeIntegrator:  
     def __init__(self, output_filepath): 
@@ -46,14 +44,6 @@ class CodeIntegrator:
             with open(self.output_filepath, 'w') as file:  
                 file.writelines(code)
                 
-
-
-    def handle_with_template(template_file_name: str, calculation_detail):
-        environment = Environment(loader=FileSystemLoader('resources/prompts'))
-        template = environment.get_template(template_file_name)
-        return template.render(detail=calculation_detail)
-
-
 
 
 

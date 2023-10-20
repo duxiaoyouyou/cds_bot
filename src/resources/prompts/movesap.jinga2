@@ -1,0 +1,18 @@
+Part One: Employees receiving vested MoveSAP stocks.
+1. In Germany, SAP distributes MoveSap stocks to employees, which vest over the next 3 years. The first vest occurs six months later, amounting to 2/12 of the total, followed by quarterly vests, each amounting to 1/12.
+In this case, the employee got {{detail.grant_share}} stocks at {{detail.grant_date}}.
+Thus the employee has vested {{detail.shares_vested}} stocks at {{detail.vest_date}} as the first round.
+The value of vested stocks = {{detail.shares_vested}} * €{{detail.share_price_vest}} = €{{detail.estimated_stock_cash_value_euro}}.
+2. According to the exchange rate at the time of vesting, {{detail.exchange_rate_for_vest}}, the actual value in RMB is {{detail.estimated_stock_cash_value_euro}} * {{detail.exchange_rate_for_vest}} = {{detail.estimated_stock_cash_value_rmb}}. Note that the actual tax on this stock in China is based on this amount.
+
+Part Two: Selling some stocks to pay tax
+3. As the maximum tax rate for Chinese employees is {{detail.tax_rate_upper}}%, the system will pre-sell some stocks to offset this {{detail.tax_rate_upper}}% tax, and the remaining part will be transferred to the personal account. Current case: The value of the stocks to be sold is: €{{detail.estimated_stock_cash_value_euro}} * {{detail.tax_rate_upper}}% = €{{detail.income_tax_upper}}.
+4. Considering that the value of the sold stocks might differ from the actual value, a buffer will be added to ensure that tax deductions do not face issues in most cases, so the actual stocks sold will be slightly higher than {{detail.tax_rate_upper}}%. Current case: Under the buffer reserve, it's determined that {{detail.shares_sold}} stocks need to be sold.
+5. The remaining stock quantity = {{detail.shares_vested}} - {{detail.shares_sold}} = {{detail.shares_delivered}}. These {{detail.shares_delivered}} stocks will go into the MoveSAP personal account as profit.
+6. The actual stock price on the day of sale is €{{detail.executed_price}}, and the net stock sales income = €{{detail.executed_price}} * {{detail.shares_sold}} = €{{detail.gross_proceeds_euro}}.
+7. Deducting a transaction fee of €{{detail.brokerage}}. €{{detail.gross_proceeds_euro}} - €{{detail.brokerage}} = €{{detail.net_proceeds_euro}}, this money will enter China as foreign exchange for subsequent tax deduction.
+
+Part Three: Money arrival in China
+8. After entering China, it's converted into RMB and then enters a review period, temporarily held by Citibank for 6 weeks. The exchange rate at the time of entry into China is {{detail.citi_spot_rate}}, so converted into RMB, {{detail.net_proceeds_euro}} * {{detail.citi_spot_rate}} = {{detail.net_sale_proceeds_cny}}. While Citibank holds the money, the actual tax that the employee needs to pay is calculated, usually less than {{detail.tax_rate_upper}}%.
+Current case: The employee's tax is ¥{{detail.actual_income_tax}},which is calculated by the estimated total value in part one, amount is ¥{{detail.estimated_stock_cash_value_rmb}}, SAP will cover this tax for the employee, which will be deducted when sold after the review period.
+9. At the end of the review period, the employee will receive a cash amount of {{detail.net_sale_proceeds_cny}} - {{detail.actual_income_tax}} = {{detail.cash_income}}. This cash will not be seen on the payslip, it will be directly credited to the card, with the display theme as 'Cash Ops Stock'.

@@ -39,7 +39,7 @@ perid as  HCMFamMbrPersonnelId,
 
 fasex as  HCMFamMbrFasex,
 
-spems as  HCMFamMbrSpouseEmplSts,
+spems as  HCMFamMbrSpouseEmplStatus,
 
 pstcd as  HCMFamMbrPostalCode,
 
@@ -67,7 +67,9 @@ racky as  HCMFamMbrEthnicOrigin,
 
 telph as  HCMFamMbrPhoneNumber,
 
-syccl as  HCMFamMbrCCLBirthYearEntitlement,
+none as  HCMFamMbrNone,
+
+syccl as  HCMFamMbrCCLEntitlementBirthYear,
 
 cldty as  HCMFamMbrChildType,
 
@@ -89,7 +91,7 @@ edit_mode as  HCMFamMbrEditMode,
 
 cldtx as  HCMFamMbrCldtx,
 
-land as  HCMFamMbrCountryKey,
+land as  HCMFamMbrCountryRegionKey,
 
 stat1 as  HCMFamMbrRegion,
 

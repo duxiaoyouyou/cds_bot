@@ -67,7 +67,7 @@ association [0..*] to I_CountryText as _CountryOfBirthText on  $projection.HCMFa
                                         additionalBinding: [{  element: 'HCMCountryRegionGrouping', localElement: 'HCMCountryRegionGrouping' }]  }] 
       I_HCM_ESSFamilyMember.HCMFamilyMemberGenderCode, // FASEX; 
       _AdditionalData.HCMFamMbrSharedParentalLeaveDays, // qtspl;
-_AdditionalData.HCMFamMbrSpouseEmplSts, // spems;
+_AdditionalData.HCMFamMbrSpouseEmplStatus, // spems;
 _AdditionalData.HCMFamMbrStreetHouseNum, // stras;
 _AdditionalData.HCMFamMbrCity, // city;
 _AdditionalData.HCMFamMbrDesignation, // desgn;
@@ -87,7 +87,7 @@ _AdditionalData.HCMFamMbrChildBirthCertNum, // clcno;
 _AdditionalData.HCMFamMbrEmrgn, // emrgn;
 _AdditionalData.HCMFamMbrEmployerName, // ename;
 _AdditionalData.HCMFamMbrPhoneNumber, // telph;
-_AdditionalData.HCMFamMbrCountryKey, // land;
+_AdditionalData.HCMFamMbrCountryRegionKey, // land;
 _AdditionalData.HCMFamMbrSharedParentalLeave, // spuem;
 _AdditionalData.HCMFamMbr2ndAddressLine, // locat;
 _AdditionalData.HCMFamMbrCountryName, // landx;
@@ -96,7 +96,7 @@ _AdditionalData.HCMFamMbrChildType, // cldty;
 _AdditionalData.HCMFamMbrCity, // ort01;
 _AdditionalData.HCMFamMbrResidencyType, // pmres;
 _AdditionalData.HCMFamMbrConfinementNum, // confn;
-_AdditionalData.HCMFamMbrCCLBirthYearEntitlement, // syccl;
+_AdditionalData.HCMFamMbrCCLEntitlementBirthYear, // syccl;
 _AdditionalData.HCMFamMbrCldtx, // cldtx;
 _AdditionalData.HCMFamMbrSchoolHospital. // sname;
 _AdditionalData.HCMFamMbrSpouseIncMore4k, // spaim;,

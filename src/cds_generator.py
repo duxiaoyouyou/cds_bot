@@ -43,7 +43,6 @@ class CDSGenerator:
     
     
     def transform_text(self, text):  
-        print("text: " + str(text))
         lines = text.split('\n')  
         new_lines = []  
         for line in lines:  
@@ -51,8 +50,7 @@ class CDSGenerator:
                 parts = line.split(':')  
                 new_line = '\t\t\t_AdditionalData.' + parts[1].strip() + ', // ' + parts[0].strip() + ';'  
                 new_lines.append(new_line)  
-        result = '\n'.join(new_lines)  
-        print("result: " + result) 
+        result = '\n'.join(new_lines)
         return result
 
    

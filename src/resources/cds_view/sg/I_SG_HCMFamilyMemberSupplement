@@ -13,7 +13,7 @@ define view entity I_SG_HCMFamilyMemberSupplement
 {
     key pernr as HCMPersonnelNumber,
     key subty as HCMSubtype,
-    spaim as  HCMFamMbrSpouseIncMore4k,
+        spaim as  HCMFamMbrSpouseInc4k,
 
 joined_objects as  HCMFamMbrJoinedObjects,
 
@@ -39,7 +39,7 @@ perid as  HCMFamMbrPersonnelId,
 
 fasex as  HCMFamMbrFasex,
 
-spems as  HCMFamMbrSpouseEmplStatus,
+spems as  HCMFamMbrSpouseEmplSts,
 
 pstcd as  HCMFamMbrPostalCode,
 
@@ -57,11 +57,11 @@ component_name as  HCMFamMbrComponentName,
 
 confn as  HCMFamMbrConfinementNum,
 
-qtspl as  HCMFamMbrSharedParentalLeaveDays,
+qtspl as  HCMFamMbrSharedParentalLeave,
 
 fgbna as  HCMFamMbrFgbna,
 
-scclb as  HCMFamMbrCCLStartBirthYear,
+scclb as  HCMFamMbrCCLBirthYear,
 
 racky as  HCMFamMbrEthnicOrigin,
 
@@ -69,7 +69,7 @@ telph as  HCMFamMbrPhoneNumber,
 
 none as  HCMFamMbrNone,
 
-syccl as  HCMFamMbrCCLEntitlementBirthYear,
+syccl as  HCMFamMbrCCLBirthYearEnt,
 
 cldty as  HCMFamMbrChildType,
 

@@ -11,8 +11,72 @@ define view entity I_{{detail.country_code}}_HCMFamilyMemberSupplement
 define view entity I_{{detail.country_code}}_HCMFamilyMemberSupplement
     as select from {{detail.source_table_name}}
 {
+    //HR Master Record Key and Control fields
+
     key pernr as HCMPersonnelNumber,
+  
     key subty as HCMSubtype,
-    {{detail.cds_fields}}
+  
+    key objps as HCMObjectIdentification,
+  
+        @Semantics.booleanIndicator: true
+  
+    key sprps as HCMRecordIsLocked,
+  
+        @Semantics.businessDate.to: true
+  
+    key endda as EndDate,
+  
+        @Semantics.businessDate.from: true
+  
+    key begda as StartDate,
+  
+    key seqnr as HCMSequentialNumber,
+  
+        @Semantics.systemDateTime.lastChangedAt: true
+  
+        aedtm as LastChangedDate,
+  
+        @Semantics.user.lastChangedBy: true
+  
+        uname as LastChangedByUser,
+  
+        @Semantics.booleanIndicator:true
+  
+        histo as HCMInfoTypeRecordIsHistorical,
+  
+        @Semantics.booleanIndicator:true
+  
+        itxex as HCMInfoTypeRecordHasText,
+  
+        @Semantics.booleanIndicator:true
+  
+        refex as HCMInfoTypeRecordHasRefField,
+  
+        @Semantics.booleanIndicator:true
+  
+        ordex as HCMInfoTypeRecordHasConfField,
+  
+        itbld as HCMInfoTypeRecordScreenCtrl,
+  
+        preas as HCMMasterDataChangeReason,
+  
+        flag1 as HCMInfoTypeRecordRsrvdFld1,
+  
+        flag2 as HCMInfoTypeRecordRsrvdFld2,
+  
+        flag3 as HCMInfoTypeRecordRsrvdFld3,
+  
+        flag4 as HCMInfoTypeRecordRsrvdFld4,
+  
+        rese1 as HCMInfoTypeRecordRsrvdFld1Len1,
+  
+        rese2 as HCMInfoTypeRecordRsrvdFld1Len2,
+  
+        grpvl as HCMGrpgValForPersAssignments,
+  
+        //HR Master Record: Infotype 0106 (Related Persons NA)
+        
+        {{detail.cds_fields}}
     
 }

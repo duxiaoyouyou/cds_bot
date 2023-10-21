@@ -1,65 +1,171 @@
 @AbapCatalog.viewEnhancementCategory: [#NONE]
+
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+
 @EndUserText.label: 'HCM US - Related Persons'
+
 @Metadata.ignorePropagatedAnnotations: true
+
 @ObjectModel.usageType:{
-    serviceQuality: #X,
-    sizeCategory: #S,
-    dataClass: #MIXED
+
+  serviceQuality: #X,
+
+  sizeCategory: #S,
+
+  dataClass: #MIXED
+
 }
+
 define view entity I_US_HCMFamilyMemberSupplement
-    as select from pa0106
+
+  as select from pa0106
+
 {
-    key pernr as HCMPersonnelNumber,
-    key subty as HCMSubtype,
-    TELNR as TelephoneNumber,
-    JOINED_OBJECTS as JoinedObjects,
-    LANDX as Landx,
-    BEZEI as Bezei,
-    SMOKE as BenefitSmokerInd,
-    OBJECT_NAME as ObjectName,
-    FINIT as Finit,
-    FININ as FinanciallyIndepInd,
-    FANAM as Fanam,
-    PERID as PersonnelIdNumber,
-    LAND1 as CountryRegionKey,
-    FNMZU as Fnmzu,
-    ORT01 as City,
-    FGBLD as Fgbld,
-    PMADT as ProofOfMedAbsenceDate,
-    DOCI2 as BenefitPhysicianId,
-    MEDIC as MedicareBenefitInd,
-    FAMST as MaritalStatusKey,
-    SEPDT as LegalSeparationDate,
-    FANAT as Fanat,
-    OBJPS2 as Objps2,
-    OBJPS1 as Objps1,
-    GENDER as Gender,
-    NATTX as Nattx,
-    COMPONENT_NAME as ComponentName,
-    ERBNR as Erbnr,
-    HICN as Hicn,
-    DOCN2 as BenefitPhysicianName,
-    AREAC as Areac,
-    FGBNA as Fgbna,
-    DISDT as DisabilityStatusDate,
-    DISLE as EmployerDisabilityDate,
-    FTEXT as Ftext,
-    None as None,
-    LOCAT as StreetHouseNumber,
-    FGBDT as Fgbdt,
-    DOCNM as BenefitPhysicianName,
-    MILSV as MilitaryServiceInd,
-    FGBOT as Fgbot,
-    DOCID as BenefitPhysicianId,
-    STRAS as StreetHouseNumber,
-    EDIT_MODE as EditMode,
-    FANA3 as Fana3,
-    DISAB as Disability,
-    STATE as RegionStateProvince,
-    NONTX as NonTaxablePersonInd,
-    FANA2 as Fana2,
-    BEN03 as StudentIndicator,
-    PSTLZ as PostalCode,
-    FAVOR as Favor
+
+      //HR Master Record Key and Control fields
+
+  key pernr as HCMPersonnelNumber,
+
+  key subty as HCMSubtype,
+
+  key objps as HCMObjectIdentification,
+
+      @Semantics.booleanIndicator: true
+
+  key sprps as HCMRecordIsLocked,
+
+      @Semantics.businessDate.to: true
+
+  key endda as EndDate,
+
+      @Semantics.businessDate.from: true
+
+  key begda as StartDate,
+
+  key seqnr as HCMSequentialNumber,
+
+      @Semantics.systemDateTime.lastChangedAt: true
+
+      aedtm as LastChangedDate,
+
+      @Semantics.user.lastChangedBy: true
+
+      uname as LastChangedByUser,
+
+      @Semantics.booleanIndicator:true
+
+      histo as HCMInfoTypeRecordIsHistorical,
+
+      @Semantics.booleanIndicator:true
+
+      itxex as HCMInfoTypeRecordHasText,
+
+      @Semantics.booleanIndicator:true
+
+      refex as HCMInfoTypeRecordHasRefField,
+
+      @Semantics.booleanIndicator:true
+
+      ordex as HCMInfoTypeRecordHasConfField,
+
+      itbld as HCMInfoTypeRecordScreenCtrl,
+
+      preas as HCMMasterDataChangeReason,
+
+      flag1 as HCMInfoTypeRecordRsrvdFld1,
+
+      flag2 as HCMInfoTypeRecordRsrvdFld2,
+
+      flag3 as HCMInfoTypeRecordRsrvdFld3,
+
+      flag4 as HCMInfoTypeRecordRsrvdFld4,
+
+      rese1 as HCMInfoTypeRecordRsrvdFld1Len1,
+
+      rese2 as HCMInfoTypeRecordRsrvdFld1Len2,
+
+      grpvl as HCMGrpgValForPersAssignments,
+
+      
+
+      //HR Master Record: Infotype 0106 (Related Persons NA)
+
+      // permo as Permo,
+
+      perid as HCMFamMbrNationalId,
+
+      //  ben01 as Ben01,
+
+      //  ben02 as Ben02,
+
+      ben03 as HCMFamMbrIsStudent,
+
+      //  ben04 as Ben04,
+
+      ben05 as HCMFamMbrIsSmoker,
+
+      stras as HCMFamMbrStreet,
+
+      locat as HCMFamMbrHouseNumber,
+
+      ort01 as HCMFamMbrCity,
+
+      state as HCMFamMbrRegionCode,
+
+      pstlz as HCMFamMbrPostalCode,
+
+      land1 as HCMFamMbrCountryCode,
+
+      telnr as HCMFamMbrPhoneNumber,
+
+      sepdt as HCMFamMbrLglSeparationDate,
+
+      docnm as HCMFamMbrBnftPhysicianName,
+
+      docid as HCMFamMbrBnftPhysicianId,
+
+      docn2 as HCMFamMbr2ndBnftPhysnName,
+
+      doci2 as HCMFamMbr2ndBnftPhysnId,
+
+      disab as HCMFamMbrHasDisability,
+
+      disdt as HCMFamMbrDsbltyDetnDate,
+
+      disle as HCMFamMbrEmployerDsbltyDte,
+
+      //  depin as Depin,
+
+      medic as HCMFamMbrHasBnftMedicare,
+
+      smoke as HCMFamMbrHasBnftSmoker,
+
+      famst as HCMFamMbrMaritalStatusCode,
+
+      provi as HCMFamMbrBnftPrvdrIdnNmbr,
+
+      polnr as HCMFamMbrBnftPolicyNumber,
+
+      taxnb as HCMFamMbrTaxId,
+
+      pmres as HCMFamMbrResidencyTypeCode,
+
+      racky as HCMFamMbrEthnicOriginCode,
+
+      spems as HCMFamMbrSpouseEmplStsCode,
+
+      milsv as HCMFamMbrHasBnftMilitary,
+
+      finin as HCMFamMbrHasBnftFinIndep,
+
+      nontx as HCMFamMbrHasBnftNonTaxable,
+
+      pmadt as HCMFamMbrMedlAbsncProofDte,
+
+      legid as HCMFamMbrHasProofLegalDep,
+
+      legdt as HCMFamMbrProofLegalDepDate,
+
+      idcod as HCMFamMbrBenefitId
+
 }

@@ -33,7 +33,7 @@ if "cdsGenerator" not in st.session_state:
     
 
 with st.chat_message("assistant"):    
-    st.markdown('Hello! I will help you to generate the CDS views of your country version.')      
+    st.markdown('Hello! I will help you to generate the CDS views of your country version. Please enter your country code.')      
   
 # Display chat messages from history on app rerun    
 for message in st.session_state.messages:    

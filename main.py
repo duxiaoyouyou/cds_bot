@@ -69,30 +69,41 @@ if user_input := st.chat_input("Enter your request here:"):
         
         country_fields = xmlComparator.get_country_fields()
         st.session_state.country_fields = country_fields
-      
+        
+        if country_code.upper() == 'SG': 
+            st.session_state.src_tab_name = "p0412"
+        elif country_code.upper() == 'BR':
+            st.session_state.src_tab_name = "p0397"
+        else:
+            st.session_state.src_tab_name = "pa0106"
+        
+        table_def = TableDefinition(f'{table_definition_dir}/{st.session_state.src_tab_name}.txt')
+        st.session_state.field_descriptions = table_def.get_descriptions(country_fields) 
+           
+        lower_case_desc_dict = {k.lower(): v for k, v in st.session_state.field_descriptions.items() if k is not None}  
+        exception_fields =  [key for key in country_fields if key is not None and key.lower() not in lower_case_desc_dict]  
+
         content = f"""
             **common fields in both core and country version:**\n
             {common_fields}\n
             **country specific fields:**\n
             {country_delta_fields}\n
-            **core fields missing in configuration:**\n
-            {core_delta_fields}
-            """ 
+            **core fields missing in country configuration:**\n
+            {core_delta_fields}\n
+            **fields in country configuration but missing in source table:**\n
+            {exception_fields}
+            """
+         
         with st.chat_message("assistant"):
             st.markdown(content)
         st.session_state.messages.append({"role": "assistant", "content": content})    
  
     else:
         country_code = st.session_state.country_code
+        src_tab_name = st.session_state.src_tab_name
+        field_descriptions = st.session_state.field_descriptions
+        
         if st.session_state.cdsGenerator == None:     
-            if country_code.upper() == 'SG': 
-                src_tab_name = "p0412"
-            elif country_code.upper() == 'BR':
-                src_tab_name = "p0397"
-            else:
-                src_tab_name = "pa0106"
-            table_def = TableDefinition(f'{table_definition_dir}/{src_tab_name}.txt')
-            field_descriptions = table_def.get_descriptions(st.session_state.country_fields)  
             st.session_state.cdsGenerator = CDSGenerator(country_code, src_tab_name, field_descriptions, openai)  
         cdsGenerator = st.session_state.cdsGenerator
             

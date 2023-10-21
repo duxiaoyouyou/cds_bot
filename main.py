@@ -48,7 +48,7 @@ def generate_cds_view(cds_view_code: str, output_filepath: str):
     codeIntegrator = CodeIntegrator(output_filepath)  
     codeIntegrator.createFile(cds_view_code)          
             
-    content = f""""
+    content = f"""
             **cds view generated:**\n{cds_view_code}
             """
     with st.chat_message("assistant"):
@@ -57,7 +57,7 @@ def generate_cds_view(cds_view_code: str, output_filepath: str):
         
         
 # Accept user input      
-if user_input := st.chat_input("Enter your country code here:"):
+if user_input := st.chat_input("Enter your request here:"):
     # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(user_input)
@@ -101,12 +101,13 @@ if user_input := st.chat_input("Enter your country code here:"):
         
             
     else:
-        
             
         if("confirm" in user_input or "CONFIRM" in user_input or "check" in user_input or "CHECK" in user_input):
             country_code = st.session_state.country_code
             cdsGenerator = st.session_state.cdsGenerator
-            
+            cds_view_code = cdsGenerator.generate_cds_code_familyMemberSupplement()
+            output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberSupplement'
+            generate_cds_view(cds_view_code, output_filepath)
              
             # codeIntegrator = CodeIntegrator(output_filepath)  
             # codeIntegrator.createFile(cds_view)  

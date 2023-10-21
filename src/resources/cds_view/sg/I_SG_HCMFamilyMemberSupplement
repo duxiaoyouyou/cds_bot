@@ -22,94 +22,158 @@ define view entity I_SG_HCMFamilyMemberSupplement
 
 { 
 
-    key SPAIM as IsSpousesAnnualIncome, 
+    key pernr as HCMPersonnelNumber, 
 
-    key JOINED_OBJECTS as JoinedObjects, 
+    key subty as HCMSubtype, 
 
-    key LANDX as CountryRegionShort, 
+    key objps as HCMObjectIdentification, 
 
-    key BEZEI as Bezei, 
+    @Semantics.booleanIndicator: true 
 
-    key OBJPS as ObjectIdentification, 
+    key sprps as HCMRecordIsLocked, 
 
-    key PMRES as ResidencyType, 
+    @Semantics.businessDate.to: true 
 
-    key EMRGN as Emrgn, 
+    key endda as EndDate, 
 
-    key OBJECT_NAME as ObjectName, 
+    @Semantics.businessDate.from: true 
 
-    key CITY as City, 
+    key begda as StartDate, 
 
-    key FCCSL as CcslValidityLastYear, 
+    key seqnr as HCMSequentialNumber, 
 
-    key FANAM as Fanam, 
+    @Semantics.systemDateTime.lastChangedAt: true 
 
-    key PERID as PersonnelIdNumber, 
+    aedtm as LastChangedDate, 
 
-    key FASEX as Fasex, 
+    @Semantics.user.lastChangedBy: true 
 
-    key SPEMS as SpouseEmploymentStatus, 
+    uname as LastChangedByUser, 
 
-    key PSTCD as PostalCode, 
+    @Semantics.booleanIndicator:true 
 
-    key ORT01 as City, 
+    histo as HCMInfoTypeRecordIsHistorical, 
 
-    key LOCT as StreetHouseNumber, 
+    @Semantics.booleanIndicator:true 
 
-    key FANAT as Fanat, 
+    itxex as HCMInfoTypeRecordHasText, 
 
-    key DESGN as Designation, 
+    @Semantics.booleanIndicator:true 
 
-    key NATTX as Nattx, 
+    refex as HCMInfoTypeRecordHasRefField, 
 
-    key COMPONENT_NAME as ComponentName, 
+    @Semantics.booleanIndicator:true 
 
-    key CONFN as ConfinementNumber, 
+    ordex as HCMInfoTypeRecordHasConfField, 
 
-    key QTSPL as SharedParentalLeaveDays, 
+    itbld as HCMInfoTypeRecordScreenCtrl, 
 
-    key FGBNA as Fgbna, 
+    preas as HCMMasterDataChangeReason, 
 
-    key SCCLB as CclStartYearBirth, 
+    flag1 as HCMInfoTypeRecordRsrvdFld1, 
 
-    key RACKY as EthnicOrigin, 
+    flag2 as HCMInfoTypeRecordRsrvdFld2, 
 
-    key TELPH as TelephoneNumber, 
+    flag3 as HCMInfoTypeRecordRsrvdFld3, 
 
-    key SYCCL as CclEntitlementBirthYear, 
+    flag4 as HCMInfoTypeRecordRsrvdFld4, 
 
-    key CLDTY as ChildType, 
+    rese1 as HCMInfoTypeRecordRsrvdFld1Len1, 
 
-    key LOCAT as SecondAddressLine, 
+    rese2 as HCMInfoTypeRecordRsrvdFld1Len2, 
 
-    key FGBDT as Fgbdt, 
+    grpvl as HCMGrpgValForPersAssignments, 
 
-    key FGBOT as Fgbot, 
+    //HR Master Record: Infotype 0412 (Related Persons SG)
 
-    key SPUEM as SharedParentalLeave, 
+    spaim as HCMFamMbrIsSpousesAnnualIncome,
 
-    key STRT as StreetHouseNumber, 
+    joined_objects as HCMFamMbrJoinedObjects,
 
-    key STRAS as StreetHouseNumber, 
+    landx as HCMFamMbrCountryRegionNameShort,
 
-    key TAXNB as TaxId, 
+    bezei as HCMFamMbrBezei,
 
-    key EDIT_MODE as EditMode, 
+    objps as HCMFamMbrObjectIdentification,
 
-    key CLDTX as Cldtx, 
+    pmres as HCMFamMbrResidencyType,
 
-    key LAND as CountryRegionKey, 
+    emrgn as HCMFamMbrEmrgn,
 
-    key STAT1 as RegionStateProvince, 
+    object_name as HCMFamMbrObjectName,
 
-    key ENAME as EmployerName, 
+    city as HCMFamMbrCity,
 
-    key CLCNO as ChildBirthCertNumber, 
+    fccsl as HCMFamMbrCcslValidityLastYear,
 
-    key PSTLZ as PostalCode, 
+    fanam as HCMFamMbrFanam,
 
-    key FAVOR as Favor, 
+    perid as HCMFamMbrPersonnelIdNumber,
 
-    key SNAME as SchoolHospital 
+    fasex as HCMFamMbrFasex,
+
+    spems as HCMFamMbrSpouseEmploymentStatus,
+
+    pstcd as HCMFamMbrPostalCode,
+
+    ort01 as HCMFamMbrCity,
+
+    loct as HCMFamMbrStreetHouseNumber,
+
+    fanat as HCMFamMbrFanat,
+
+    desgn as HCMFamMbrDesignation,
+
+    nattx as HCMFamMbrNattx,
+
+    component_name as HCMFamMbrComponentName,
+
+    confn as HCMFamMbrConfinementNumber,
+
+    qtspl as HCMFamMbrSharedParentalLeaveDays,
+
+    fgbna as HCMFamMbrFgbna,
+
+    scclb as HCMFamMbrCclStartYearOfBirth,
+
+    racky as HCMFamMbrEthnicOrigin,
+
+    telph as HCMFamMbrTelephoneNumber,
+
+    syccl as HCMFamMbrCclEntitlementBirthYear,
+
+    cldty as HCMFamMbrChildType,
+
+    locat as HCMFamMbrSecondAddressLine,
+
+    fgbdt as HCMFamMbrFgbdt,
+
+    fgbot as HCMFamMbrFgbot,
+
+    spuem as HCMFamMbrSharedParentalLeave,
+
+    strt as HCMFamMbrStreetHouseNumber,
+
+    stras as HCMFamMbrStreetHouseNumber,
+
+    taxnb as HCMFamMbrTaxId,
+
+    edit_mode as HCMFamMbrEditMode,
+
+    cldtx as HCMFamMbrCldtx,
+
+    land as HCMFamMbrCountryRegionKey,
+
+    stat1 as HCMFamMbrRegionStateProvince,
+
+    ename as HCMFamMbrEmployerName,
+
+    clcno as HCMFamMbrChildBirthCertNumber,
+
+    pstlz as HCMFamMbrPostalCode,
+
+    favor as HCMFamMbrFavor,
+
+    sname as HCMFamMbrSchoolHospital
 
 }

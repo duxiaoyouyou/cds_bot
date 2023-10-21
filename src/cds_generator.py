@@ -19,14 +19,7 @@ class CDSGenerator:
         field_description_str = ""
         for i, description in enumerate(self.field_descriptions.values(), 1):  
            field_description_str += f"{i}. {description}\n"  
-       
-        # prompt = f"""
-        #         I have a list of descriptions and I want to convert them into camel case and shorten them to less than 30 characters. \
-        #         Here are the descriptions:\
-        #         """  
-        # prompt += field_description_str
-        # prompt += f"""Please convert these descriptions into camel case and shorten them to less than 30 characters."""
-        
+         
         fieldDescription = FieldDescription(field_description_str)
         prompt = self.generate_prompt_with_template('naming.jinga2', fieldDescription)
           
@@ -40,7 +33,6 @@ class CDSGenerator:
   
         # Create a dictionary that pairs each field name with its corresponding description  
         cds_fields = ""
-        #result = {}  
         for field_name, field_desc_camel in zip(self.field_descriptions.keys(), response_descriptions):  
             # Remove the leading number and period from each description  
             field_desc_camel = field_desc_camel.split('. ', 1)[-1]  
@@ -80,7 +72,7 @@ class CDSGenerator:
     
     
     def generate_cds_code_familyMemberTP(self) -> str:         
-        familyMemberTP = FamilyMemberTP(self.country_code, self.cds_fields)
+        familyMemberTP = FamilyMemberTP(self.country_code.upper(), self.cds_fields)
         prompt = self.generate_prompt_with_template('familyMemberTP.jinga2', familyMemberTP) 
         return self.get_response_message_content(prompt)    
 

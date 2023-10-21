@@ -1,5 +1,422 @@
-For country code {{detail.country_code}}, 
-I have a list of field names and their corresponding descriptions, which is delimited by triple quotes. 
-\\\ {{detail.field_name_description}} \\\          
-I also have a source table called {{detail.source_table_name}} 
-I want to generate ABAP CDS view fields for each of them. 
+
+As an AI assistant, you are tasked with generating Fiori3 CDS-view entities. 
+You will be provided with a country code: {{detail.country_code}} and a source table: {{detail.source_table_name}}
+You will also be provided with a list of field names and their corresponding descriptions, which is delimited by triple quotes. 
+\\\ {{detail.field_name_description}} \\\
+    
+Your task is to generate the cds view entity.
+
+For instance, if the input is:
+
+US 
+
+pa0106
+
+PERMO	Modifier for Personnel Identifier	
+
+PERID	Personnel ID Number	
+
+BEN01	Not Used	Has
+
+BEN02	Not Used	Has
+
+BEN03	Student Indicator	Has
+
+BEN04	COBRA Indicator	Has
+
+BEN05	Smoker Indicator	Has
+
+STRAS	Street and House Number	
+
+LOCAT	Street and House Number	
+
+ORT01	City	
+
+STATE	Region (State, Province, County)	
+
+PSTLZ	Postal Code	
+
+LAND1	Country/Region Key	
+
+TELNR	Telephone Number	
+
+SEPDT	Legal Separation Date	
+
+DOCNM	Benefit Physician Name	
+
+DOCID	Benefit Physician ID	
+
+DOCN2	Benefit Physician Name	
+
+DOCI2	Benefit Physician ID	
+
+DISAB	Disability	Has
+
+DISDT	Date of Determination of Disability Status	
+
+DISLE	Date Employer Learned of Disability Status	
+
+DEPIN	Benefit dependent indicator	Has
+
+MEDIC	Benefit Indicator for Medicare	Has
+
+SMOKE	Benefit smoker indicator	Has
+
+FAMST	Marital Status Key	Has
+
+PROVI	Benefit identification number for the provider	
+
+POLNR	Benefit policy number	
+
+TAXNB	Tax ID	
+
+PMRES	Residency type	
+
+RACKY	Ethnic origin	
+
+SPEMS	Spouse employment status	Has
+
+MILSV	Benefits Indicator: Person is on Military Service	Has
+
+FININ	Benefits Indicator: Person is Financially Independent	Has
+
+NONTX	Benefits Indicator: Person is Non-Taxable	Has
+
+PMADT	Date of providing Proof of Medical Absence	
+
+LEGID	Proof Submission Indicator for Legal Dependents	Has
+
+LEGDT	Proof Submission Date for Legal Dependents	
+
+IDCOD	Person Identification Number	
+
+ 
+
+ 
+
+Your output will be:
+
+ 
+
+define view entity I_US_HCMFamilyMemberSupplement
+
+ 
+
+  as select from pa0106
+
+ 
+
+{
+
+ 
+
+      //HR Master Record Key and Control fields
+
+ 
+
+  key pernr as HCMPersonnelNumber,
+
+ 
+
+  key subty as HCMSubtype,
+
+ 
+
+  key objps as HCMObjectIdentification,
+
+ 
+
+      @Semantics.booleanIndicator: true
+
+ 
+
+  key sprps as HCMRecordIsLocked,
+
+ 
+
+      @Semantics.businessDate.to: true
+
+ 
+
+  key endda as EndDate,
+
+ 
+
+      @Semantics.businessDate.from: true
+
+ 
+
+  key begda as StartDate,
+
+ 
+
+  key seqnr as HCMSequentialNumber,
+
+ 
+
+      @Semantics.systemDateTime.lastChangedAt: true
+
+ 
+
+      aedtm as LastChangedDate,
+
+ 
+
+      @Semantics.user.lastChangedBy: true
+
+ 
+
+      uname as LastChangedByUser,
+
+ 
+
+      @Semantics.booleanIndicator:true
+
+ 
+
+      histo as HCMInfoTypeRecordIsHistorical,
+
+ 
+
+      @Semantics.booleanIndicator:true
+
+ 
+
+      itxex as HCMInfoTypeRecordHasText,
+
+ 
+
+      @Semantics.booleanIndicator:true
+
+ 
+
+      refex as HCMInfoTypeRecordHasRefField,
+
+ 
+
+      @Semantics.booleanIndicator:true
+
+ 
+
+      ordex as HCMInfoTypeRecordHasConfField,
+
+ 
+
+      itbld as HCMInfoTypeRecordScreenCtrl,
+
+ 
+
+      preas as HCMMasterDataChangeReason,
+
+ 
+
+      flag1 as HCMInfoTypeRecordRsrvdFld1,
+
+ 
+
+      flag2 as HCMInfoTypeRecordRsrvdFld2,
+
+ 
+
+      flag3 as HCMInfoTypeRecordRsrvdFld3,
+
+ 
+
+      flag4 as HCMInfoTypeRecordRsrvdFld4,
+
+ 
+
+      rese1 as HCMInfoTypeRecordRsrvdFld1Len1,
+
+ 
+
+      rese2 as HCMInfoTypeRecordRsrvdFld1Len2,
+
+ 
+
+      grpvl as HCMGrpgValForPersAssignments,
+
+ 
+
+      
+
+ 
+
+      //HR Master Record: Infotype 0106 (Related Persons NA)
+
+ 
+
+      // permo as Permo,
+
+ 
+
+      perid as HCMFamMbrNationalId,
+
+ 
+
+      //  ben01 as Ben01,
+
+ 
+
+      //  ben02 as Ben02,
+
+ 
+
+      ben03 as HCMFamMbrIsStudent,
+
+ 
+
+      //  ben04 as Ben04,
+
+ 
+
+      ben05 as HCMFamMbrIsSmoker,
+
+ 
+
+      stras as HCMFamMbrStreet,
+
+ 
+
+      locat as HCMFamMbrHouseNumber,
+
+ 
+
+      ort01 as HCMFamMbrCity,
+
+ 
+
+      state as HCMFamMbrRegionCode,
+
+ 
+
+      pstlz as HCMFamMbrPostalCode,
+
+ 
+
+      land1 as HCMFamMbrCountryCode,
+
+ 
+
+      telnr as HCMFamMbrPhoneNumber,
+
+ 
+
+      sepdt as HCMFamMbrLglSeparationDate,
+
+ 
+
+      docnm as HCMFamMbrBnftPhysicianName,
+
+ 
+
+      docid as HCMFamMbrBnftPhysicianId,
+
+ 
+
+      docn2 as HCMFamMbr2ndBnftPhysnName,
+
+ 
+
+      doci2 as HCMFamMbr2ndBnftPhysnId,
+
+ 
+
+      disab as HCMFamMbrHasDisability,
+
+ 
+
+      disdt as HCMFamMbrDsbltyDetnDate,
+
+ 
+
+      disle as HCMFamMbrEmployerDsbltyDte,
+
+ 
+
+      //  depin as Depin,
+
+ 
+
+      medic as HCMFamMbrHasBnftMedicare,
+
+ 
+
+      smoke as HCMFamMbrHasBnftSmoker,
+
+ 
+
+      famst as HCMFamMbrMaritalStatusCode,
+
+ 
+
+      provi as HCMFamMbrBnftPrvdrIdnNmbr,
+
+ 
+
+      polnr as HCMFamMbrBnftPolicyNumber,
+
+ 
+
+      taxnb as HCMFamMbrTaxId,
+
+ 
+
+      pmres as HCMFamMbrResidencyTypeCode,
+
+ 
+
+      racky as HCMFamMbrEthnicOriginCode,
+
+ 
+
+      spems as HCMFamMbrSpouseEmplStsCode,
+
+ 
+
+      milsv as HCMFamMbrHasBnftMilitary,
+
+ 
+
+      finin as HCMFamMbrHasBnftFinIndep,
+
+ 
+
+      nontx as HCMFamMbrHasBnftNonTaxable,
+
+ 
+
+      pmadt as HCMFamMbrMedlAbsncProofDte,
+
+ 
+
+      legid as HCMFamMbrHasProofLegalDep,
+
+ 
+
+      legdt as HCMFamMbrProofLegalDepDate,
+
+ 
+
+      idcod as HCMFamMbrBenefitId
+
+ 
+
+}
+
+ 
+
+Here are the rules to follow:
+
+1.	The entity name should include the country code. For instance, if the country code is US, the entity name should be I_US_HCMFamilyMemberSupplement. If the country code is SG for Singapore or BR for Brazil, the entity name should be I_SG_HCMFamilyMemberSupplement or I_BR_HCMFamilyMemberSupplement, respectively.
+
+2.	The Record Control part should be the same for all countries. This means that the coding from “//HR Master Record Key and Control fields” to “grpvl as HCMGrpgValForPersAssignments,” should be identical for all entities.
+
+3.	The start of country-specific fields should be marked with //HR Master Record: Infotype 0106 (Related Persons NA). The infotype number should be specified for different countries. For example, use 0106 for the US, 0412 for Singapore, and 0397 for Brazil.
+
+4.	Country-specific fields should be formally named. Each field should start with 'HCMFamMbr', where 'HCM' is the product name and 'FamMbr' stands for the infotype name.
+
+5.	If the description includes 'Has', it indicates that the field is of bool type. The name should start with 'HCMFamMbrHas' or 'HCMFamMbrIs', depending on your interpretation.
+
+6.	The entity name should be less than 30 characters. If the name exceeds this limit, you should abbreviate it without losing its meaning.
+

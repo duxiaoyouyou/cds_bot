@@ -1,16 +1,16 @@
-Here is the US version of the CDS view code with the additional fields and associations you requested:
+Sure, here is the SG version of the CDS view code:
 
-[[[
+```abap
 @AbapCatalog.viewEnhancementCategory: [#NONE]
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'My Family Members (US)'
+@EndUserText.label: 'My Family Members (International)'
 @Metadata.ignorePropagatedAnnotations: true
 @ObjectModel.usageType:{
   serviceQuality: #X,
   sizeCategory: #S,
   dataClass: #MIXED
 }
-define view entity I_sg_HCM_ESSFamilyMemberTP
+define view entity I_SG_HCM_ESSFamilyMemberTP
   as select from I_HCM_ESSFamilyMember( P_HCMInfoTypeVersion: '10' )
 
   association        to parent I_HCM_ESSFamilyMemberRootTP as _FamilyMemberRoot      on  $projection.HCMPersonnelNumber = _FamilyMemberRoot.HCMPersonnelNumber
@@ -21,66 +21,16 @@ define view entity I_sg_HCM_ESSFamilyMemberTP
   association [0..*] to C_HCMNationalityText               as _ThirdNationalityText  on  $projection.HCMFamilyMember3rdNatltyCode = _ThirdNationalityText.Country
   association [0..*] to I_HCMGenderText                    as _GenderDiverseText     on  $projection.HCMFamilyMemberGenderCode = _GenderDiverseText.HCMGenderCode
                                                                                      and $projection.HCMInfoTypeVersion        = _GenderDiverseText.HCMCountryRegionGrouping
-  association [0..*] to I_sg_HCMFamilyMemberSupplement     as _FamilyMemberSupplement on  $projection.HCMPersonnelNumber = _FamilyMemberSupplement.HCMPersonnelNumber
+  association [0..*] to I_SG_HCMFamilyMemberSupplement     as _FamilyMemberSupplement on $projection.HCMPersonnelNumber = _FamilyMemberSupplement.HCMPersonnelNumber
 {
 
   // Existing fields
-  key I_HCM_ESSFamilyMember.HCMPersonnelNumber, //PERNR
-  key I_HCM_ESSFamilyMember.HCMSubtype, //SUBTY
-  key I_HCM_ESSFamilyMember.HCMObjectIdentification, //OBJPS
-  key I_HCM_ESSFamilyMember.HCMRecordIsLocked, //SPRPS
-  key I_HCM_ESSFamilyMember.EndDate, //ENDDA
-  key I_HCM_ESSFamilyMember.StartDate, //BEGDA
-  key I_HCM_ESSFamilyMember.HCMSequentialNumber,
-  key cast( '000' as hrfio_per_draft_seq_number preserving type ) as HCMDraftSequentialNumber,
-  I_HCM_ESSFamilyMember.LastChangedDate, //AEDTM
-  I_HCM_ESSFamilyMember.LastChangedByUser, //UNAME
-  I_HCM_ESSFamilyMember.HCMInfoTypeRecordHasText, //ITXEX
-  I_HCM_ESSFamilyMember.HCMInfoTypeRecordScreenCtrl, //ITBLD
-  I_HCM_ESSFamilyMember.HCMSubtypeText,
-  I_HCM_ESSFamilyMember.ETag,
-  I_HCM_ESSFamilyMember.HCMValidityStartDate,
-  I_HCM_ESSFamilyMember.HCMValidityEndDate,
-  I_HCM_ESSFamilyMember.HCMDefaultDate,
-  I_HCM_ESSFamilyMember.HCMRecordIsStoredInDataBase,
-  I_HCM_ESSFamilyMember.HCMInfoTypeVersion,
-  I_HCM_ESSFamilyMember.HCMFamilyMemberTypeCode, //FAMSA
-  I_HCM_ESSFamilyMember.HCMFamilyMemberBirthDate, //FGBDT
-  @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'I_CountryVH'} }]
-  @ObjectModel.text.association: '_CountryOfBirthText'
-  I_HCM_ESSFamilyMember.HCMFamilyMemberCntryOfBrthCode, //FGBLD
-  @Consumption.valueHelpDefinition: [{ entity: { element: 'Country',
-                                              name: 'C_HCMNationalityVH'} }]
-  @ObjectModel.text.association: '_NationalityText'
-  I_HCM_ESSFamilyMember.HCMFamilyMemberNationalityCode, //FANAT
-  @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMGenderCode',
-                                                    name: 'I_HCMGenderVH'},
-                                       additionalBinding: [{  element: 'HCMCountryRegionGrouping', localElement: 'HCMCountryRegionGrouping' }]  }]  //TODO Testen
-  @ObjectModel.text.association: '_GenderDiverseText'
-  I_HCM_ESSFamilyMember.HCMFamilyMemberGenderCode, //FASEX
-  I_HCM_ESSFamilyMember.HCMFamilyMemberFirstName, //FAVOR
-  I_HCM_ESSFamilyMember.HCMFamilyMemberLastName, //FANAM
-  I_HCM_ESSFamilyMember.HCMFamilyMemberPlaceOfBrthName, //FGBOT
-  I_HCM_ESSFamilyMember.HCMFamilyMemberBirthName, //FGBNA
-  I_HCM_ESSFamilyMember.HCMFamilyMemberNameFormatCode, //FKNZN -> KNZNM (HCMT)
-  I_HCM_ESSFamilyMember.HCMFamilyMemberInitials, //FINIT
-  @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMNamePrefixText', name: 'I_HCMNamePrefixVH'} }]
-  I_HCM_ESSFamilyMember.HCMFamilyMemberNamePrefixCode, //FVRSW
-  @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMNamePrefixText', name: 'I_HCMNamePrefixVH'} }]
-  I_HCM_ESSFamilyMember.HCMFamMember2ndNamePrefixCode, //FVRS2
-  @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMNameAffixText', name: 'I_HCMNameAffixVH'} }]
-  I_HCM_ESSFamilyMember.HCMFamilyMemberOtherTitleCode, //FNMZU
-  @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'C_HCMNationalityVH'} }]
-  @ObjectModel.text.association: '_SecondNationalityText'
-  I_HCM_ESSFamilyMember.HCMFamilyMember2ndNatltyCode, //FANA2
-  @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'C_HCMNationalityVH'} }]
-  @ObjectModel.text.association: '_ThirdNationalityText'
-  I_HCM_ESSFamilyMember.HCMFamilyMember3rdNatltyCode, //FANA3
+  // ...
 
   // Additional fields
   _FamilyMemberSupplement.IsSpousesAnnualIncome as SPAIM,
   _FamilyMemberSupplement.JoinedObjects as JOINED_OBJECTS,
-  _FamilyMemberSupplement.CountryRegionShort as LANDX,
+  _FamilyMemberSupplement.CountryRegionNameShort as LANDX,
   _FamilyMemberSupplement.Bezei as BEZEI,
   _FamilyMemberSupplement.ObjectIdentification as OBJPS,
   _FamilyMemberSupplement.ResidencyType as PMRES,
@@ -102,7 +52,7 @@ define view entity I_sg_HCM_ESSFamilyMemberTP
   _FamilyMemberSupplement.ConfinementNumber as CONFN,
   _FamilyMemberSupplement.SharedParentalLeaveDays as QTSPL,
   _FamilyMemberSupplement.Fgbna as FGBNA,
-  _FamilyMemberSupplement.CclStartYearBirth as SCCLB,
+  _FamilyMemberSupplement.CclStartYearOfBirth as SCCLB,
   _FamilyMemberSupplement.EthnicOrigin as RACKY,
   _FamilyMemberSupplement.TelephoneNumber as TELPH,
   _FamilyMemberSupplement.None as NONE,
@@ -125,11 +75,6 @@ define view entity I_sg_HCM_ESSFamilyMemberTP
   _FamilyMemberSupplement.Favor as FAVOR,
   _FamilyMemberSupplement.SchoolHospital as SNAME,
 
-  _FamilyMemberRoot.HCMCountryRegionGrouping                  as HCMCountryRegionGrouping,
-
-  _SubtypeVisibility.HCMFamMbrSubtype1IsHidden                as HCMFamMbrSubtype1IsHidden,
-  _SubtypeVisibility.HCMFamMbrSubtype2IsHidden                as HCMFamMbrSubtype2IsHidden,
-
   /* Associations */
   _FamilyMemberRoot,
   _SubtypeVisibility,
@@ -140,4 +85,6 @@ define view entity I_sg_HCM_ESSFamilyMemberTP
   _GenderDiverseText,
   _FamilyMemberSupplement
 }
-]]]
+```
+
+Please note that you need to adjust the associations and fields according to your actual database structure and requirements.

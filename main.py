@@ -103,11 +103,22 @@ if user_input := st.chat_input("Enter your request here:"):
             st.session_state.cdsGenerator = CDSGenerator(country_code, src_tab_name, field_descriptions, openai)  
         cdsGenerator = st.session_state.cdsGenerator
             
-        if("confirm" in user_input or "CONFIRM" in user_input or "check" in user_input or "CHECK" in user_input):
+        if("nam" in user_input or "NAM" in user_input or "field" in user_input or "FIELD" in user_input):
+            cds_fields = cdsGenerator.generate_cds_fields()
+            content = f"""
+                **cds field names generated following global field naming convensions:**\n
+                {cds_fields}\n
+                """
+            with st.chat_message("assistant"):
+                st.markdown(content)
+            st.session_state.messages.append({"role": "assistant", "content": content})    
+ 
+            
+        elif("view" in user_input or "VIEW" in user_input):
             cds_view_code = cdsGenerator.generate_cds_code_familyMemberSupplement()
             output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberSupplement'
             generate_cds_view(cds_view_code, output_filepath)
-        else:
+        
             cds_view_code = cdsGenerator.generate_cds_code_familyMemberTP()
             output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberTP'
             generate_cds_view(cds_view_code, output_filepath)

@@ -17,7 +17,18 @@ st.title("Welcome to CDS Bot ^O^")
 # Initialize chat history    
 if "messages" not in st.session_state:    
     st.session_state.messages = []    
-  
+
+if "country_code" not in st.session_state:
+    st.session_state.country_code = ""
+
+if "country_fields" not in st.session_state:
+    st.session_state.country_fields = None
+
+if "cdsGenerator" not in st.session_state:
+    st.session_state.cdsGenerator = None
+    
+    
+
 with st.chat_message("assistant"):    
     st.markdown('Hello! I will help you to generate the CDS views of your country version.')      
   
@@ -26,58 +37,86 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):    
         st.markdown(message["content"])    
   
-# Accept user input    
-country_code = st.chat_input("Enter your country code here:")  
   
 config_dir = 'src/resources/config_fiori2.0'
 table_definition_dir = 'src/resources/table_definition'
 cds_view_dir = 'src/resources/cds_view'
-
-# Check if the user has entered a country code
-if country_code:  
+core_file = f'{config_dir}/HRPAO_DTL_FORM_IT0021_XX.xml'   
+        
+# Accept user input      
+if user_input := st.chat_input("Enter your country code here:"):
+    # Display user message in chat message container
+    with st.chat_message("user"):
+        st.markdown(user_input)
+        
     # Display user message in chat message container    
-    with st.chat_message("user"):    
-        st.markdown(country_code)    
-  
-    st.session_state.messages.append({"role": "user", "content": country_code})  
-  
-    
-    core_file = f'{config_dir}/HRPAO_DTL_FORM_IT0021_XX.xml'   
-    xmlComparator = XMLComparator(core_file, f'{config_dir}/HRPAO_DTL_FORM_IT0021_{country_code.upper()}.xml' )    
-    country_delta_fields = xmlComparator.get_country_delta_fields()
-    core_delta_fields = xmlComparator.get_core_delta_fields()
-    common_fields = xmlComparator.get_common_fields()
+    if st.session_state.country_code == "":
+        st.session_state.country_code = user_input
+        country_code = st.session_state.country_code   
+        st.session_state.messages.append({"role": "user", "content": country_code})  
+        
+        xmlComparator = XMLComparator(core_file, f'{config_dir}/HRPAO_DTL_FORM_IT0021_{country_code.upper()}.xml' )    
+        country_delta_fields = xmlComparator.get_country_delta_fields()
+        core_delta_fields = xmlComparator.get_core_delta_fields()
+        common_fields = xmlComparator.get_common_fields()
+        
+        country_fields = xmlComparator.get_country_fields()
+        st.session_state.country_fields = country_fields
       
-    if country_code.upper() == 'SG': 
-        src_tab_name = "p0412"
-    elif country_code.upper() == 'BR':
-        src_tab_name = "p0397"
-    else:
-        src_tab_name = "pa0106"
-    table_def = TableDefinition(f'{table_definition_dir}/{src_tab_name}.txt')
-        
-    field_descriptions = table_def.get_descriptions(country_delta_fields)  
-    
-    cdsGenerator = CDSGenerator(country_code, src_tab_name, field_descriptions, openai)  
-    
-    cds_code_supplement = cdsGenerator.generate_cds_code_familyMemberSupplement()
-    output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberSupplement'
-    codeIntegrator = CodeIntegrator(output_filepath)  
-    codeIntegrator.createFile(cds_code_supplement)  
 
-    # Add the comparison result to the chat history 
-    st.session_state.messages.append({"role": "assistant", "content": f"country specific fields: \n {str(country_delta_fields)}"})  
-    st.session_state.messages.append({"role": "assistant", "content": f"core delta fields:\n {str(core_delta_fields)}"})    
-    st.session_state.messages.append({"role": "assistant", "content": f"cds view supplement generated:\n {cds_code_supplement}"})    
-    
-    # Display the comparison result in a chat message container    
-    with st.chat_message("assistant"):
-        st.markdown("**common fields in core and country version:**")
-        st.markdown(str(common_fields))
-        st.markdown("**country specific fields:**")
-        st.markdown(str(country_delta_fields))
-        st.markdown("**core fields missing in configuration:**")
-        st.markdown(str(core_delta_fields))
-        st.markdown(f"**cds view I_{country_code.upper()}_HCMFamilyMemberSupplement generated:**")
-        st.markdown(cds_code_supplement)
+        # Add the comparison result to the chat history 
+        content = f"""
+        **common fields in core and country version:**\n
+        {common_fields}\n
+        "**country specific fields:**\n
+        {country_delta_fields}\n
+        **core fields missing in configuration:**\n
+        {core_delta_fields}
+        """ 
+        st.session_state.messages.append({"role": "assistant", "content": content})    
+         
+        # Display the comparison result in a chat message container    
+        with st.chat_message("assistant"):
+            st.markdown(content)
+            # st.markdown("**common fields in core and country version:**")
+            # st.markdown(str(common_fields))
+            # st.markdown("**country specific fields:**")
+            # st.markdown(str(country_delta_fields))
+            # st.markdown("**core fields missing in configuration:**")
+            # st.markdown(str(core_delta_fields))
+            
+    else:
+        country_code = st.session_state.country_code
+        if country_code.upper() == 'SG': 
+            src_tab_name = "p0412"
+        elif country_code.upper() == 'BR':
+            src_tab_name = "p0397"
+        else:
+            src_tab_name = "pa0106"
+        table_def = TableDefinition(f'{table_definition_dir}/{src_tab_name}.txt')
+        field_descriptions = table_def.get_descriptions(st.session_state.country_fields)  
         
+        cdsGenerator = CDSGenerator(country_code, src_tab_name, field_descriptions, openai)  
+        st.session_state.cdsGenerator = cdsGenerator
+            
+        if("confirm" in user_input or "CONFIRM" in user_input or "check" in user_input or "CHECK" in user_input):
+            cds_code_supplement = cdsGenerator.generate_cds_code_familyMemberSupplement()
+            output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberSupplement'
+            codeIntegrator = CodeIntegrator(output_filepath)  
+            codeIntegrator.createFile(cds_code_supplement)  
+            
+            content = f""""
+            **cds view I_{country_code.upper()}_HCMFamilyMemberSupplement generated:**\n{cds_code_supplement}
+            """
+            with st.chat_message("assistant"):
+                st.markdown(content)
+            st.session_state.messages.append({"role": "assistant", "content": content})    
+        
+        else:
+            content = "generate association cds_code"
+            with st.chat_message("assistant"):
+                st.markdown(content)
+            st.session_state.messages.append({"role": "assistant", "content": content})    
+        
+        
+    

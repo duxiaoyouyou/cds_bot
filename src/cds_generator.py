@@ -11,6 +11,10 @@ class CDSGenerator:
         self.cds_fields = self.generate_cds_fields()
     
     
+    def get_cds_fields(self):
+        return self.cds_fields
+    
+    
     def generate_cds_fields(self) -> dict:  
         field_description_str = ""
         for i, description in enumerate(self.field_descriptions.values(), 1):  

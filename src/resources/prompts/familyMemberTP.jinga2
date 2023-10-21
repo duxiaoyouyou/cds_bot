@@ -2,3 +2,15 @@ For country code {{detail.country_code}},
 I have a list of field names and their corresponding descriptions, which is delimited by triple quotes. 
 \\\ {{detail.field_name_description}} \\\          
 I want to generate ABAP CDS view fields for each of them. 
+我有一个SAP HCM CDS视图的核心版本，代码如下：  
+  
+[这里插入你的核心版本CDS视图代码]  
+  
+我想要生成一个US版本的CDS视图，它应该包含以下额外的字段和关联：  
+  
+- HCMFamMbrNationalId（国家ID）  
+- HCMFamMbrPhoneNumber（电话号码）  
+- HCMFamMbrStreet（街道）  
+- 关联到I_US_HCMFamilyMemberSupplement  
+  
+同时，我希望HCM信息类型版本从'99'更改为'10'。请帮我生成这个US版本的CDS视图代码。  

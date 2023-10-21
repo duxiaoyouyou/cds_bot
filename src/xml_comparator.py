@@ -27,3 +27,7 @@ class XMLComparator:
     def get_common_fields(self):    
         return self.fieldsCore.intersection(self.fieldsCountry)  
 
+
+    def get_country_fields(self):
+        return self.fieldsCountry
+        

@@ -22,76 +22,94 @@ define view entity I_SG_HCMFamilyMemberSupplement
 
 { 
 
-    key pernr as HCMPersonnelNumber, 
+    key SPAIM as IsSpousesAnnualIncome, 
 
-    key subty as HCMSubtype, 
+    key JOINED_OBJECTS as JoinedObjects, 
 
-    emrgn as Emrgn, 
+    key LANDX as CountryRegionShort, 
 
-    scclb as CclStartYearOfBirth, 
+    key BEZEI as Bezei, 
 
-    cldtx as Cldtx, 
+    key OBJPS as ObjectIdentification, 
 
-    cldty as ChildType, 
+    key PMRES as ResidencyType, 
 
-    pstcd as PostalCode, 
+    key EMRGN as Emrgn, 
 
-    bezei as Bezei, 
+    key OBJECT_NAME as ObjectName, 
 
-    locat as SecondAddressLine, 
+    key CITY as City, 
 
-    stras as StreetHouseNumber, 
+    key FCCSL as CcslValidityLastYear, 
 
-    racky as EthnicOrigin, 
+    key FANAM as Fanam, 
 
-    ename as EmployerName, 
+    key PERID as PersonnelIdNumber, 
 
-    spuem as SharedParentalLeave, 
+    key FASEX as Fasex, 
 
-    sname as SchoolHospital, 
+    key SPEMS as SpouseEmploymentStatus, 
 
-    telph as TelephoneNumber, 
+    key PSTCD as PostalCode, 
 
-    pmres as ResidencyType, 
+    key ORT01 as City, 
 
-    clcno as ChildBirthCertNumber, 
+    key LOCT as StreetHouseNumber, 
 
-    perid as PersonnelIdNumber, 
+    key FANAT as Fanat, 
 
-    loct as StreetHouseNumber, 
+    key DESGN as Designation, 
 
-    ort01 as City, 
+    key NATTX as Nattx, 
 
-    spems as SpouseEmploymentStatus, 
+    key COMPONENT_NAME as ComponentName, 
 
-    taxnb as TaxId, 
+    key CONFN as ConfinementNumber, 
 
-    qtspl as NumSharedParentalLeave, 
+    key QTSPL as SharedParentalLeaveDays, 
 
-    confn as ConfinementNumber, 
+    key FGBNA as Fgbna, 
 
-    landx as CountryRegionShort, 
+    key SCCLB as CclStartYearBirth, 
 
-    spaim as IsSpouseIncomeOver4k, 
+    key RACKY as EthnicOrigin, 
 
-    pstlz as PostalCode, 
+    key TELPH as TelephoneNumber, 
 
-    syccl as CclEntitlementBirthYear, 
+    key SYCCL as CclEntitlementBirthYear, 
 
-    nattx as Nattx, 
+    key CLDTY as ChildType, 
 
-    objps as ObjectIdentification, 
+    key LOCAT as SecondAddressLine, 
 
-    city as City, 
+    key FGBDT as Fgbdt, 
 
-    fccsl as CcslValidityLastYear, 
+    key FGBOT as Fgbot, 
 
-    desgn as Designation, 
+    key SPUEM as SharedParentalLeave, 
 
-    strt as StreetHouseNumber, 
+    key STRT as StreetHouseNumber, 
 
-    stat1 as RegionStateProvince, 
+    key STRAS as StreetHouseNumber, 
 
-    land as CountryRegionKey 
+    key TAXNB as TaxId, 
+
+    key EDIT_MODE as EditMode, 
+
+    key CLDTX as Cldtx, 
+
+    key LAND as CountryRegionKey, 
+
+    key STAT1 as RegionStateProvince, 
+
+    key ENAME as EmployerName, 
+
+    key CLCNO as ChildBirthCertNumber, 
+
+    key PSTLZ as PostalCode, 
+
+    key FAVOR as Favor, 
+
+    key SNAME as SchoolHospital 
 
 }

@@ -60,6 +60,7 @@ if user_input := st.chat_input("Enter your request here:"):
         country_code = st.session_state.country_code   
         
         xmlComparator = XMLComparator(core_file, f'{config_dir}/HRPAO_DTL_FORM_IT0021_{country_code.upper()}.xml' )    
+        
         country_delta_fields = xmlComparator.get_country_delta_fields()
         st.session_state.country_delta_fields = country_delta_fields
         

@@ -69,7 +69,7 @@ telph as  HCMFamMbrPhoneNumber,
 
 none as  HCMFamMbrNone,
 
-syccl as  HCMFamMbrCCLBirthYearEntitlement,
+syccl as  HCMFamMbrCCLEntitlementBirthYear,
 
 cldty as  HCMFamMbrChildType,
 

@@ -1,9 +1,7 @@
-This is a definition of a view entity in ABAP (Advanced Business Application Programming) language. The view entity is named `I_US_HCM_ESSFamilyMemberTP` and it is used to select data from the `I_HCM_ESSFamilyMember` table with a specific parameter (`P_HCMInfoTypeVersion: '10'`).
+This is a definition of a view entity in ABAP (Advanced Business Application Programming) language. The view entity is named `I_SG_HCM_ESSFamilyMemberTP` and it is defined to select data from `I_HCM_ESSFamilyMember` with a parameter `P_HCMInfoTypeVersion` set to '10'.
 
-The view entity also defines several associations to other tables such as `I_US_HCM_ESSFamilyMemberRootTP`, `I_US_HCMFamilyMemberSupplement`, `C_HCMNationalityText`, `I_HCMGenderText`, and `I_CountryText`. These associations are used to join data from these tables based on certain conditions.
+The view entity has several associations to other entities such as `I_SG_HCM_ESSFamilyMemberRootTP`, `I_SG_HCMFamilyMemberSupplement`, `C_HCMNationalityText`, `I_HCMGenderText`, and `I_CountryText`. These associations are defined based on certain conditions.
 
-The view entity also defines a set of fields that will be included in the view. These fields include keys (like `HCMPersonnelNumber`, `HCMSubtype`, `HCMObjectIdentification`, etc.) and other fields (like `LastChangedDate`, `LastChangedByUser`, `HCMInfoTypeRecordHasText`, etc.).
+The view entity also defines a set of fields that are selected from `I_HCM_ESSFamilyMember` and some of them are associated with value help definitions and text associations.
 
-Some fields have additional annotations that provide metadata about the field. For example, the `HCMFamilyMemberOtherTitleCode` field has a `@Consumption.valueHelpDefinition` annotation that specifies a value help entity for this field. Similarly, the `HCMFamilyMemberNationalityCode` field has a `@ObjectModel.text.association` annotation that specifies a text association for this field.
-
-The view entity is used in SAP HANA to create a virtual table based on the defined fields and associations. This virtual table can be used in applications to display and manipulate data without directly accessing the underlying database tables.
+The `@` annotations are used to provide additional metadata for the view entity. For example, `@EndUserText.label` provides a label for the view entity, `@AccessControl.authorizationCheck` specifies that no authorization check is required, and `@ObjectModel.usageType` specifies the usage type of the view entity.

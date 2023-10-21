@@ -38,8 +38,8 @@ class CDSGenerator:
     def generate_cds_code_familyMemberTP(self) -> str:     
         additional_data_fields = self.transform_text(self.cds_fields)   
         familyMemberTP = FamilyMemberTP(self.country_code, self.cds_fields, additional_data_fields)
-        prompt = self.generate_file_with_template('familyMemberTP.jinga2', familyMemberTP) 
-        return self.get_response_message_content(prompt)    
+        cds_view_code = self.generate_file_with_template('familyMemberTP.jinga2', familyMemberTP) 
+        return cds_view_code 
     
     
     def transform_text(self, text):  

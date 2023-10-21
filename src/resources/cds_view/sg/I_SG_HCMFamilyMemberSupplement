@@ -1,19 +1,19 @@
-define view entity I_sg_HCMFamilyMemberSupplement
+define view entity I_SG_HCMFamilyMemberSupplement
 @AbapCatalog.viewEnhancementCategory: [#NONE]
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'HCM sg - Related Persons'
+@EndUserText.label: 'HCM SG - Related Persons'
 @Metadata.ignorePropagatedAnnotations: true
 @ObjectModel.usageType:{
     serviceQuality: #X,
     sizeCategory: #S,
     dataClass: #MIXED
 }
-define view entity I_US_HCMFamilyMemberSupplement
+define view entity I_SG_HCMFamilyMemberSupplement
     as select from p0412
 {
     key pernr as HCMPersonnelNumber,
     key subty as HCMSubtype,
-    spaim as  HCMFamMbrSpouseIncMore4k,
+    spaim as  HCMFamMbrSpouseInc4k,
 
 joined_objects as  HCMFamMbrJoinedObjects,
 
@@ -61,7 +61,7 @@ qtspl as  HCMFamMbrSharedParentalLeave,
 
 fgbna as  HCMFamMbrFgbna,
 
-scclb as  HCMFamMbrCCLStartBirthYear,
+scclb as  HCMFamMbrCCLBirthYear,
 
 racky as  HCMFamMbrEthnicOrigin,
 
@@ -69,7 +69,7 @@ telph as  HCMFamMbrPhoneNumber,
 
 none as  HCMFamMbrNone,
 
-syccl as  HCMFamMbrCCLEntitlementBirth,
+syccl as  HCMFamMbrCCLBirthYearEnt,
 
 cldty as  HCMFamMbrChildType,
 

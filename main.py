@@ -42,20 +42,7 @@ config_dir = 'src/resources/config_fiori2.0'
 table_definition_dir = 'src/resources/table_definition'
 cds_view_dir = 'src/resources/cds_view'
 core_file = f'{config_dir}/HRPAO_DTL_FORM_IT0021_XX.xml'   
-
-
-def generate_cds_view(cds_view_code: str, output_filepath: str):
-    codeIntegrator = CodeIntegrator(output_filepath)  
-    codeIntegrator.createFile(cds_view_code)          
-            
-    content = f"""
-            **cds view generated in:**\n
-            {output_filepath}
-            """
-    with st.chat_message("assistant"):
-        st.markdown(content)
-        st.session_state.messages.append({"role": "assistant", "content": content})    
-        
+   
         
 # Accept user input      
 if user_input := st.chat_input("Enter your request here:"):
@@ -112,16 +99,33 @@ if user_input := st.chat_input("Enter your request here:"):
             with st.chat_message("assistant"):
                 st.markdown(content)
             st.session_state.messages.append({"role": "assistant", "content": content})    
- 
             
+ 
         elif("view" in user_input or "VIEW" in user_input):
             cds_view_code = cdsGenerator.generate_cds_code_familyMemberSupplement()
-            output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberSupplement'
-            generate_cds_view(cds_view_code, output_filepath)
-        
+            output_filepath_supplement = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberSupplement'
+            codeIntegrator = CodeIntegrator(output_filepath_supplement)  
+            codeIntegrator.createFile(cds_view_code)    
+            
             cds_view_code = cdsGenerator.generate_cds_code_familyMemberTP()
-            output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberTP'
-            generate_cds_view(cds_view_code, output_filepath)
+            output_filepath_familyMemberTP = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberTP'
+            codeIntegrator = CodeIntegrator(output_filepath_familyMemberTP)  
+            codeIntegrator.createFile(cds_view_code)    
+            
+            content = f"""
+                **cds view generated in:**\n
+                {output_filepath_supplement}\n
+                **cds view generated in:**\n
+                {output_filepath_familyMemberTP}
+                """
+            with st.chat_message("assistant"):
+                st.markdown(content)
+                st.session_state.messages.append({"role": "assistant", "content": content})    
+     
+        else:
+            pass
+           
+            
            
         
     

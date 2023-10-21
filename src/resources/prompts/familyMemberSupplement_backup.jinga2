@@ -1,5 +1,0 @@
-For country code {{detail.country_code}}, 
-I have a list of field names and their corresponding descriptions, which is delimited by triple quotes. 
-\\\ {{detail.field_name_description}} \\\          
-I also have a source table called {{detail.source_table_name}} 
-I want to generate ABAP CDS view fields for each of them. 

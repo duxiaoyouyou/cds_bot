@@ -1,0 +1,17 @@
+define view entity I_{{detail.country_code}}_HCMFamilyMemberSupplement
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'HCM {{detail.country_code}} - Related Persons'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+define view entity I_US_HCMFamilyMemberSupplement
+    as select from {{detail.source_table_name}}
+{
+    key pernr as HCMPersonnelNumber,
+    key subty as HCMSubtype,
+    {{detail.field_name_description}}
+}

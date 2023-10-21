@@ -1,0 +1,117 @@
+As an AI assistant, you are tasked with naming for Fiori3 fields. 
+You will be provided with a country code and country fields with descriptions as following: 
+{{detail.field_description}}
+Your task is to generate the Fiori3 name for these fields.
+
+For instance, if the input is:
+PERID	Personnel ID Number	
+BEN03	Student Indicator	Has
+BEN05	Smoker Indicator	Has
+STRAS	Street and House Number	
+LOCAT	Street and House Number	
+ORT01	City	
+STATE	Region (State, Province, County)	
+PSTLZ	Postal Code	
+LAND1	Country/Region Key	
+TELNR	Telephone Number	
+SEPDT	Legal Separation Date	
+DOCNM	Benefit Physician Name	
+DOCID	Benefit Physician ID	
+DOCN2	Benefit Physician Name	
+DOCI2	Benefit Physician ID	
+DISAB	Disability	Has
+DISDT	Date of Determination of Disability Status	
+DISLE	Date Employer Learned of Disability Status	
+MEDIC	Benefit Indicator for Medicare	Has
+SMOKE	Benefit smoker indicator	Has
+FAMST	Marital Status Key	Has
+PROVI	Benefit identification number for the provider	
+POLNR	Benefit policy number	
+TAXNB	Tax ID	
+PMRES	Residency type	
+RACKY	Ethnic origin	
+SPEMS	Spouse employment status	Has
+MILSV	Benefits Indicator: Person is on Military Service	Has
+FININ	Benefits Indicator: Person is Financially Independent	Has
+NONTX	Benefits Indicator: Person is Non-Taxable	Has
+PMADT	Date of providing Proof of Medical Absence	
+LEGID	Proof Submission Indicator for Legal Dependents	Has
+LEGDT	Proof Submission Date for Legal Dependents	
+IDCOD	Person Identification Number	
+
+
+Your output will be:
+      perid: HCMFamMbrNationalId,
+
+      ben03: HCMFamMbrIsStudent,
+
+      ben05: HCMFamMbrIsSmoker,
+
+      stras: HCMFamMbrStreet,
+
+      locat: HCMFamMbrHouseNumber,
+
+      ort01: HCMFamMbrCity,
+
+      state: HCMFamMbrRegionCode,
+
+      pstlz: HCMFamMbrPostalCode,
+
+      land1: HCMFamMbrCountryCode,
+
+      telnr: HCMFamMbrPhoneNumber,
+
+      sepdt: HCMFamMbrLglSeparationDate,
+
+      docnm: HCMFamMbrBnftPhysicianName,
+
+      docid: HCMFamMbrBnftPhysicianId,
+
+      docn2: HCMFamMbr2ndBnftPhysnName,
+
+      doci2: HCMFamMbr2ndBnftPhysnId,
+
+      disab: HCMFamMbrHasDisability,
+
+      disdt: HCMFamMbrDsbltyDetnDate,
+
+      disle: HCMFamMbrEmployerDsbltyDte,
+
+      medic: HCMFamMbrHasBnftMedicare,
+
+      smoke: HCMFamMbrHasBnftSmoker,
+
+      famst: HCMFamMbrMaritalStatusCode,
+
+      provi: HCMFamMbrBnftPrvdrIdnNmbr,
+
+      polnr: HCMFamMbrBnftPolicyNumber,
+
+      taxnb: HCMFamMbrTaxId,
+
+      pmres: HCMFamMbrResidencyTypeCode,
+
+      racky: HCMFamMbrEthnicOriginCode,
+
+      spems: HCMFamMbrSpouseEmplStsCode,
+
+      milsv: HCMFamMbrHasBnftMilitary,
+
+      finin: HCMFamMbrHasBnftFinIndep,
+
+      nontx: HCMFamMbrHasBnftNonTaxable,
+
+      pmadt: HCMFamMbrMedlAbsncProofDte,
+
+      legid: HCMFamMbrHasProofLegalDep,
+
+      legdt: HCMFamMbrProofLegalDepDate,
+
+      idcod: HCMFamMbrBenefitId
+
+
+Here are the rules to follow:
+1.	Country-specific fields should be formally named. Each field should start with 'HCMFamMbr', where 'HCM' is the product name and 'FamMbr' stands for the infotype name.
+2.	If the description includes 'Has', it indicates that the field is of bool type. The name should start with 'HCMFamMbrHas' or 'HCMFamMbrIs', depending on your interpretation.
+3.	The entity name should be less than 30 characters. If the name exceeds this limit, you should abbreviate it without losing its meaning.
+4.    Ensure only return the field names, do not return anything else

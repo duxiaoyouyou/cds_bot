@@ -17,33 +17,35 @@ class CDSGenerator:
     
     def generate_cds_fields(self) -> dict:  
         field_description_str = ""
-        for i, description in enumerate(self.field_descriptions.values(), 1):  
-           field_description_str += f"{i}. {description}\n"  
+        for key, description in self.field_descriptions.items():  
+            field_description_str += f"{key}: {description}\n"  
+        print(f"field_description_str sent: {field_description_str}")
          
-        fieldDescription = FieldDescription(field_description_str)
-        prompt = self.generate_prompt_with_template('naming.jinga2', fieldDescription)
+        fieldDescription = FieldDescription(field_description_str, self.field_descriptions)
+        prompt = self.generate_file_with_template('naming.jinga2', fieldDescription)
           
         response_message_content = self.get_response_message_content(prompt)
-  
-        # Split the response into individual descriptions  
-        response_descriptions = response_message_content.split('\n')  
-  
-        # Remove any empty strings from the list  
-        response_descriptions = [desc for desc in response_descriptions if desc]  
-  
-        # Create a dictionary that pairs each field name with its corresponding description  
-        cds_fields = ""
-        for field_name, field_desc_camel in zip(self.field_descriptions.keys(), response_descriptions):  
-            # Remove the leading number and period from each description  
-            field_desc_camel = field_desc_camel.split('. ', 1)[-1]  
-            #result[field_name] = field_desc_camel  
-            cds_fields += f"{field_name}: {field_desc_camel}\n" 
 
-        return cds_fields
+        # # Split the response into individual descriptions  
+        # response_descriptions = response_message_content.split('\n')  
+  
+        # # Remove any empty strings from the list  
+        # response_descriptions = [desc for desc in response_descriptions if desc]  
+  
+        # # Create a dictionary that pairs each field name with its corresponding description  
+        # cds_fields = ""
+        # for field_name, field_desc_camel in zip(self.field_descriptions.keys(), response_descriptions):  
+        #     # Remove the leading number and period from each description  
+        #     field_desc_camel = field_desc_camel.split('. ', 1)[-1]  
+        #     #result[field_name] = field_desc_camel  
+        #     cds_fields += f"{field_name}: {field_desc_camel}\n" 
+            
+        return response_message_content
 
         
     def generate_cds_code_familyMemberSupplement(self) -> str:  
-        familyMemberSupplement = FamilyMemberSupplement(self.country_code, self.cds_fields, self.source_table_name)
+        cds_fields = self.cds_fields.replace(':', ' as ').replace(".", "")
+        familyMemberSupplement = FamilyMemberSupplement(self.country_code, cds_fields, self.source_table_name)
         prompt = self.generate_prompt_with_template('familyMemberSupplement.jinga2', familyMemberSupplement)
         
         example = f"""Here is an example of the code I want to generate with country code US and source table pa0106: \
@@ -96,9 +98,9 @@ class CDSGenerator:
         return response_message_content
  
 
-    def generate_prompt_with_template(self, prompt_template_file_name: str, detail):
-        environment = Environment(loader=FileSystemLoader('src/resources/prompts'))
-        template = environment.get_template(prompt_template_file_name)
+    def generate_file_with_template(self, template_file_name: str, detail):
+        environment = Environment(loader=FileSystemLoader('src/resources/templates'))
+        template = environment.get_template(template_file_name)
         return template.render(detail = detail)
 
 

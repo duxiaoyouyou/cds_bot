@@ -49,8 +49,8 @@ def generate_cds_view(cds_view_code: str, output_filepath: str):
     codeIntegrator.createFile(cds_view_code)          
             
     content = f"""
-            **cds view generated:**\n
-            {cds_view_code}
+            **cds view generated in:**\n
+            {output_filepath}
             """
     with st.chat_message("assistant"):
         st.markdown(content)

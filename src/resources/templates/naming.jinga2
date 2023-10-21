@@ -4,6 +4,7 @@ You will be provided with a country code and country fields with descriptions as
 Your task is to generate the Fiori3 name for these fields.
 
 For instance, if the input is:
+
 PERID	Personnel ID Number	
 BEN03	Student Indicator	Has
 BEN05	Smoker Indicator	Has
@@ -41,6 +42,7 @@ IDCOD	Person Identification Number
 
 
 Your output will be:
+
       perid: HCMFamMbrNationalId,
 
       ben03: HCMFamMbrIsStudent,

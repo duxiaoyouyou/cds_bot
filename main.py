@@ -24,6 +24,9 @@ if "country_code" not in st.session_state:
 if "country_fields" not in st.session_state:
     st.session_state.country_fields = None
 
+if "country_delta_fields" not in st.session_state:
+    st.session_state.country_delta_fields = None
+
 if "cdsGenerator" not in st.session_state:
     st.session_state.cdsGenerator = None
     
@@ -58,6 +61,8 @@ if user_input := st.chat_input("Enter your request here:"):
         
         xmlComparator = XMLComparator(core_file, f'{config_dir}/HRPAO_DTL_FORM_IT0021_{country_code.upper()}.xml' )    
         country_delta_fields = xmlComparator.get_country_delta_fields()
+        st.session_state.country_delta_fields = country_delta_fields
+        
         core_delta_fields = xmlComparator.get_core_delta_fields()
         common_fields = xmlComparator.get_common_fields()
         
@@ -99,7 +104,6 @@ if user_input := st.chat_input("Enter your request here:"):
             with st.chat_message("assistant"):
                 st.markdown(content)
             st.session_state.messages.append({"role": "assistant", "content": content})    
-            
  
         elif("view" in user_input or "VIEW" in user_input):
             cds_view_code = cdsGenerator.generate_cds_code_familyMemberSupplement()
@@ -107,7 +111,7 @@ if user_input := st.chat_input("Enter your request here:"):
             codeIntegrator = CodeIntegrator(output_filepath_supplement)  
             codeIntegrator.createFile(cds_view_code)    
             
-            cds_view_code = cdsGenerator.generate_cds_code_familyMemberTP()
+            cds_view_code = cdsGenerator.generate_cds_code_familyMemberTP(st.session_state.country_delta_fields)
             output_filepath_familyMemberTP = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberTP'
             codeIntegrator = CodeIntegrator(output_filepath_familyMemberTP)  
             codeIntegrator.createFile(cds_view_code)    

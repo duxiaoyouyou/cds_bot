@@ -19,7 +19,6 @@ class CDSGenerator:
         field_description_str = ""
         for key, description in self.field_descriptions.items():  
             field_description_str += f"{key}: {description}\n"  
-        print(f"field_description_str sent: {field_description_str}")
          
         fieldDescription = FieldDescription(field_description_str, self.field_descriptions)
         prompt = self.generate_file_with_template('naming.jinga2', fieldDescription)
@@ -35,23 +34,26 @@ class CDSGenerator:
         return cds_view_code 
     
     
-    def generate_cds_code_familyMemberTP(self) -> str:     
-        additional_data_fields = self.transform_text(self.cds_fields)   
+    def generate_cds_code_familyMemberTP(self, country_delta_fields) -> str:  
+        additional_data_fields = self.filter_and_transform(self.cds_fields, country_delta_fields)   
         familyMemberTP = FamilyMemberTP(self.country_code, self.cds_fields, additional_data_fields)
         cds_view_code = self.generate_file_with_template('familyMemberTP.jinga2', familyMemberTP) 
         return cds_view_code 
     
     
-    def transform_text(self, text):  
+    def filter_and_transform(text, keys):  
         lines = text.split('\n')  
-        new_lines = []  
+        d = {}  
         for line in lines:  
             if ':' in line:  
                 parts = line.split(':')  
-                new_line = '\t\t\t_AdditionalData.' + parts[1].strip() + ', // ' + parts[0].strip() + ';'  
-                new_lines.append(new_line)  
-        result = '\n'.join(new_lines)
-        return result
+                d[parts[0].strip()] = parts[1].strip()  
+        filtered_dict = {k: d[k] for k in keys if k in d}  
+        transformed_lines = []  
+        for k, v in filtered_dict.items():  
+            transformed_line = '_AdditionalData.' + v + ', // ' + k + ';'  
+            transformed_lines.append(transformed_line)  
+        return '\n'.join(transformed_lines)  
 
    
     def generate_cds_code_behavior(self) -> str:  

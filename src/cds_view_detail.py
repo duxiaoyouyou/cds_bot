@@ -10,6 +10,7 @@ class FamilyMemberSupplement:
     country_code: str
     cds_fields: str 
     source_table_name: str
+    info_type: str
    
    
 @dataclass

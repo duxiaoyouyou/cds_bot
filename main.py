@@ -72,10 +72,13 @@ if user_input := st.chat_input("Enter your request here:"):
         
         if country_code.upper() == 'SG': 
             st.session_state.src_tab_name = "p0412"
+            st.session_state.info_type = "0412"
         elif country_code.upper() == 'BR':
             st.session_state.src_tab_name = "p0397"
+            st.session_state.info_type = "0397"
         else:
             st.session_state.src_tab_name = "pa0106"
+            st.session_state.info_type = "0106"
         
         table_def = TableDefinition(f'{table_definition_dir}/{st.session_state.src_tab_name}.txt')
         st.session_state.field_descriptions = table_def.get_descriptions(country_fields) 
@@ -101,10 +104,11 @@ if user_input := st.chat_input("Enter your request here:"):
     else:
         country_code = st.session_state.country_code
         src_tab_name = st.session_state.src_tab_name
+        info_type = st.session_state.info_type
         field_descriptions = st.session_state.field_descriptions
         
         if st.session_state.cdsGenerator == None:     
-            st.session_state.cdsGenerator = CDSGenerator(country_code, src_tab_name, field_descriptions, openai)  
+            st.session_state.cdsGenerator = CDSGenerator(country_code, src_tab_name, info_type, field_descriptions, openai)  
         cdsGenerator = st.session_state.cdsGenerator
             
         if("nam" in user_input or "NAM" in user_input or "field" in user_input or "FIELD" in user_input):

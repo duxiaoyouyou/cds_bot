@@ -75,8 +75,9 @@ define view entity I_SG_HCMFamilyMemberSupplement
   
         grpvl as HCMGrpgValForPersAssignments,
   
+        //HR Master Record: Infotype 0412 (Related Persons NA)
         
-    componentName as  HCMFamMbrComponentName,
+        componentName as  HCMFamMbrComponentName,
 
 objectName as  HCMFamMbrObjectName,
 
@@ -104,7 +105,7 @@ clcno as  HCMFamMbrChildBirthCertNum,
 
 fccsl as  HCMFamMbrCCSLValidity,
 
-scclb as  HCMFamMbrCCLStartBirthYear,
+scclb as  HCMFamMbrCCLStartYrBirth,
 
 sname as  HCMFamMbrSchoolHospital,
 
@@ -116,7 +117,7 @@ pmres as  HCMFamMbrResidencyType,
 
 racky as  HCMFamMbrEthnicOrigin,
 
-spuem as  HCMFamMbrHasSharedParentalLv,
+spuem as  HCMFamMbrSharedParentalLv,
 
 strt as  HCMFamMbrStreetHouseNum,
 
@@ -164,7 +165,7 @@ nattx as  HCMFamMbrNattx,
 
 spaim as  HCMFamMbrIsSpouseIncome4k,
 
-syccl as  HCMFamMbrCCLEntitlementBirthYr,
+syccl as  HCMFamMbrCCLEntitlement,
 
 qtspl as  HCMFamMbrSharedParentalLvDays
     

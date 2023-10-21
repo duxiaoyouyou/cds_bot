@@ -3,9 +3,10 @@ from jinja2 import Environment, FileSystemLoader
 from .cds_view_detail import FamilyMemberRootTP, FamilyMemberSupplement, FamilyMemberTP, FieldDescription, Behavior
 
 class CDSGenerator:  
-    def __init__(self,  country_code: str, source_table_name: str, field_descriptions: dict, llm: openai):  
+    def __init__(self,  country_code: str, source_table_name: str, info_type: str, field_descriptions: dict, llm: openai):  
         self.country_code = country_code
         self.source_table_name = source_table_name
+        self.info_type = info_type
         self.field_descriptions = field_descriptions
         self.llm = llm  
         self.cds_fields = self.generate_cds_fields()
@@ -29,7 +30,7 @@ class CDSGenerator:
         
     def generate_cds_code_familyMemberSupplement(self) -> str:  
         cds_fields = self.cds_fields.replace(':', ' as ').replace(".", "")
-        familyMemberSupplement = FamilyMemberSupplement(self.country_code, cds_fields, self.source_table_name)
+        familyMemberSupplement = FamilyMemberSupplement(self.country_code, cds_fields, self.source_table_name, self.info_type)
         cds_view_code = self.generate_file_with_template('familyMemberSupplement.jinga2', familyMemberSupplement)
         return cds_view_code 
     

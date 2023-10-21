@@ -75,7 +75,7 @@ define view entity I_{{detail.country_code}}_HCMFamilyMemberSupplement
   
         grpvl as HCMGrpgValForPersAssignments,
   
-        //HR Master Record: Infotype 0106 (Related Persons NA)
+        //HR Master Record: Infotype {{detail.info_type}} (Related Persons NA)
         
         {{detail.cds_fields}}
     

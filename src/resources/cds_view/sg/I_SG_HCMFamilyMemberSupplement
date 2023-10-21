@@ -13,7 +13,7 @@ define view entity I_SG_HCMFamilyMemberSupplement
 {
     key pernr as HCMPersonnelNumber,
     key subty as HCMSubtype,
-    spaim as  HCMFamMbrSpouseIncMore4k,
+    spaim as  HCMFamMbrSpouseInc4k,
 
 joined_objects as  HCMFamMbrJoinedObjects,
 
@@ -61,7 +61,7 @@ qtspl as  HCMFamMbrSharedParentalLeave,
 
 fgbna as  HCMFamMbrFgbna,
 
-scclb as  HCMFamMbrCCLStartBirthYear,
+scclb as  HCMFamMbrCCLBirthYear,
 
 racky as  HCMFamMbrEthnicOrigin,
 

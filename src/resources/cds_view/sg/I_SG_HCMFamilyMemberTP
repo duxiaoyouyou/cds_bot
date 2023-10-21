@@ -66,7 +66,52 @@ association [0..*] to I_CountryText as _CountryOfBirthText on  $projection.HCMFa
       @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMGenderCode', name: 'I_HCMGenderVH'}, 
                                         additionalBinding: [{  element: 'HCMCountryRegionGrouping', localElement: 'HCMCountryRegionGrouping' }]  }] 
       I_HCM_ESSFamilyMember.HCMFamilyMemberGenderCode, // FASEX; 
-      ,
+      			_AdditionalData.HCMFamMbrSpouseInc4k,, // spaim;
+			_AdditionalData.HCMFamMbrJoinedObjects,, // joined_objects;
+			_AdditionalData.HCMFamMbrCountryName,, // landx;
+			_AdditionalData.HCMFamMbrBezei,, // bezei;
+			_AdditionalData.HCMFamMbrObjId,, // objps;
+			_AdditionalData.HCMFamMbrResidencyType,, // pmres;
+			_AdditionalData.HCMFamMbrEmrgn,, // emrgn;
+			_AdditionalData.HCMFamMbrObjectName,, // object_name;
+			_AdditionalData.HCMFamMbrCity,, // city;
+			_AdditionalData.HCMFamMbrCCSLValidity,, // fccsl;
+			_AdditionalData.HCMFamMbrFanam,, // fanam;
+			_AdditionalData.HCMFamMbrPersonnelId,, // perid;
+			_AdditionalData.HCMFamMbrFasex,, // fasex;
+			_AdditionalData.HCMFamMbrSpouseEmplSts,, // spems;
+			_AdditionalData.HCMFamMbrPostalCode,, // pstcd;
+			_AdditionalData.HCMFamMbrCity,, // ort01;
+			_AdditionalData.HCMFamMbrStreetHouseNum,, // loct;
+			_AdditionalData.HCMFamMbrFanat,, // fanat;
+			_AdditionalData.HCMFamMbrDesignation,, // desgn;
+			_AdditionalData.HCMFamMbrNattx,, // nattx;
+			_AdditionalData.HCMFamMbrComponentName,, // component_name;
+			_AdditionalData.HCMFamMbrConfinementNum,, // confn;
+			_AdditionalData.HCMFamMbrSharedParentalLeave,, // qtspl;
+			_AdditionalData.HCMFamMbrFgbna,, // fgbna;
+			_AdditionalData.HCMFamMbrCCLBirthYear,, // scclb;
+			_AdditionalData.HCMFamMbrEthnicOrigin,, // racky;
+			_AdditionalData.HCMFamMbrPhoneNumber,, // telph;
+			_AdditionalData.HCMFamMbrNone,, // none;
+			_AdditionalData.HCMFamMbrCCLBirthYearEnt,, // syccl;
+			_AdditionalData.HCMFamMbrChildType,, // cldty;
+			_AdditionalData.HCMFamMbr2ndAddressLine,, // locat;
+			_AdditionalData.HCMFamMbrFgbdt,, // fgbdt;
+			_AdditionalData.HCMFamMbrFgbot,, // fgbot;
+			_AdditionalData.HCMFamMbrSharedParentalLeave,, // spuem;
+			_AdditionalData.HCMFamMbrStreetHouseNum,, // strt;
+			_AdditionalData.HCMFamMbrStreetHouseNum,, // stras;
+			_AdditionalData.HCMFamMbrTaxId,, // taxnb;
+			_AdditionalData.HCMFamMbrEditMode,, // edit_mode;
+			_AdditionalData.HCMFamMbrCldtx,, // cldtx;
+			_AdditionalData.HCMFamMbrCountryKey,, // land;
+			_AdditionalData.HCMFamMbrRegion,, // stat1;
+			_AdditionalData.HCMFamMbrEmployerName,, // ename;
+			_AdditionalData.HCMFamMbrChildBirthCertNum,, // clcno;
+			_AdditionalData.HCMFamMbrPostalCode,, // pstlz;
+			_AdditionalData.HCMFamMbrFavor,, // favor;
+			_AdditionalData.HCMFamMbrSchoolHospital., // sname;,
       I_HCM_ESSFamilyMember.HCMFamilyMemberPlaceOfBrthName, // FGBOT; 
       @ObjectModel.text.association: '_CountryOfBirthText' 
       @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'I_CountryVH'}}] 

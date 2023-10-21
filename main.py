@@ -65,9 +65,9 @@ if user_input := st.chat_input("Enter your request here:"):
         st.session_state.country_fields = country_fields
       
         content = f"""
-            **common fields in core and country version:**\n
+            **common fields in both core and country version:**\n
             {common_fields}\n
-            "**country specific fields:**\n
+            **country specific fields:**\n
             {country_delta_fields}\n
             **core fields missing in configuration:**\n
             {core_delta_fields}

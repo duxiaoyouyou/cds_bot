@@ -43,14 +43,17 @@ class CDSGenerator:
     
     
     def transform_text(self, text):  
+        print("text: " + str(text))
         lines = text.split('\n')  
         new_lines = []  
         for line in lines:  
             if ':' in line:  
                 parts = line.split(':')  
-                new_line = '_AdditionalData.' + parts[1].strip() + ', // ' + parts[0].strip() + ';'  
+                new_line = '\t\t\t_AdditionalData.' + parts[1].strip() + ', // ' + parts[0].strip() + ';'  
                 new_lines.append(new_line)  
-        return '\n'.join(new_lines)  
+        result = '\n'.join(new_lines)  
+        print("result: " + result) 
+        return result
 
    
     def generate_cds_code_behavior(self) -> str:  

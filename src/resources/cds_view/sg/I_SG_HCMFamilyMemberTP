@@ -67,7 +67,7 @@ association [0..*] to I_CountryText as _CountryOfBirthText on  $projection.HCMFa
                                         additionalBinding: [{  element: 'HCMCountryRegionGrouping', localElement: 'HCMCountryRegionGrouping' }]  }] 
       I_HCM_ESSFamilyMember.HCMFamilyMemberGenderCode, // FASEX; 
       _AdditionalData.HCMFamMbrSharedParentalLeaveDays, // qtspl;
-_AdditionalData.HCMFamMbrSpouseEmplStatus, // spems;
+_AdditionalData.HCMFamMbrSpouseEmplSts, // spems;
 _AdditionalData.HCMFamMbrStreetHouseNum, // stras;
 _AdditionalData.HCMFamMbrCity, // city;
 _AdditionalData.HCMFamMbrDesignation, // desgn;

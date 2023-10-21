@@ -39,7 +39,7 @@ perid as  HCMFamMbrPersonnelId,
 
 fasex as  HCMFamMbrFasex,
 
-spems as  HCMFamMbrSpouseEmplStatus,
+spems as  HCMFamMbrSpouseEmplSts,
 
 pstcd as  HCMFamMbrPostalCode,
 
@@ -66,8 +66,6 @@ scclb as  HCMFamMbrCCLStartBirthYear,
 racky as  HCMFamMbrEthnicOrigin,
 
 telph as  HCMFamMbrPhoneNumber,
-
-none as  HCMFamMbrNone,
 
 syccl as  HCMFamMbrCCLBirthYearEntitlement,
 
@@ -104,4 +102,5 @@ pstlz as  HCMFamMbrPostalCode,
 favor as  HCMFamMbrFavor,
 
 sname as  HCMFamMbrSchoolHospital
+    
 }

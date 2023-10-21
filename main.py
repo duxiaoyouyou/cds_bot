@@ -49,12 +49,12 @@ if user_input := st.chat_input("Enter your request here:"):
     # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(user_input)
-        
+    st.session_state.messages.append({"role": "user", "content": user_input})  
+            
     # Display user message in chat message container    
     if st.session_state.country_code == "":
-        st.session_state.country_code = user_input
+        st.session_state.country_code = user_input.upper()
         country_code = st.session_state.country_code   
-        st.session_state.messages.append({"role": "user", "content": country_code})  
         
         xmlComparator = XMLComparator(core_file, f'{config_dir}/HRPAO_DTL_FORM_IT0021_{country_code.upper()}.xml' )    
         country_delta_fields = xmlComparator.get_country_delta_fields()

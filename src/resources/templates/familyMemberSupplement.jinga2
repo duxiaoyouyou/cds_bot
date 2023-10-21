@@ -8,10 +8,10 @@ define view entity I_{{detail.country_code}}_HCMFamilyMemberSupplement
     sizeCategory: #S,
     dataClass: #MIXED
 }
-define view entity I_US_HCMFamilyMemberSupplement
+define view entity I_{{detail.country_code}}_HCMFamilyMemberSupplement
     as select from {{detail.source_table_name}}
 {
     key pernr as HCMPersonnelNumber,
     key subty as HCMSubtype,
-    {{detail.field_name_description}}
+    {{detail.cds_fields}}
 }

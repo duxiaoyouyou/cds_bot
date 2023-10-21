@@ -25,63 +25,37 @@ class CDSGenerator:
         prompt = self.generate_file_with_template('naming.jinga2', fieldDescription)
           
         response_message_content = self.get_response_message_content(prompt)
-
-        # # Split the response into individual descriptions  
-        # response_descriptions = response_message_content.split('\n')  
-  
-        # # Remove any empty strings from the list  
-        # response_descriptions = [desc for desc in response_descriptions if desc]  
-  
-        # # Create a dictionary that pairs each field name with its corresponding description  
-        # cds_fields = ""
-        # for field_name, field_desc_camel in zip(self.field_descriptions.keys(), response_descriptions):  
-        #     # Remove the leading number and period from each description  
-        #     field_desc_camel = field_desc_camel.split('. ', 1)[-1]  
-        #     #result[field_name] = field_desc_camel  
-        #     cds_fields += f"{field_name}: {field_desc_camel}\n" 
-            
         return response_message_content
 
         
     def generate_cds_code_familyMemberSupplement(self) -> str:  
         cds_fields = self.cds_fields.replace(':', ' as ').replace(".", "")
         familyMemberSupplement = FamilyMemberSupplement(self.country_code, cds_fields, self.source_table_name)
-        prompt = self.generate_prompt_with_template('familyMemberSupplement.jinga2', familyMemberSupplement)
-        
-        example = f"""Here is an example of the code I want to generate with country code US and source table pa0106: \
-                @AbapCatalog.viewEnhancementCategory: [#NONE] \n
-                @AccessControl.authorizationCheck: #NOT_REQUIRED \n
-                @EndUserText.label: 'HCM US - Related Persons' \n
-                @Metadata.ignorePropagatedAnnotations: true \n
-                @ObjectModel.usageType:{{ \n
-                    serviceQuality: #X, \n
-                    sizeCategory: #S, \n
-                    dataClass: #MIXED \n
-                }} \n
-                define view entity I_US_HCMFamilyMemberSupplement \n
-                    as select from pa0106 \n
-                {{ \n
-                    key pernr as HCMPersonnelNumber, \n
-                    key subty as HCMSubtype \n
-                }}
-                """
-        prompt += example            
-        prompt += f"""
-                Please generate ABAP CDS view for these field names and descriptions, following the example code.
-                Ensure do NOT provide anything else other than the code. \
-                """  
-        return self.get_response_message_content(prompt)
+        cds_view_code = self.generate_file_with_template('familyMemberSupplement.jinga2', familyMemberSupplement)
+        return cds_view_code 
     
     
-    def generate_cds_code_familyMemberTP(self) -> str:         
-        familyMemberTP = FamilyMemberTP(self.country_code.upper(), self.cds_fields)
-        prompt = self.generate_prompt_with_template('familyMemberTP.jinga2', familyMemberTP) 
+    def generate_cds_code_familyMemberTP(self) -> str:     
+        additional_data_fields = self.transform_text(self.cds_fields)   
+        familyMemberTP = FamilyMemberTP(self.country_code, self.cds_fields, additional_data_fields)
+        prompt = self.generate_file_with_template('familyMemberTP.jinga2', familyMemberTP) 
         return self.get_response_message_content(prompt)    
+    
+    
+    def transform_text(self, text):  
+        lines = text.split('\n')  
+        new_lines = []  
+        for line in lines:  
+            if ':' in line:  
+                parts = line.split(':')  
+                new_line = '_AdditionalData.' + parts[1].strip() + ', // ' + parts[0].strip() + ';'  
+                new_lines.append(new_line)  
+        return '\n'.join(new_lines)  
 
    
     def generate_cds_code_behavior(self) -> str:  
         behavior = Behavior(self.country_code)
-        prompt = self.generate_prompt_with_template('behavior.jinga2', behavior)      
+        prompt = self.generate_file_with_template('behavior.jinga2', behavior)      
         return self.get_response_message_content(prompt)    
 
 

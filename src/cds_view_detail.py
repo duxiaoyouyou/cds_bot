@@ -15,7 +15,8 @@ class FamilyMemberSupplement:
 @dataclass
 class FamilyMemberTP:
     country_code: str
-    field_name_description: str  
+    cds_fields: str 
+    addtional_data_fields: str 
     
     
 @dataclass

@@ -104,7 +104,7 @@ if user_input := st.chat_input("Enter your request here:"):
         cdsGenerator = st.session_state.cdsGenerator
             
         if("nam" in user_input or "NAM" in user_input or "field" in user_input or "FIELD" in user_input):
-            cds_fields = cdsGenerator.generate_cds_fields()
+            cds_fields = cdsGenerator.get_cds_fields()
             content = f"""
                 **cds field names generated following global field naming convensions:**\n
                 {cds_fields}\n

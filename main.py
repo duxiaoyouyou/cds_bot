@@ -49,7 +49,8 @@ def generate_cds_view(cds_view_code: str, output_filepath: str):
     codeIntegrator.createFile(cds_view_code)          
             
     content = f"""
-            **cds view generated:**\n{cds_view_code}
+            **cds view generated:**\n
+            {cds_view_code}
             """
     with st.chat_message("assistant"):
         st.markdown(content)
@@ -87,42 +88,26 @@ if user_input := st.chat_input("Enter your request here:"):
         with st.chat_message("assistant"):
             st.markdown(content)
         st.session_state.messages.append({"role": "assistant", "content": content})    
-         
-        if country_code.upper() == 'SG': 
-            src_tab_name = "p0412"
-        elif country_code.upper() == 'BR':
-            src_tab_name = "p0397"
-        else:
-            src_tab_name = "pa0106"
-        table_def = TableDefinition(f'{table_definition_dir}/{src_tab_name}.txt')
-        field_descriptions = table_def.get_descriptions(st.session_state.country_fields)  
-        
-        st.session_state.cdsGenerator = CDSGenerator(country_code, src_tab_name, field_descriptions, openai)  
-        
-            
+ 
     else:
+        country_code = st.session_state.country_code
+        if st.session_state.cdsGenerator == None:     
+            if country_code.upper() == 'SG': 
+                src_tab_name = "p0412"
+            elif country_code.upper() == 'BR':
+                src_tab_name = "p0397"
+            else:
+                src_tab_name = "pa0106"
+            table_def = TableDefinition(f'{table_definition_dir}/{src_tab_name}.txt')
+            field_descriptions = table_def.get_descriptions(st.session_state.country_fields)  
+            st.session_state.cdsGenerator = CDSGenerator(country_code, src_tab_name, field_descriptions, openai)  
+        cdsGenerator = st.session_state.cdsGenerator
             
         if("confirm" in user_input or "CONFIRM" in user_input or "check" in user_input or "CHECK" in user_input):
-            country_code = st.session_state.country_code
-            cdsGenerator = st.session_state.cdsGenerator
             cds_view_code = cdsGenerator.generate_cds_code_familyMemberSupplement()
             output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberSupplement'
             generate_cds_view(cds_view_code, output_filepath)
-             
-            # codeIntegrator = CodeIntegrator(output_filepath)  
-            # codeIntegrator.createFile(cds_view)  
-            
-            # content = f""""
-            #     **cds view I_{country_code.upper()}_HCMFamilyMemberSupplement generated:**\n{cds_view}
-            #     """
-            # with st.chat_message("assistant"):
-            #     st.markdown(content)
-            # st.session_state.messages.append({"role": "assistant", "content": content})    
-        
         else:
-            country_code = st.session_state.country_code
-            cdsGenerator = st.session_state.cdsGenerator
-            
             cds_view_code = cdsGenerator.generate_cds_code_familyMemberTP()
             output_filepath = f'{cds_view_dir}/{country_code.lower()}/I_{country_code.upper()}_HCMFamilyMemberTP'
             generate_cds_view(cds_view_code, output_filepath)

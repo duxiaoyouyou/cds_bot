@@ -1,5 +1,5 @@
 I have a core version of an SAP HCM CDS view, the code is as follows delimited by triple brackets:  
-[[[
+
 @AbapCatalog.viewEnhancementCategory: [#NONE]
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'My Family Members (International)'
@@ -88,7 +88,6 @@ define view entity I_HCM_ESSFamilyMemberTP
       _ThirdNationalityText,
       _GenderDiverseText
 }
-]]]
 
 I want to generate a {{detail.country_code}} version of the CDS view, it should include the following additional fields and associations:    
 - {{detail.field_name_description}} 
@@ -96,6 +95,6 @@ I want to generate a {{detail.country_code}} version of the CDS view, it should 
    
 At the same time, I hope the HCM information type version changes from '99' to '10'. 
 Please help me generate this US version of the CDS view code.
-
+Ensure only return the CDS view code.
 
 

@@ -41,11 +41,14 @@ for message in st.session_state.messages:
         st.markdown(message["content"])    
   
   
-config_dir = 'src/resources/config_fiori2.0'
-table_definition_dir = 'src/resources/table_definition'
-cds_view_dir = 'src/resources/cds_view'
-core_file = f'{config_dir}/HRPAO_DTL_FORM_IT0021_XX.xml'   
-   
+table_definition_dir = "src/resources/table_definition"
+cds_view_dir = "src/resources/cds_view"
+
+
+config_dir = "src/resources/config_fiori2.0" #"src/resources/config_fiori1.0" #
+config_prefix = "HRPAO_DTL_FORM_IT0021" #"HRESS_CC_PER_DTL_FAMILY" #
+core_suffix = "XX"
+core_file = f'{config_dir}/{config_prefix}_{core_suffix}.xml'   
         
 # Accept user input      
 if user_input := st.chat_input("Enter your request here:"):
@@ -59,16 +62,20 @@ if user_input := st.chat_input("Enter your request here:"):
         st.session_state.country_code = user_input.upper()
         country_code = st.session_state.country_code   
         
-        xmlComparator = XMLComparator(core_file, f'{config_dir}/HRPAO_DTL_FORM_IT0021_{country_code.upper()}.xml' )    
+        xmlComparator = XMLComparator(core_file, f'{config_dir}/{config_prefix}_{country_code.upper()}.xml' )    
+        
+        core_fields = xmlComparator.get_core_fields()
+        
+        common_fields = xmlComparator.get_common_fields()
+       
+        core_delta_fields = xmlComparator.get_core_delta_fields()
         
         country_delta_fields = xmlComparator.get_country_delta_fields()
         st.session_state.country_delta_fields = country_delta_fields
-        
-        core_delta_fields = xmlComparator.get_core_delta_fields()
-        common_fields = xmlComparator.get_common_fields()
-        
+         
         country_fields = xmlComparator.get_country_fields()
         st.session_state.country_fields = country_fields
+        
         
         if country_code.upper() == 'SG': 
             st.session_state.src_tab_name = "p0412"
@@ -82,10 +89,11 @@ if user_input := st.chat_input("Enter your request here:"):
         
         table_def = TableDefinition(f'{table_definition_dir}/{st.session_state.src_tab_name}.txt')
         st.session_state.field_descriptions = table_def.get_descriptions(country_fields) 
-           
-        lower_case_desc_dict = {k.lower(): v for k, v in st.session_state.field_descriptions.items() if k is not None}  
+        field_descriptions = st.session_state.field_descriptions
+        
+        lower_case_desc_dict = {k.lower(): v for k, v in st.session_state.field_descriptions.items() if k is not None}    
         exception_fields =  [key for key in country_fields if key is not None and key.lower() not in lower_case_desc_dict]  
-
+        
         content = f"""
             **common fields in both core and country version:**\n
             {common_fields}\n
@@ -96,6 +104,13 @@ if user_input := st.chat_input("Enter your request here:"):
             **fields in country configuration but missing in source table:**\n
             {exception_fields}
             """
+            
+        # content = f"""
+        #     **core fields:**\n
+        #     {core_fields}\n
+        #     **country fields:**\n
+        #     {country_fields}
+        #     """
          
         with st.chat_message("assistant"):
             st.markdown(content)

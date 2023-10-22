@@ -12,7 +12,7 @@ class XMLComparator:
     def get_field_names(self, tree):        
         names = []      
         for elem in tree.iter('NAME'):     
-            if elem.text not in names:  
+            if elem is not None and elem.text not in names:  
                 names.append(elem.text)      
         return names      
         
@@ -31,3 +31,6 @@ class XMLComparator:
   
     def get_country_fields(self):  
         return self.fieldsCountry  
+    
+    def get_core_fields(self):
+        return self.fieldsCore

@@ -41,8 +41,24 @@ class CDSGenerator:
         cds_view_code = self.generate_file_with_template('familyMemberTP.jinga2', familyMemberTP) 
         return cds_view_code 
     
-    
-    def filter_and_transform(self, text, keys):    
+    def filter_and_transform(self, text, keys):      
+        lines = text.split('\n')      
+        d = {}      
+        for line in lines:      
+            if ':' in line:      
+                parts = line.split(':')      
+                d[parts[0].strip().lower()] = parts[1].strip()      
+        keys = [k.lower() for k in keys if k is not None]    
+        filtered_dict = {k: d[k] for k in keys if k in d}      
+        transformed_lines = []      
+        for k in keys:      
+            if k in filtered_dict:  
+                transformed_line = '_AdditionalData.' + filtered_dict[k] + ' // ' + k + ';'      
+                transformed_lines.append(transformed_line)      
+        return '\n'.join(transformed_lines)      
+
+
+    def filter_and_transform_bk(self, text, keys):    
         lines = text.split('\n')    
         d = {}    
         for line in lines:    

@@ -77,64 +77,70 @@ define view entity I_SG_HCMFamilyMemberSupplement
   
         //HR Master Record: Infotype 0412 (Related Persons NA)
         
-        confn as  HCMFamMbrConfinementNum,
+        ename as  HCMFamMbrEmployerName,
 
-cldty as  HCMFamMbrChildType,
+desgn as  HCMFamMbrDesignation,
 
-clcno as  HCMFamMbrChildBirthCertNum,
+stras as  HCMFamMbrStreet,
 
-fccsl as  HCMFamMbrCCSLValidity,
+locat as  HCMFamMbrHouseNumber,
 
-scclb as  HCMFamMbrCCLStartYrBirth,
+ort01 as  HCMFamMbrCity,
 
-sname as  HCMFamMbrSchoolHospital,
+state as  HCMFamMbrRegionCode,
 
-perid as  HCMFamMbrPersonnelId,
+pstlz as  HCMFamMbrPostalCode,
 
-taxnb as  HCMFamMbrTaxId,
+land1 as  HCMFamMbrCountryCode,
 
-pmres as  HCMFamMbrResidencyType,
+telnr as  HCMFamMbrPhoneNumber,
 
-racky as  HCMFamMbrEthnicOrigin,
+sname as  HCMFamMbrInstitutionName,
 
-spuem as  HCMFamMbrHasShrdPrntalLv,
+strt as  HCMFamMbrStreet,
 
-strt as  HCMFamMbrStreetHouseNum,
+loct as  HCMFamMbrHouseNumber,
 
 telph as  HCMFamMbrPhoneNumber,
-
-loct as  HCMFamMbrLocStreetHouseNum,
 
 city as  HCMFamMbrCity,
 
 pstcd as  HCMFamMbrPostalCode,
 
-land as  HCMFamMbrCountryRegionKey,
+land as  HCMFamMbrCountryCode,
 
-landx as  HCMFamMbrCountryRegionName,
+landx as  HCMFamMbrCountryName,
 
-stat1 as  HCMFamMbrRegion,
+stat1 as  HCMFamMbrRegionCode,
 
-ename as  HCMFamMbrEmployerName,
+perid as  HCMFamMbrNationalId,
 
-desgn as  HCMFamMbrDesignation,
+taxnb as  HCMFamMbrTaxId,
 
-stras as  HCMFamMbrStreetHouseNum,
+pmres as  HCMFamMbrResidencyTypeCode,
 
-locat as  HCMFamMbr2ndAddressLine,
+racky as  HCMFamMbrEthnicOriginCode,
 
-ort01 as  HCMFamMbrCity,
+spems as  HCMFamMbrHasSpouseEmpl,
 
-pstlz as  HCMFamMbrPostalCode,
+permo as  HCMFamMbrPerIdModifier,
 
-objps as  HCMFamMbrObjIdentification,
+spuem as  HCMFamMbrHasShrdPrntLeave,
 
-spems as  HCMFamMbrSpouseEmplStatus,
+confn as  HCMFamMbrConfinementNum,
+
+clcno as  HCMFamMbrBirthCertNum,
+
+cldty as  HCMFamMbrChildType,
+
+fccsl as  HCMFamMbrCCSLValidity,
+
+syccl as  HCMFamMbrCCLEntitlement,
+
+scclb as  HCMFamMbrCCLStartYear,
 
 spaim as  HCMFamMbrIsSpouseIncOver4k,
 
-syccl as  HCMFamMbrCCLBirthYrEntitlement,
-
-qtspl as  HCMFamMbrShrdPrntalLvDays
+qtspl as  HCMFamMbrShrdPrntLeaveDays,
     
 }

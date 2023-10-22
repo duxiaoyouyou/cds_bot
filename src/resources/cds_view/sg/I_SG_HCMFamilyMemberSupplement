@@ -121,15 +121,15 @@ pmres as  HCMFamMbrResidencyTypeCode,
 
 racky as  HCMFamMbrEthnicOriginCode,
 
-spems as  HCMFamMbrHasSpouseEmpl,
+spems as  HCMFamMbrSpouseEmplStsCode,
 
-permo as  HCMFamMbrPerIdModifier,
+permo as  HCMFamMbrPersonnelModifier,
 
 spuem as  HCMFamMbrHasShrdPrntLeave,
 
 confn as  HCMFamMbrConfinementNum,
 
-clcno as  HCMFamMbrBirthCertNum,
+clcno as  HCMFamMbrChildBirthCertNum,
 
 cldty as  HCMFamMbrChildType,
 
@@ -139,8 +139,8 @@ syccl as  HCMFamMbrCCLEntitlement,
 
 scclb as  HCMFamMbrCCLStartYear,
 
-spaim as  HCMFamMbrIsSpouseIncOver4k,
+spaim as  HCMFamMbrIsSpouseIncome4k,
 
-qtspl as  HCMFamMbrShrdPrntLeaveDays,
+qtspl as  HCMFamMbrShrdPrntLeaveDays
     
 }

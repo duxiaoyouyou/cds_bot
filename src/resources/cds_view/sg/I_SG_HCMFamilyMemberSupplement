@@ -77,29 +77,9 @@ define view entity I_SG_HCMFamilyMemberSupplement
   
         //HR Master Record: Infotype 0412 (Related Persons NA)
         
-        componentName as  HCMFamMbrComponentName,
-
-objectName as  HCMFamMbrObjectName,
-
-editMode as  HCMFamMbrEditMode,
-
-joinedObjects as  HCMFamMbrJoinedObjects,
-
-none as  HCMFamMbrNone,
-
-fanam as  HCMFamMbrFanam,
-
-favor as  HCMFamMbrFavor,
-
-fasex as  HCMFamMbrFasex,
-
-fgbot as  HCMFamMbrFgbot,
-
-confn as  HCMFamMbrConfinementNum,
+        confn as  HCMFamMbrConfinementNum,
 
 cldty as  HCMFamMbrChildType,
-
-cldtx as  HCMFamMbrCldtx,
 
 clcno as  HCMFamMbrChildBirthCertNum,
 
@@ -109,7 +89,7 @@ scclb as  HCMFamMbrCCLStartYrBirth,
 
 sname as  HCMFamMbrSchoolHospital,
 
-perid as  HCMFamMbrPersonnelIdNum,
+perid as  HCMFamMbrPersonnelId,
 
 taxnb as  HCMFamMbrTaxId,
 
@@ -117,13 +97,13 @@ pmres as  HCMFamMbrResidencyType,
 
 racky as  HCMFamMbrEthnicOrigin,
 
-spuem as  HCMFamMbrSharedParentalLv,
+spuem as  HCMFamMbrHasShrdPrntLeave,
 
 strt as  HCMFamMbrStreetHouseNum,
 
 telph as  HCMFamMbrPhoneNumber,
 
-loct as  HCMFamMbrStreetHouseNum,
+loct as  HCMFamMbrLocStreetHouseNum,
 
 city as  HCMFamMbrCity,
 
@@ -134,8 +114,6 @@ land as  HCMFamMbrCountryRegionKey,
 landx as  HCMFamMbrCountryRegionName,
 
 stat1 as  HCMFamMbrRegion,
-
-bezei as  HCMFamMbrBezei,
 
 ename as  HCMFamMbrEmployerName,
 
@@ -149,24 +127,14 @@ ort01 as  HCMFamMbrCity,
 
 pstlz as  HCMFamMbrPostalCode,
 
-objps as  HCMFamMbrObjectIdentification,
+objps as  HCMFamMbrObjIdentification,
 
-fgbna as  HCMFamMbrFgbna,
-
-fgbdt as  HCMFamMbrFgbdt,
-
-fanat as  HCMFamMbrFanat,
-
-emrgn as  HCMFamMbrEmrgn,
-
-spems as  HCMFamMbrSpouseEmplSts,
-
-nattx as  HCMFamMbrNattx,
+spems as  HCMFamMbrSpouseEmplStatus,
 
 spaim as  HCMFamMbrIsSpouseIncome4k,
 
-syccl as  HCMFamMbrCCLEntitlement,
+syccl as  HCMFamMbrCCLBirthEntitlement,
 
-qtspl as  HCMFamMbrSharedParentalLvDays
+qtspl as  HCMFamMbrShrdPrntLeaveNum
     
 }

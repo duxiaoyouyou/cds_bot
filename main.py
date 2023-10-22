@@ -5,6 +5,8 @@ from src.xml_comparator import XMLComparator
 from src.table_definition import TableDefinition
 from src.cds_generator import CDSGenerator
 from src.code_integrator import CodeIntegrator 
+import matplotlib.pyplot as plt  
+  
 
 openai.api_key = "9f32e291dbd248c2b4372647bd937577" #os.getenv("API_KEY")    
 openai.api_base = "https://miles-playground.openai.azure.com" #os.getenv("API_BASE")W    
@@ -62,60 +64,67 @@ if user_input := st.chat_input("Enter your request here:"):
         st.session_state.country_code = user_input.upper()
         country_code = st.session_state.country_code   
         
-        xmlComparator = XMLComparator(core_file, f'{config_dir}/{config_prefix}_{country_code.upper()}.xml' )    
-        
-        core_fields = xmlComparator.get_core_fields()
-        
-        common_fields = xmlComparator.get_common_fields()
-       
-        core_delta_fields = xmlComparator.get_core_delta_fields()
-        
-        country_delta_fields = xmlComparator.get_country_delta_fields()
-        st.session_state.country_delta_fields = country_delta_fields
-         
-        country_fields = xmlComparator.get_country_fields()
-        st.session_state.country_fields = country_fields
-        
-        
-        if country_code.upper() == 'SG': 
-            st.session_state.src_tab_name = "p0412"
-            st.session_state.info_type = "0412"
-        elif country_code.upper() == 'BR':
-            st.session_state.src_tab_name = "p0397"
-            st.session_state.info_type = "0397"
-        else:
-            st.session_state.src_tab_name = "pa0106"
-            st.session_state.info_type = "0106"
-        
-        table_def = TableDefinition(f'{table_definition_dir}/{st.session_state.src_tab_name}.txt')
-        st.session_state.field_descriptions = table_def.get_descriptions(country_fields) 
-        field_descriptions = st.session_state.field_descriptions
-        
-        lower_case_desc_dict = {k.lower(): v for k, v in st.session_state.field_descriptions.items() if k is not None}    
-        exception_fields =  [key for key in country_fields if key is not None and key.lower() not in lower_case_desc_dict]  
-        
-        content = f"""
-            **common fields in both core and country version:**\n
-            {common_fields}\n
-            **country specific fields:**\n
-            {country_delta_fields}\n
-            **core fields missing in country configuration:**\n
-            {core_delta_fields}\n
-            **fields in country configuration but missing in source table:**\n
-            {exception_fields}
-            """
+        try:  
+            xmlComparator = XMLComparator(core_file, f'{config_dir}/{config_prefix}_{country_code.upper()}.xml')  
+        except FileNotFoundError:  
+            with st.chat_message("assistant"):  
+                st.markdown('The country code you entered could not be found. Please try again.')  
+            st.session_state.messages.append({"role": "assistant", "content": 'The country code you entered could not be found. Please try again.'})  
+            st.session_state.country_code = ""  
+        else:    
+            core_fields = xmlComparator.get_core_fields()   
+            common_fields = xmlComparator.get_common_fields()
+            core_delta_fields = xmlComparator.get_core_delta_fields()
+            country_delta_fields = xmlComparator.get_country_delta_fields()
+            st.session_state.country_delta_fields = country_delta_fields 
+            country_fields = xmlComparator.get_country_fields()
+            st.session_state.country_fields = country_fields           
             
-        # content = f"""
-        #     **core fields:**\n
-        #     {core_fields}\n
-        #     **country fields:**\n
-        #     {country_fields}
-        #     """
-         
-        with st.chat_message("assistant"):
-            st.markdown(content)
-        st.session_state.messages.append({"role": "assistant", "content": content})    
- 
+            if country_code.upper() == 'SG': 
+                st.session_state.src_tab_name = "p0412"
+                st.session_state.info_type = "0412"
+            elif country_code.upper() == 'BR':
+                st.session_state.src_tab_name = "p0397"
+                st.session_state.info_type = "0397"
+            else:
+                st.session_state.src_tab_name = "pa0106"
+                st.session_state.info_type = "0106"
+            
+            table_def = TableDefinition(f'{table_definition_dir}/{st.session_state.src_tab_name}.txt')
+            st.session_state.field_descriptions = table_def.get_descriptions(country_fields) 
+            field_descriptions = st.session_state.field_descriptions
+            
+            lower_case_desc_dict = {k.lower(): v for k, v in st.session_state.field_descriptions.items() if k is not None}    
+            exception_fields =  [key for key in country_fields if key is not None and key.lower() not in lower_case_desc_dict]  
+            
+            content = f"""
+                **common fields in both core and country version:**\n
+                {common_fields}\n
+                **country specific fields:**\n
+                {country_delta_fields}\n
+                **core fields missing in country configuration:**\n
+                {core_delta_fields}\n
+                **fields in country configuration but missing in source table:**\n
+                {exception_fields}
+                """
+            
+            with st.chat_message("assistant"):
+                st.markdown(content)
+            st.session_state.messages.append({"role": "assistant", "content": content})    
+    
+            field_counts = {
+                "common_fields": len(common_fields), 
+                "country_delta_fields": len(country_delta_fields), 
+                "core_delta_fields": len(core_delta_fields),
+                "exception_fields": len(exception_fields),
+            }        
+            fig, ax = plt.subplots()  
+            ax.bar(field_counts.keys(), field_counts.values(), width=0.5)        
+            plt.xticks(rotation='horizontal')         
+            plt.xticks(fontsize=8)  
+            plt.yticks(fontsize=8)
+            st.pyplot(fig)
+
     else:
         country_code = st.session_state.country_code
         src_tab_name = st.session_state.src_tab_name
@@ -126,7 +135,7 @@ if user_input := st.chat_input("Enter your request here:"):
             st.session_state.cdsGenerator = CDSGenerator(country_code, src_tab_name, info_type, field_descriptions, openai)  
         cdsGenerator = st.session_state.cdsGenerator
             
-        if("nam" in user_input or "NAM" in user_input or "field" in user_input or "FIELD" in user_input):
+        if("nam" in user_input or "NAM" in user_input):
             cds_fields = cdsGenerator.get_cds_fields()
             content = f"""
                 **cds field names generated following global field naming convensions:**\n

@@ -2,6 +2,7 @@ import openai
 import streamlit as st    
 import os
 from src.xml_comparator import XMLComparator    
+from src.xml_comparator_mock import XMLComparatorMock
 from src.table_definition import TableDefinition
 from src.cds_generator import CDSGenerator
 from src.code_integrator import CodeIntegrator 
@@ -65,14 +66,13 @@ if user_input := st.chat_input("Enter your request here:"):
         country_code = st.session_state.country_code   
         
         try:  
-            xmlComparator = XMLComparator(core_file, f'{config_dir}/{config_prefix}_{country_code.upper()}.xml')  
+            xmlComparator = XMLComparatorMock() #XMLComparator(core_file, f'{config_dir}/{config_prefix}_{country_code.upper()}.xml')  
         except FileNotFoundError:  
             with st.chat_message("assistant"):  
                 st.markdown('The country code you entered could not be found. Please try again.')  
             st.session_state.messages.append({"role": "assistant", "content": 'The country code you entered could not be found. Please try again.'})  
             st.session_state.country_code = ""  
         else:    
-            core_fields = xmlComparator.get_core_fields()   
             common_fields = xmlComparator.get_common_fields()
             core_delta_fields = xmlComparator.get_core_delta_fields()
             country_delta_fields = xmlComparator.get_country_delta_fields()

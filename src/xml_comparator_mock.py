@@ -8,17 +8,21 @@ class XMLComparatorMock:
         
         
     def get_country_delta_fields(self):      
-        return set(eval(open(f'{self.mock_dir}/country_delta_fields.txt').read()))
+        return list(eval(open(f'{self.mock_dir}/country_delta_fields.txt').read()))
       
       
     def get_core_delta_fields(self):          
-        return set(eval(open(f'{self.mock_dir}/core_delta_fields.txt').read() ))
+        return list(eval(open(f'{self.mock_dir}/core_delta_fields.txt').read() ))
       
       
     def get_common_fields(self):      
-        return set(eval(open(f'{self.mock_dir}/common_fields.txt').read() ))
+        return list(eval(open(f'{self.mock_dir}/common_fields.txt').read() ))
       
   
     def get_country_fields(self):  
-        return set(eval(open(f'{self.mock_dir}/country_fields.txt').read()))
+        return list(eval(open(f'{self.mock_dir}/country_fields.txt').read()))
+ 
+ 
+    def get_content(self):
+        return str(open(f'{self.mock_dir}/content.txt').read())
  

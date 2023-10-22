@@ -1,0 +1,33 @@
+ 
+       I_HCM_ESSFamilyMember.HCMPersonnelNumber, //PERNR 
+   I_HCM_ESSFamilyMember.HCMSubtype,  //SUBTY 
+    I_HCM_ESSFamilyMember.HCMObjectIdentification, //OBJPS 
+   I_HCM_ESSFamilyMember.HCMRecordIsLocked, //SPRPS 
+   I_HCM_ESSFamilyMember.EndDate, //ENDDA 
+    I_HCM_ESSFamilyMember.StartDate, //BEGDA 
+       I_HCM_ESSFamilyMember.LastChangedDate, //AEDTM 
+       I_HCM_ESSFamilyMember.LastChangedByUser, //UNAME 
+       I_HCM_ESSFamilyMember.HCMInfoTypeRecordHasText, //ITXEX 
+       I_HCM_ESSFamilyMember.HCMInfoTypeRecordScreenCtrl, //ITBLD 
+       I_HCM_ESSFamilyMember.HCMSubtypeText, 
+       I_HCM_ESSFamilyMember.ETag, 
+       I_HCM_ESSFamilyMember.HCMValidityStartDate, 
+       I_HCM_ESSFamilyMember.HCMValidityEndDate, 
+       I_HCM_ESSFamilyMember.HCMDefaultDate, 
+       I_HCM_ESSFamilyMember.HCMRecordIsStoredInDataBase, 
+       I_HCM_ESSFamilyMember.HCMInfoTypeVersion, 
+       I_HCM_ESSFamilyMember.HCMFamilyMemberTypeCode, // FAMSA; 
+       I_HCM_ESSFamilyMember.HCMFamilyMemberLastName, // FANAM; 
+       I_HCM_ESSFamilyMember.HCMFamilyMemberBirthName, // FGBNA; 
+       I_HCM_ESSFamilyMember.HCMFamilyMemberFirstName, // FAVOR; 
+       I_HCM_ESSFamilyMember.HCMFamilyMemberInitials, // FINIT; 
+       I_HCM_ESSFamilyMember.HCMFamilyMemberOtherTitleCode, // FNMZU; 
+       I_HCM_ESSFamilyMember.HCMFamilyMemberNationalityCode, // FANAT; 
+       I_HCM_ESSFamilyMember.HCMFamilyMember2ndNatltyCode, // FANA2; 
+       I_HCM_ESSFamilyMember.HCMFamilyMember3rdNatltyCode, // FANA3; 
+       I_HCM_ESSFamilyMember.HCMFamMbrRefPersnWorkAgreement, // ERBNR; 
+       I_HCM_ESSFamilyMember.HCMFamilyMemberGenderCode, // FASEX; 
+       I_HCM_ESSFamilyMember.HCMFamilyMemberPlaceOfBrthName, // FGBOT; 
+       I_HCM_ESSFamilyMember.HCMFamilyMemberCntryOfBrthCode, // FGBLD; 
+        
+ 

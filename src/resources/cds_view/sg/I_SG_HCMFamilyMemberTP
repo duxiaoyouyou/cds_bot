@@ -66,7 +66,36 @@ association [0..*] to I_CountryText as _CountryOfBirthText on  $projection.HCMFa
       @Consumption.valueHelpDefinition: [{ entity: { element: 'HCMGenderCode', name: 'I_HCMGenderVH'}, 
                                         additionalBinding: [{  element: 'HCMCountryRegionGrouping', localElement: 'HCMCountryRegionGrouping' }]  }] 
       I_HCM_ESSFamilyMember.HCMFamilyMemberGenderCode, // FASEX; 
-      ,
+      _AdditionalData.HCMFamMbrConfinementNum, // confn;
+_AdditionalData.HCMFamMbrIsSpouseIncOver4k, // spaim;
+_AdditionalData.HCMFamMbrSchoolHospital, // sname;
+_AdditionalData.HCMFamMbrCCSLValidity, // fccsl;
+_AdditionalData.HCMFamMbrEmployerName, // ename;
+_AdditionalData.HCMFamMbrCCLStartYrBirth, // scclb;
+_AdditionalData.HCMFamMbrObjIdentification, // objps;
+_AdditionalData.HCMFamMbrPostalCode, // pstlz;
+_AdditionalData.HCMFamMbrShrdPrntalLvDays. // qtspl;
+_AdditionalData.HCMFamMbrPostalCode, // pstcd;
+_AdditionalData.HCMFamMbrStreetHouseNum, // stras;
+_AdditionalData.HCMFamMbrChildBirthCertNum, // clcno;
+_AdditionalData.HCMFamMbrTaxId, // taxnb;
+_AdditionalData.HCMFamMbr2ndAddressLine, // locat;
+_AdditionalData.HCMFamMbrCity, // ort01;
+_AdditionalData.HCMFamMbrPersonnelId, // perid;
+_AdditionalData.HCMFamMbrStreetHouseNum, // strt;
+_AdditionalData.HCMFamMbrChildType, // cldty;
+_AdditionalData.HCMFamMbrCity, // city;
+_AdditionalData.HCMFamMbrRegion, // stat1;
+_AdditionalData.HCMFamMbrDesignation, // desgn;
+_AdditionalData.HCMFamMbrCountryRegionName, // landx;
+_AdditionalData.HCMFamMbrHasShrdPrntalLv, // spuem;
+_AdditionalData.HCMFamMbrResidencyType, // pmres;
+_AdditionalData.HCMFamMbrLocStreetHouseNum, // loct;
+_AdditionalData.HCMFamMbrEthnicOrigin, // racky;
+_AdditionalData.HCMFamMbrSpouseEmplStatus, // spems;
+_AdditionalData.HCMFamMbrPhoneNumber, // telph;
+_AdditionalData.HCMFamMbrCountryRegionKey, // land;
+_AdditionalData.HCMFamMbrCCLBirthYrEntitlement, // syccl;,
       I_HCM_ESSFamilyMember.HCMFamilyMemberPlaceOfBrthName, // FGBOT; 
       @ObjectModel.text.association: '_CountryOfBirthText' 
       @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'I_CountryVH'}}] 

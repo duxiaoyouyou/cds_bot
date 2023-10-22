@@ -77,72 +77,64 @@ define view entity I_SG_HCMFamilyMemberSupplement
   
         //HR Master Record: Infotype 0412 (Related Persons NA)
         
-        PERID as  HCMFamMbrPrsnlId,
+        confn as  HCMFamMbrConfinementNum,
 
-BEN03 as  HCMFamMbrIsStudent,
+cldty as  HCMFamMbrChildType,
 
-BEN05 as  HCMFamMbrIsSmoker,
+clcno as  HCMFamMbrChildBirthCertNum,
 
-STRAS as  HCMFamMbrStreet,
+fccsl as  HCMFamMbrCCSLValidity,
 
-LOCAT as  HCMFamMbrHouseNum,
+scclb as  HCMFamMbrCCLStartYrBirth,
 
-ORT01 as  HCMFamMbrCity,
+sname as  HCMFamMbrSchoolHospital,
 
-STATE as  HCMFamMbrRegion,
+perid as  HCMFamMbrPersonnelId,
 
-PSTLZ as  HCMFamMbrPostalCode,
+taxnb as  HCMFamMbrTaxId,
 
-LAND1 as  HCMFamMbrCountryKey,
+pmres as  HCMFamMbrResidencyType,
 
-TELNR as  HCMFamMbrTelNum,
+racky as  HCMFamMbrEthnicOrigin,
 
-SEPDT as  HCMFamMbrLglSepDate,
+spuem as  HCMFamMbrHasShrdPrntalLv,
 
-DOCNM as  HCMFamMbrBnftPhysName,
+strt as  HCMFamMbrStreetHouseNum,
 
-DOCID as  HCMFamMbrBnftPhysId,
+telph as  HCMFamMbrPhoneNumber,
 
-DOCN2 as  HCMFamMbr2ndBnftPhysName,
+loct as  HCMFamMbrLocStreetHouseNum,
 
-DOCI2 as  HCMFamMbr2ndBnftPhysId,
+city as  HCMFamMbrCity,
 
-DISAB as  HCMFamMbrHasDisability,
+pstcd as  HCMFamMbrPostalCode,
 
-DISDT as  HCMFamMbrDsbltyDetnDate,
+land as  HCMFamMbrCountryRegionKey,
 
-DISLE as  HCMFamMbrEmpDsbltyDate,
+landx as  HCMFamMbrCountryRegionName,
 
-MEDIC as  HCMFamMbrHasMedicare,
+stat1 as  HCMFamMbrRegion,
 
-SMOKE as  HCMFamMbrHasSmoker,
+ename as  HCMFamMbrEmployerName,
 
-FAMST as  HCMFamMbrMaritalStatus,
+desgn as  HCMFamMbrDesignation,
 
-PROVI as  HCMFamMbrBnftPrvdrId,
+stras as  HCMFamMbrStreetHouseNum,
 
-POLNR as  HCMFamMbrBnftPolicyNum,
+locat as  HCMFamMbr2ndAddressLine,
 
-TAXNB as  HCMFamMbrTaxId,
+ort01 as  HCMFamMbrCity,
 
-PMRES as  HCMFamMbrResidencyType,
+pstlz as  HCMFamMbrPostalCode,
 
-RACKY as  HCMFamMbrEthnicOrigin,
+objps as  HCMFamMbrObjIdentification,
 
-SPEMS as  HCMFamMbrSpouseEmpStatus,
+spems as  HCMFamMbrSpouseEmplStatus,
 
-MILSV as  HCMFamMbrHasMilitary,
+spaim as  HCMFamMbrIsSpouseIncOver4k,
 
-FININ as  HCMFamMbrHasFinIndep,
+syccl as  HCMFamMbrCCLBirthYrEntitlement,
 
-NONTX as  HCMFamMbrHasNonTaxable,
-
-PMADT as  HCMFamMbrMedAbsncProofDate,
-
-LEGID as  HCMFamMbrHasLegalDep,
-
-LEGDT as  HCMFamMbrLegalDepDate,
-
-IDCOD as  HCMFamMbrPrsnIdNum
+qtspl as  HCMFamMbrShrdPrntalLvDays
     
 }

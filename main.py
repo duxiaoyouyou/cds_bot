@@ -80,8 +80,16 @@ if user_input := st.chat_input("Enter your request here:"):
                 st.markdown('The country code you entered could not be found. Please try again.')  
             st.session_state.messages.append({"role": "assistant", "content": 'The country code you entered could not be found. Please try again.'})  
             st.session_state.country_code = ""  
-        else:    
-            time.sleep(6)
+        else:   
+            # Initialize the progress bar  
+            progress_bar = st.progress(0)  
+            for i in range(100):  
+                # Update the progress bar with each iteration.  
+                progress_bar.progress(i + 1)  
+                st.write("investigation in progress...")
+                time.sleep(0.06)  
+            st.write('investingation done!')  
+
             # common_fields = xmlComparator.get_common_fields()
             # core_delta_fields = xmlComparator.get_core_delta_fields()
             country_delta_fields = xmlComparator.get_country_delta_fields()

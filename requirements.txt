@@ -11,3 +11,4 @@ termcolor
 pygame
 flask
 openpyxl
+matplotlib

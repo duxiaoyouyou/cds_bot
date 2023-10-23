@@ -83,12 +83,16 @@ if user_input := st.chat_input("Enter your request here:"):
         else:   
             # Initialize the progress bar  
             progress_bar = st.progress(0)  
+            
+            # Display the "In progress..." message  
+            status_text = st.empty()  
+            status_text.text('Investingation in progress...')  
             for i in range(100):  
                 # Update the progress bar with each iteration.  
                 progress_bar.progress(i + 1)  
-                st.write("investigation in progress...")
-                time.sleep(0.06)  
-            st.write('investingation done!')  
+                time.sleep(0.03)  
+            status_text.text('Investingation done!')  
+            time.sleep(3)
 
             # common_fields = xmlComparator.get_common_fields()
             # core_delta_fields = xmlComparator.get_core_delta_fields()
@@ -292,9 +296,7 @@ if user_input := st.chat_input("Enter your request here:"):
         cdsGenerator = st.session_state.cdsGenerator
             
         if("nam" in user_input or "NAM" in user_input):
-            cds_fields_specific = cdsGenerator.get_cds_fields().replace(",","").replace(".", "")
-            cds_fields_specific = f"""{cds_fields_specific}"""
-            
+            cds_fields_specific = cdsGenerator.get_cds_fields().replace(",","").replace(".", "").lstrip()
             cds_fields_common = f"""
             pernr: HCMPersonnelNumber \n  
             subty: HCMSubtype   \n
@@ -320,14 +322,18 @@ if user_input := st.chat_input("Enter your request here:"):
             fgbot: HCMFamilyMemberPlaceOfBrthName   \n
             fgbld: HCMFamilyMemberCntryOfBrthCode \n
             """
-            content = f"""
-                **Here is the complete list for SG Family fields for Fiori3 entity. \nFor country specific fields, you will need to register before use. \nI provide the reference fields name based on Fiori3 naming convention for your reference.**\n
-                {cds_fields_common}\n
-                {cds_fields_specific}\n
+            content_head = f"""
+                **Here is the complete list for SG Family fields for Fiori3 entity. For country specific fields, you will need to register before use. I provide the reference fields name based on Fiori3 naming convention for your reference.**
                 """
+            content_delimiter = f"""**Below are the fields with naming proposed.**"""
 
             with st.chat_message("assistant"):
-                st.markdown(content)
+                st.markdown(content_head)
+                st.markdown(cds_fields_common)
+                st.markdown(content_delimiter)
+                st.markdown(cds_fields_specific)
+            
+            content = content_head + "\n" + cds_fields_common + "\n" + content_delimiter + "\n" + cds_fields_specific
             st.session_state.messages.append({"role": "assistant", "content": content})    
  
         elif("view" in user_input or "VIEW" in user_input):

@@ -95,7 +95,7 @@ land1 as  HCMFamMbrCountryCode,
 
 telnr as  HCMFamMbrPhoneNumber,
 
-sname as  HCMFamMbrInstitutionName,
+sname as  HCMFamMbrSchoolHospital,
 
 strt as  HCMFamMbrStreet,
 
@@ -113,34 +113,34 @@ landx as  HCMFamMbrCountryName,
 
 stat1 as  HCMFamMbrRegionCode,
 
-perid as  HCMFamMbrNationalId,
+perid as  HCMFamMbrPersonnelId,
 
 taxnb as  HCMFamMbrTaxId,
 
-pmres as  HCMFamMbrResidencyTypeCode,
+pmres as  HCMFamMbrResidencyType,
 
-racky as  HCMFamMbrEthnicOriginCode,
+racky as  HCMFamMbrEthnicOrigin,
 
-spems as  HCMFamMbrSpouseEmplStsCode,
+spems as  HCMFamMbrHasSpouseEmployed,
 
 permo as  HCMFamMbrPersonnelModifier,
 
-spuem as  HCMFamMbrHasShrdPrntLeave,
+spuem as  HCMFamMbrHasParentalLeave,
 
 confn as  HCMFamMbrConfinementNum,
 
-clcno as  HCMFamMbrChildBirthCertNum,
+clcno as  HCMFamMbrBirthCertNum,
 
 cldty as  HCMFamMbrChildType,
 
 fccsl as  HCMFamMbrCCSLValidity,
 
-syccl as  HCMFamMbrCCLEntitlement,
+syccl as  HCMFamMbrCCLBirthYear,
 
 scclb as  HCMFamMbrCCLStartYear,
 
 spaim as  HCMFamMbrIsSpouseIncome4k,
 
-qtspl as  HCMFamMbrShrdPrntLeaveDays
+qtspl as  HCMFamMbrParentalLeaveDays
     
 }

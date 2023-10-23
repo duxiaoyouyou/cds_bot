@@ -325,15 +325,17 @@ if user_input := st.chat_input("Enter your request here:"):
             content_head = f"""
                 **Here is the complete list for SG Family fields for Fiori3 entity. For country specific fields, you will need to register before use. I provide the reference fields name based on Fiori3 naming convention for your reference.**
                 """
+            content_starter = f"""**Below are the fields with naming available.**"""
             content_delimiter = f"""**Below are the fields with naming proposed.**"""
 
             with st.chat_message("assistant"):
                 st.markdown(content_head)
+                st.markdown(content_starter)
                 st.markdown(cds_fields_common)
                 st.markdown(content_delimiter)
                 st.markdown(cds_fields_specific)
             
-            content = content_head + "\n" + cds_fields_common + "\n" + content_delimiter + "\n" + cds_fields_specific
+            content = content_head + "\n" + content_starter + "\n" + cds_fields_common + "\n" + content_delimiter + "\n" + cds_fields_specific
             st.session_state.messages.append({"role": "assistant", "content": content})    
  
         elif("view" in user_input or "VIEW" in user_input):

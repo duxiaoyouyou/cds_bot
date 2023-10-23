@@ -95,7 +95,7 @@ land1 as  HCMFamMbrCountryCode,
 
 telnr as  HCMFamMbrPhoneNumber,
 
-sname as  HCMFamMbrSchoolHospital,
+sname as  HCMFamMbrInstitutionName,
 
 strt as  HCMFamMbrStreet,
 
@@ -125,7 +125,7 @@ spems as  HCMFamMbrHasSpouseEmployed,
 
 permo as  HCMFamMbrPersonnelModifier,
 
-spuem as  HCMFamMbrHasParentalLeave,
+spuem as  HCMFamMbrHasSharedParentalLv,
 
 confn as  HCMFamMbrConfinementNum,
 
@@ -135,12 +135,12 @@ cldty as  HCMFamMbrChildType,
 
 fccsl as  HCMFamMbrCCSLValidity,
 
-syccl as  HCMFamMbrCCLBirthYear,
+syccl as  HCMFamMbrCCLEntitlement,
 
 scclb as  HCMFamMbrCCLStartYear,
 
 spaim as  HCMFamMbrIsSpouseIncome4k,
 
-qtspl as  HCMFamMbrParentalLeaveDays
+qtspl as  HCMFamMbrSharedParentalLvDays
     
 }

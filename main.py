@@ -7,6 +7,7 @@ from src.table_definition import TableDefinition
 from src.cds_generator import CDSGenerator
 from src.code_integrator import CodeIntegrator 
 import matplotlib.pyplot as plt  
+import time
   
 
 openai.api_key = "9f32e291dbd248c2b4372647bd937577" #os.getenv("API_KEY")    
@@ -52,6 +53,13 @@ config_dir = "src/resources/config_fiori2.0" #"src/resources/config_fiori1.0" #
 config_prefix = "HRPAO_DTL_FORM_IT0021" #"HRESS_CC_PER_DTL_FAMILY" #
 core_suffix = "XX"
 core_file = f'{config_dir}/{config_prefix}_{core_suffix}.xml'   
+
+
+if st.session_state.country_code == "":  
+    user_input_prompt = "Enter your country code, which should be a two or three-letter, alphanumeric code:"  
+else:  
+    user_input_prompt = "Enter your request here:"  
+ 
         
 # Accept user input      
 if user_input := st.chat_input("Enter your request here:"):
@@ -73,6 +81,7 @@ if user_input := st.chat_input("Enter your request here:"):
             st.session_state.messages.append({"role": "assistant", "content": 'The country code you entered could not be found. Please try again.'})  
             st.session_state.country_code = ""  
         else:    
+            time.sleep(6)
             # common_fields = xmlComparator.get_common_fields()
             # core_delta_fields = xmlComparator.get_core_delta_fields()
             country_delta_fields = xmlComparator.get_country_delta_fields()

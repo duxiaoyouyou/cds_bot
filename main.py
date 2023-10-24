@@ -212,20 +212,6 @@ if user_input := st.chat_input("Enter your request here:"):
 
             DESGN           Designation
 
-            STRAS            Street and House Number
-
-            LOCAT           2nd Address Line
-
-            ORT01            City
-
-            STATE            Region (State, Province, County)
-
-            PSTLZ Postal Code
-
-            LAND1           Country/Region Key
-
-            TELNR           Telephone Number
-
             SNAME          School / Hospital
 
             STRT  Street and House Number
@@ -251,8 +237,6 @@ if user_input := st.chat_input("Enter your request here:"):
             PMRES           Residency type
 
             RACKY          Ethnic origin
-
-            SPEMS           Spouse employment status
 
             PERMO          Modifier for Personnel Identifier
 
@@ -290,9 +274,7 @@ if user_input := st.chat_input("Enter your request here:"):
             **Infotype control field is identical between SG and standard versions. We don’t need to create these fields as they are already registered.**\n
             {it_ctrl_content}\n
             **Country Specific Fields to be used is as follows:**\n
-            {country_specific_content}\n
-            **The following fields are not in structure {st.session_state.src_tab_name} but better to include them into CDS-views since they are used in Fiori2 screen and defined in Fiori3 entity.**\n
-            FGBOT           Birthplace \n
+            {country_specific_content}\n 
             **We have fields below in same name and similar meaning from other country version, suggesting reusing existing Fiori fields without registration for new fields.**\n
             SG&MY: STRAS	Street and House Number \n
             SG&MY: LOCAT	2nd Address Line \n
@@ -304,6 +286,8 @@ if user_input := st.chat_input("Enter your request here:"):
             **We have fields below in similar name and similar meaning from other country version, suggesting reusing existing Fiori fields without registration for new fields.**\n
             SG: SPEMS	Spouse employment status \n
             MY: SEMPS	Spouse employment status \n
+            **The following fields are not in structure {st.session_state.src_tab_name} but better to include them into CDS-views since they are used in Fiori2 screen and defined in Fiori3 entity.**\n
+            FGBOT           Birthplace \n
             """      
         
             # content = f"""

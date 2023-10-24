@@ -1,0 +1,6 @@
+applications:  
+- name: cds-bot
+  path: .  
+  memory: 256M  
+  buildpacks:  
+  - python_buildpack  

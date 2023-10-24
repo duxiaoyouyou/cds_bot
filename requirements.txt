@@ -4,11 +4,8 @@ tensorflow
 requests
 numpy
 spacy
-gtts
-pyaudio
-SpeechRecognition
 termcolor
 pygame
 flask
 openpyxl
-matplotlib-
+matplotlib

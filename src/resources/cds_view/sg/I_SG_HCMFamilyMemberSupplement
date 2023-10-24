@@ -95,7 +95,7 @@ land1 as  HCMFamMbrCountryCode,
 
 telnr as  HCMFamMbrPhoneNumber,
 
-sname as  HCMFamMbrInstitutionName,
+sname as  HCMFamMbrSchoolHospital,
 
 strt as  HCMFamMbrStreet,
 
@@ -129,13 +129,13 @@ spuem as  HCMFamMbrHasParentalLeave,
 
 confn as  HCMFamMbrConfinementNum,
 
-clcno as  HCMFamMbrChildBirthCertNum,
+clcno as  HCMFamMbrBirthCertNum,
 
 cldty as  HCMFamMbrChildType,
 
 fccsl as  HCMFamMbrCCSLValidity,
 
-syccl as  HCMFamMbrCCLEntitlement,
+syccl as  HCMFamMbrCCLBirthYear,
 
 scclb as  HCMFamMbrCCLStartYear,
 

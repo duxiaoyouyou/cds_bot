@@ -1,6 +1,7 @@
 applications:  
 - name: cds-bot
   path: .  
-  memory: 256M  
+  memory: 256M
   buildpacks:  
   - python_buildpack  
+command: streamlit run main.py 

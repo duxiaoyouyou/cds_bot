@@ -16,7 +16,7 @@ openai.api_type = "azure"
 openai.api_version = "2023-07-01-preview"  
 
   
-st.title("Welcome to CDS Bot ^O^")    
+st.title("Welcome to CDS Bot !")    
   
 # Initialize chat history    
 if "messages" not in st.session_state:    

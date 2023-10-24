@@ -125,11 +125,11 @@ spems as  HCMFamMbrHasSpouseEmployed,
 
 permo as  HCMFamMbrPersonnelModifier,
 
-spuem as  HCMFamMbrHasSharedParentalLv,
+spuem as  HCMFamMbrHasParentalLeave,
 
 confn as  HCMFamMbrConfinementNum,
 
-clcno as  HCMFamMbrBirthCertNum,
+clcno as  HCMFamMbrChildBirthCertNum,
 
 cldty as  HCMFamMbrChildType,
 
@@ -141,6 +141,6 @@ scclb as  HCMFamMbrCCLStartYear,
 
 spaim as  HCMFamMbrIsSpouseIncome4k,
 
-qtspl as  HCMFamMbrSharedParentalLvDays
+qtspl as  HCMFamMbrParentalLeaveDays
     
 }

@@ -90,15 +90,15 @@ _AdditionalData.HCMFamMbrResidencyType, // pmres;
 _AdditionalData.HCMFamMbrEthnicOrigin, // racky;
 _AdditionalData.HCMFamMbrHasSpouseEmployed, // spems;
 _AdditionalData.HCMFamMbrPersonnelModifier, // permo;
-_AdditionalData.HCMFamMbrHasSharedParentalLv, // spuem;
+_AdditionalData.HCMFamMbrHasParentalLeave, // spuem;
 _AdditionalData.HCMFamMbrConfinementNum, // confn;
-_AdditionalData.HCMFamMbrBirthCertNum, // clcno;
+_AdditionalData.HCMFamMbrChildBirthCertNum, // clcno;
 _AdditionalData.HCMFamMbrChildType, // cldty;
 _AdditionalData.HCMFamMbrCCSLValidity, // fccsl;
 _AdditionalData.HCMFamMbrCCLEntitlement, // syccl;
 _AdditionalData.HCMFamMbrCCLStartYear, // scclb;
 _AdditionalData.HCMFamMbrIsSpouseIncome4k, // spaim;
-_AdditionalData.HCMFamMbrSharedParentalLvDays. // qtspl;,
+_AdditionalData.HCMFamMbrParentalLeaveDays. // qtspl;,
       I_HCM_ESSFamilyMember.HCMFamilyMemberPlaceOfBrthName, // FGBOT; 
       @ObjectModel.text.association: '_CountryOfBirthText' 
       @Consumption.valueHelpDefinition: [{ entity: { element: 'Country', name: 'I_CountryVH'}}] 

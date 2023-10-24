@@ -8,7 +8,7 @@ from src.cds_generator import CDSGenerator
 from src.code_integrator import CodeIntegrator 
 import matplotlib.pyplot as plt  
 import time
-  
+import json
 
 openai.api_key = "9f32e291dbd248c2b4372647bd937577" #os.getenv("API_KEY")    
 openai.api_base = "https://miles-playground.openai.azure.com" #os.getenv("API_BASE")W    
@@ -59,6 +59,68 @@ if st.session_state.country_code == "":
     user_input_prompt = "Enter your country code, which should be a two or three-letter, alphanumeric code:"  
 else:  
     user_input_prompt = "Enter your request here:"  
+    
+
+def searchViaFunctionCall(self, question: str) -> str:
+        self.dialogueManager.add_message('user', question)
+        messages = [
+            {"role": "system", "content": self.system_message}
+        ]
+        messages.append({'role': 'user', 'content': question})
+        functions = [
+            {
+                "name": "get_country_code and info type",
+                "description": "Retrieves moveSAP calculation steps based on the parameters provided, "
+                               "this calculation steps will be used to answer employees' payroll related question"
+                               "regarding moveSAP stock grant",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "country_code": {
+                            "type": "string",
+                            "description": "country code"
+                        }
+                    },
+                    "required": ["country_code"]
+                }
+            }
+        ]
+        response = openai.ChatCompletion.create(
+            engine="gpt-4",
+            messages=messages,
+            functions=functions,
+            function_call="auto",
+        )
+        response_message = response['choices'][0]['message']
+        print(f'First openai Response: {response_message}')
+        if 'function_call' in response_message:
+            function_call = response_message['function_call']
+            function_to_call = self.functions[function_call['name']]
+            function_args = json.loads(function_call['arguments'])
+            res = function_to_call(**function_args)
+            print(f'function_call result {res}')
+            self.dialogueManager.add_message('assistant', f'查询到的当前员工收入MoveSap股票的详细计算过程\n{res}')
+            self.dialogueManager.add_message('user', '请根据上下文中的moveSAP计算过程回答我之前的问题')
+            messages = [
+                {"role": "system", "content": self.system_message},
+                {"role": "system",
+                 "content": "Don't make assumptions about what values to use with functions. "
+                            "Ask for clarification if a user request is ambiguous."}
+            ]
+            messages.extend(self.dialogueManager.dialogue_history)
+            response = openai.ChatCompletion.create(
+                engine="gpt-4",
+                messages=messages
+            )
+            print('Second openai response: {}'.format(response['choices'][0]['message']))
+            if 'content' in response['choices'][0]['message']:
+                return response['choices'][0]['message']['content']
+            return ''
+        response_message_content = response['choices'][0]['message']['content']
+        self.dialogueManager.add_message('assistant', response_message_content)
+        return response_message_content
+
+
  
         
 # Accept user input      
@@ -83,8 +145,6 @@ if user_input := st.chat_input("Enter your request here:"):
         else:   
             # Initialize the progress bar  
             progress_bar = st.progress(0)  
-            
-            # Display the "In progress..." message  
             status_text = st.empty()  
             status_text.text('Investingation in progress...')  
             for i in range(100):  
@@ -92,7 +152,7 @@ if user_input := st.chat_input("Enter your request here:"):
                 progress_bar.progress(i + 1)  
                 time.sleep(0.03)  
             status_text.text('Investingation done!')  
-            time.sleep(3)
+            time.sleep(2)
 
             # common_fields = xmlComparator.get_common_fields()
             # core_delta_fields = xmlComparator.get_core_delta_fields()
@@ -295,10 +355,11 @@ if user_input := st.chat_input("Enter your request here:"):
             st.session_state.cdsGenerator = CDSGenerator(country_code, src_tab_name, info_type, field_descriptions, openai)  
         cdsGenerator = st.session_state.cdsGenerator
             
-        if("nam" in user_input or "NAM" in user_input):
+        if("nam" in user_input or "NAM" in user_input):   
             cds_fields_specific = cdsGenerator.get_cds_fields().replace(",","").replace(".", "").lstrip()
+              
             cds_fields_common = f"""
-            pernr: HCMPersonnelNumber \n  
+            \t\tpernr: HCMPersonnelNumber \n  
             subty: HCMSubtype   \n
             objps: HCMObjectIdentification  \n 
             sprps: HCMRecordIsLocked   \n
@@ -326,7 +387,7 @@ if user_input := st.chat_input("Enter your request here:"):
                 **Here is the complete list for SG Family fields for Fiori3 entity. For country specific fields, you will need to register before use. I provide the reference fields name based on Fiori3 naming convention for your reference.**
                 """
             content_starter = f"""**Below are the fields with naming available.**"""
-            content_delimiter = f"""**Below are the fields with naming proposed.**"""
+            content_delimiter = f"""\n\n**Below are the fields with naming proposed.**"""
 
             with st.chat_message("assistant"):
                 st.markdown(content_head)
@@ -335,7 +396,7 @@ if user_input := st.chat_input("Enter your request here:"):
                 st.markdown(content_delimiter)
                 st.markdown(cds_fields_specific)
             
-            content = content_head + "\n" + content_starter + "\n" + cds_fields_common + "\n" + content_delimiter + "\n" + cds_fields_specific
+            content = content_head + "\n" + content_starter + "\n" + cds_fields_common + "\n" + content_delimiter + "\n\n" + cds_fields_specific
             st.session_state.messages.append({"role": "assistant", "content": content})    
  
         elif("view" in user_input or "VIEW" in user_input):
@@ -361,6 +422,7 @@ if user_input := st.chat_input("Enter your request here:"):
      
         else:
             pass
+           
            
             
            

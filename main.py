@@ -61,18 +61,15 @@ else:
     user_input_prompt = "Enter your request here:"  
     
 
-def searchViaFunctionCall(self, question: str) -> str:
-        self.dialogueManager.add_message('user', question)
+def getCountryCodeViaFunctionCall(input: str) -> str:
         messages = [
-            {"role": "system", "content": self.system_message}
+            {"role": "system", "content": "You task is to extract the country code from the user's input"}
         ]
-        messages.append({'role': 'user', 'content': question})
+        messages.append({"role": "user", "content": input})
         functions = [
             {
                 "name": "get_country_code and info type",
-                "description": "Retrieves moveSAP calculation steps based on the parameters provided, "
-                               "this calculation steps will be used to answer employees' payroll related question"
-                               "regarding moveSAP stock grant",
+                "description": "Extract the country code from the user's input",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -93,32 +90,13 @@ def searchViaFunctionCall(self, question: str) -> str:
         )
         response_message = response['choices'][0]['message']
         print(f'First openai Response: {response_message}')
-        if 'function_call' in response_message:
-            function_call = response_message['function_call']
-            function_to_call = self.functions[function_call['name']]
-            function_args = json.loads(function_call['arguments'])
-            res = function_to_call(**function_args)
-            print(f'function_call result {res}')
-            self.dialogueManager.add_message('assistant', f'查询到的当前员工收入MoveSap股票的详细计算过程\n{res}')
-            self.dialogueManager.add_message('user', '请根据上下文中的moveSAP计算过程回答我之前的问题')
-            messages = [
-                {"role": "system", "content": self.system_message},
-                {"role": "system",
-                 "content": "Don't make assumptions about what values to use with functions. "
-                            "Ask for clarification if a user request is ambiguous."}
-            ]
-            messages.extend(self.dialogueManager.dialogue_history)
-            response = openai.ChatCompletion.create(
-                engine="gpt-4",
-                messages=messages
-            )
-            print('Second openai response: {}'.format(response['choices'][0]['message']))
-            if 'content' in response['choices'][0]['message']:
-                return response['choices'][0]['message']['content']
-            return ''
-        response_message_content = response['choices'][0]['message']['content']
-        self.dialogueManager.add_message('assistant', response_message_content)
-        return response_message_content
+        # if 'function_call' in response_message:
+        #     function_call = response_message['function_call']
+        #     function_to_call = self.functions[function_call['name']]
+        #     function_args = json.loads(function_call['arguments'])
+        #     result = function_to_call(**function_args)
+        #     print(f'function_call result {result}')
+        # return result
 
 
  
@@ -132,7 +110,7 @@ if user_input := st.chat_input("Enter your request here:"):
             
     # Display user message in chat message container    
     if st.session_state.country_code == "":
-        st.session_state.country_code = user_input.upper()
+        st.session_state.country_code = user_input.upper() #getCountryCodeViaFunctionCall(user_input).upper()
         country_code = st.session_state.country_code   
         
         try:  
@@ -314,7 +292,18 @@ if user_input := st.chat_input("Enter your request here:"):
             **Country Specific Fields to be used is as follows:**\n
             {country_specific_content}\n
             **The following fields are not in structure {st.session_state.src_tab_name} but better to include them into CDS-views since they are used in Fiori2 screen and defined in Fiori3 entity.**\n
-            FGBOT           Birthplace
+            FGBOT           Birthplace \n
+            **We have fields below in same name and similar meaning from other country version, suggesting reusing existing Fiori fields without registration for new fields.**\n
+            SG&MY: STRAS	Street and House Number \n
+            SG&MY: LOCAT	2nd Address Line \n
+            SG&MY: ORT01	City \n
+            SG&MY: STATE	Region (State, Province, County) \n
+            SG&MY: PSTLZ	Postal Code \n
+            SG&MY: LAND1	Country/Region Key \n
+            SG&MY: TELNR	Telephone Number \n
+            **We have fields below in similar name and similar meaning from other country version, suggesting reusing existing Fiori fields without registration for new fields.**\n
+            SG: SPEMS	Spouse employment status \n
+            MY: SEMPS	Spouse employment status \n
             """      
         
             # content = f"""

@@ -8,6 +8,7 @@ from src.cds_generator import CDSGenerator
 from src.code_integrator import CodeIntegrator 
 import matplotlib.pyplot as plt  
 import time
+from src.excel_handler import ExcelHandler
 import json
 
 openai.api_key = "9f32e291dbd248c2b4372647bd937577" #os.getenv("API_KEY")    
@@ -47,6 +48,7 @@ for message in st.session_state.messages:
   
 table_definition_dir = "src/resources/table_definition"
 cds_view_dir = "src/resources/cds_view"
+excel_dir = "src/resources/excel"
 
 
 config_dir = "src/resources/config_fiori2.0" #"src/resources/config_fiori1.0" #
@@ -159,104 +161,121 @@ if user_input := st.chat_input("Enter your request here:"):
             # exception_fields =  [key for key in country_fields if key is not None and key.lower() not in lower_case_desc_dict]  
             
             it_ctrl_content = f"""
-            PERNR           Personnel Number
+            PERNR:           Personnel Number
 
-            INFTY Infotype
+            INFTY: Infotype
 
-            SUBTY           Subtype
+            SUBTY:           Subtype
 
-            OBJPS Object Identification
+            OBJPS: Object Identification
 
-            SPRPS Lock Indicator for HR Master Data Record
+            SPRPS: Lock Indicator for HR Master Data Record
 
-            ENDDA          End Date
+            ENDDA:          End Date
 
-            BEGDA          Start Date
+            BEGDA:          Start Date
 
-            SEQNR           Number of Infotype Record With Same Key
+            SEQNR:           Number of Infotype Record With Same Key
 
-            AEDTM          Last Changed On
+            AEDTM:          Last Changed On
 
-            UNAME         Name of Person Who Changed Object
+            UNAME:         Name of Person Who Changed Object
 
-            HISTO Historical Record Flag
+            HISTO: Historical Record Flag
 
-            ITXEX            Text Exists for Infotype
+            ITXEX:            Text Exists for Infotype
 
-            REFEX           Reference Fields Exist (Primary/Secondary Costs)
+            REFEX:           Reference Fields Exist (Primary/Secondary Costs)
 
-            ORDEX          Confirmation Fields Exist
+            ORDEX:          Confirmation Fields Exist
 
-            ITBLD Infotype Screen Control
+            ITBLD: Infotype Screen Control
 
-            PREAS            Reason for Changing Master Data
+            PREAS:            Reason for Changing Master Data
 
-            FLAG1            Reserved Field/Unused Field
+            FLAG1:            Reserved Field/Unused Field
 
-            FLAG2            Reserved Field/Unused Field
+            FLAG2:            Reserved Field/Unused Field
 
-            FLAG3            Reserved Field/Unused Field
+            FLAG3:            Reserved Field/Unused Field
 
-            FLAG4            Reserved Field/Unused Field
+            FLAG4:            Reserved Field/Unused Field
 
-            RESE1 Reserved Field/Unused Field of Length 2
+            RESE1:           Reserved Field/Unused Field of Length 2
 
-            RESE2 Reserved Field/Unused Field of Length 2
+            RESE2:           Reserved Field/Unused Field of Length 2
 
-            GRPVL           Grouping Value for Personnel Assignments
+            GRPVL:           Grouping Value for Personnel Assignments
 """
             
 
             country_specific_content = f"""
-            ENAME          Name of employer
+            ENAME:          Name of employer
 
-            DESGN           Designation
+            DESGN:           Designation
 
-            SNAME          School / Hospital
+            SNAME:          School / Hospital
 
-            STRT  Street and House Number
+            STRT:  Street and House Number
 
-            LOCT  Street and House Number
+            LOCT:  Street and House Number
 
-            TELPH            Telephone Number
+            TELPH:            Telephone Number
 
-            CITY   City
+            CITY:   City
 
-            PSTCD            Postal Code
+            PSTCD:            Postal Code
 
-            LAND Country/Region Key
+            LAND: Country/Region Key
 
-            LANDX          Name of Country/Region (Short)
+            LANDX:          Name of Country/Region (Short)
 
-            STAT1            Region (State, Province, County)
+            STAT1:           Region (State, Province, County)
 
-            PERID Personnel ID Number
+            PERID:         Personnel ID Number
 
-            TAXNB          Tax ID
+            TAXNB:          Tax ID
 
-            PMRES           Residency type
+            PMRES:           Residency type
 
-            RACKY          Ethnic origin
+            RACKY:          Ethnic origin
 
-            PERMO          Modifier for Personnel Identifier
+            PERMO:         Modifier for Personnel Identifier
 
-            SPUEM           Shared Parental Leave
+            SPUEM:           Shared Parental Leave
 
-            CONFN          Confinement Number
+            CONFN:          Confinement Number
 
-            CLCNO          Child Birth Certificate Number
+            CLCNO:          Child Birth Certificate Number
 
-            CLDTY           Child Type
+            CLDTY:           Child Type
 
-            FCCSL            CCSL validity for last valid year
+            FCCSL:            CCSL validity for last valid year
 
-            SYCCL           CCL Entitlement (days) in Year of Birth
+            SYCCL:           CCL Entitlement (days) in Year of Birth
 
-            SCCLB           CCL Start from Year of Birth
+            SCCLB:           CCL Start from Year of Birth
 
-            SPAIM            Is spouse’s annual income more than $4,000
+            SPAIM:            Is spouse’s annual income more than $4,000
 
-            QTSPL            Number of Shared Parental Leave (days)
+            QTSPL:            Number of Shared Parental Leave (days)
+            """
+            
+            similar_content = f"""
+            SG&MY STRAS:	Street and House Number \n
+            SG&MY LOCAT:	2nd Address Line \n
+            SG&MY ORT01:	City \n
+            SG&MY STATE:	Region (State, Province, County) \n
+            SG&MY PSTLZ:	Postal Code \n
+            SG&MY LAND1:	Country/Region Key \n
+            SG&MY TELNR:	Telephone Number \n
+            SG SPEMS:	Spouse employment status \n
+            MY SEMPS:	Spouse employment status \n
+            FGBOT:           Birthplace \n
+            """      
+            
+            non_exist_content = f"""
+            FGBOT:           Birthplace \n
             """
             
             content = f"""
@@ -276,18 +295,18 @@ if user_input := st.chat_input("Enter your request here:"):
             **Country Specific Fields to be used is as follows:**\n
             {country_specific_content}\n 
             **We have fields below in same name and similar meaning from other country version, suggesting reusing existing Fiori fields without registration for new fields.**\n
-            SG&MY: STRAS	Street and House Number \n
-            SG&MY: LOCAT	2nd Address Line \n
-            SG&MY: ORT01	City \n
-            SG&MY: STATE	Region (State, Province, County) \n
-            SG&MY: PSTLZ	Postal Code \n
-            SG&MY: LAND1	Country/Region Key \n
-            SG&MY: TELNR	Telephone Number \n
+            SG&MY STRAS:	Street and House Number \n
+            SG&MY LOCAT:	2nd Address Line \n
+            SG&MY ORT01:	City \n
+            SG&MY STATE:	Region (State, Province, County) \n
+            SG&MY PSTLZ:	Postal Code \n
+            SG&MY LAND1:	Country/Region Key \n
+            SG&MY TELNR:	Telephone Number \n
             **We have fields below in similar name and similar meaning from other country version, suggesting reusing existing Fiori fields without registration for new fields.**\n
-            SG: SPEMS	Spouse employment status \n
-            MY: SEMPS	Spouse employment status \n
+            SG SPEMS:	Spouse employment status \n
+            MY SEMPS:	Spouse employment status \n
             **The following fields are not in structure {st.session_state.src_tab_name} but better to include them into CDS-views since they are used in Fiori2 screen and defined in Fiori3 entity.**\n
-            FGBOT           Birthplace \n
+            {non_exist_content} \n
             """      
         
             # content = f"""
@@ -317,6 +336,15 @@ if user_input := st.chat_input("Enter your request here:"):
             # plt.xticks(fontsize=8)  
             # plt.yticks(fontsize=8)
             # st.pyplot(fig)
+            
+            input_dict = {  
+                            'IT Control Content': it_ctrl_content,  
+                            'Country Specific Content': country_specific_content,  
+                            'Similar Fields Content': similar_content,  
+                            'Non-exist Fields Content': non_exist_content  
+            }  
+            converter = ExcelHandler(input_dict, ': ', excel_dir, 'fields')  
+            converter.convert_to_excel()  
 
     else:
         country_code = st.session_state.country_code
@@ -359,18 +387,20 @@ if user_input := st.chat_input("Enter your request here:"):
             content_head = f"""
                 **Here is the complete list for SG Family fields for Fiori3 entity. For country specific fields, you will need to register before use. I provide the reference fields name based on Fiori3 naming convention for your reference.**
                 """
-            content_starter = f"""**Below are the fields with naming available.**"""
-            content_delimiter = f"""\n\n**Below are the fields with naming proposed.**"""
+            cds_fields_common_label = f"""**Below are the fields with naming available.**"""
+            cds_fields_specific_label = f"""\n\n**Below are the fields with naming proposed.**"""
 
             with st.chat_message("assistant"):
                 st.markdown(content_head)
-                st.markdown(content_starter)
+                st.markdown(cds_fields_common_label)
                 st.markdown(cds_fields_common)
-                st.markdown(content_delimiter)
+                st.markdown(cds_fields_specific_label)
                 st.markdown(cds_fields_specific)
             
-            content = content_head + "\n" + content_starter + "\n" + cds_fields_common + "\n" + content_delimiter + "\n\n" + cds_fields_specific
+            content = content_head + "\n" + cds_fields_common_label + "\n" + cds_fields_common + "\n" + cds_fields_specific_label + "\n\n" + cds_fields_specific
             st.session_state.messages.append({"role": "assistant", "content": content})    
+            
+            
  
         elif("view" in user_input or "VIEW" in user_input):
             cds_view_code = cdsGenerator.generate_cds_code_familyMemberSupplement()

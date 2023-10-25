@@ -338,13 +338,13 @@ if user_input := st.chat_input("Enter your request here:"):
             # st.pyplot(fig)
             
             input_dict = {  
-                            'IT Control Content': it_ctrl_content,  
-                            'Country Specific Content': country_specific_content,  
-                            'Similar Fields Content': similar_content,  
-                            'Non-exist Fields Content': non_exist_content  
+                            'Info Type Control Fields': it_ctrl_content,  
+                            'Country Specific Fields': country_specific_content,  
+                            'Similar Fields': similar_content,  
+                            'Non-existing Fields': non_exist_content  
             }  
-            converter = ExcelHandler(input_dict, ': ', excel_dir, 'fields')  
-            converter.convert_to_excel()  
+            excelHandler = ExcelHandler(input_dict, ': ', excel_dir, f'{country_code.lower()}_fields')  
+            excelHandler.convert_to_excel()  
 
     else:
         country_code = st.session_state.country_code

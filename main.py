@@ -343,9 +343,9 @@ if user_input := st.chat_input("Enter your request here:"):
                             'Similar Fields': similar_content,  
                             'Non-existing Fields': non_exist_content  
             }  
-            excelHandler = ExcelHandler(input_dict, ': ', excel_dir, f'{country_code.lower()}_fields')  
+            excelHandler = ExcelHandler(input_dict, ': ', excel_dir, f'{country_code.lower()}_fields', "Field Description")  
             excelHandler.convert_to_excel()  
-
+            
     else:
         country_code = st.session_state.country_code
         src_tab_name = st.session_state.src_tab_name
@@ -400,7 +400,10 @@ if user_input := st.chat_input("Enter your request here:"):
             content = content_head + "\n" + cds_fields_common_label + "\n" + cds_fields_common + "\n" + cds_fields_specific_label + "\n\n" + cds_fields_specific
             st.session_state.messages.append({"role": "assistant", "content": content})    
             
-            
+            input_dict = { "Country Specific Fields": cds_fields_specific }  
+            excelHandler = ExcelHandler(input_dict, ':', excel_dir, f'{country_code.lower()}_fields_naming_proposed', "Field Naming Proposed")  
+            excelHandler.convert_to_excel()  
+             
  
         elif("view" in user_input or "VIEW" in user_input):
             cds_view_code = cdsGenerator.generate_cds_code_familyMemberSupplement()

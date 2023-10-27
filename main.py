@@ -337,14 +337,10 @@ if user_input := st.chat_input("Enter your request here:"):
             # plt.yticks(fontsize=8)
             # st.pyplot(fig)
             
-            input_dict = {  
-                            'Info Type Control Fields': it_ctrl_content,  
-                            'Country Specific Fields': country_specific_content,  
-                            'Similar Fields': similar_content,  
-                            'Non-existing Fields': non_exist_content  
-            }  
-            excelHandler = ExcelHandler(input_dict, ': ', excel_dir, f'{country_code.lower()}_fields', "Field Description")  
-            excelHandler.convert_to_excel()  
+            st.session_state.it_ctrl_content = it_ctrl_content
+            st.session_state.country_specific_content = country_specific_content
+            st.session_state.similar_content = similar_content
+            st.session_state.non_exist_content = non_exist_content 
             
     else:
         country_code = st.session_state.country_code
@@ -357,7 +353,7 @@ if user_input := st.chat_input("Enter your request here:"):
         cdsGenerator = st.session_state.cdsGenerator
             
         if("nam" in user_input or "NAM" in user_input):   
-            cds_fields_specific = cdsGenerator.get_cds_fields().replace(",","").replace(".", "").lstrip()
+            cds_fields_specific = cdsGenerator.get_cds_fields().replace(",","").replace(".", "").replace(":", ": ").lstrip()
               
             cds_fields_common = f"""
             \t\tpernr: HCMPersonnelNumber \n  
@@ -400,9 +396,17 @@ if user_input := st.chat_input("Enter your request here:"):
             content = content_head + "\n" + cds_fields_common_label + "\n" + cds_fields_common + "\n" + cds_fields_specific_label + "\n\n" + cds_fields_specific
             st.session_state.messages.append({"role": "assistant", "content": content})    
             
-            input_dict = { "Country Specific Fields": cds_fields_specific }  
-            excelHandler = ExcelHandler(input_dict, ':', excel_dir, f'{country_code.lower()}_fields_naming_proposed', "Field Naming Proposed")  
+            input_dict = {  
+                            'Info Type Control Fields': st.session_state.it_ctrl_content,  
+                            'Similar Fields': st.session_state.similar_content,  
+                            'Non-existing Fields': st.session_state.non_exist_content,
+                            'Country Specific Fields': st.session_state.country_specific_content,  
+                            'Country Specific Fields Naming': cds_fields_specific,
+                            
+            }  
+            excelHandler = ExcelHandler(input_dict, ': ', excel_dir, f'{country_code.lower()}_fields', "Field Name/Description")  
             excelHandler.convert_to_excel()  
+            
              
  
         elif("view" in user_input or "VIEW" in user_input):
